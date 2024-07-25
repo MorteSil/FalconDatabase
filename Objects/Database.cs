@@ -1,5 +1,6 @@
 ﻿using FalconDatabase.Files;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Security;
 using System.Windows;
@@ -39,7 +40,7 @@ namespace FalconDatabase.Objects
         /// <summary>
         /// Radar Receiver and RWR Table.
         /// </summary>
-        public RadarReceiverTable RadarReceiverTable { get => radarReceiverTable; set => radarReceiverTable = value; }
+        public RadarSensorTable RadarReceiverTable { get => radarReceiverTable; set => radarReceiverTable = value; }
         /// <summary>
         /// Rocket Table.
         /// </summary>
@@ -72,6 +73,10 @@ namespace FalconDatabase.Objects
         /// Rack and Hardpoint Table.
         /// </summary>
         public WeaponLoadTable WeaponLoadTable { get => weaponLoadTable; set => weaponLoadTable = value; }
+        /// <summary>
+        /// Objective Table.
+        /// </summary>
+        public ObjectiveTable ObjectiveTable { get => objectiveTable; set => objectiveTable = value; }
 
         #endregion Properties
 
@@ -82,7 +87,7 @@ namespace FalconDatabase.Objects
         private FeatureTable featureTable = new();
         private IRSensorTable irSensorTable = new();
         private RadarTable radarTable = new();
-        private RadarReceiverTable radarReceiverTable = new();
+        private RadarSensorTable radarReceiverTable = new();
         private RocketTable rocketTable = new();
         private SquadronStoresTable squadronStoresTable = new();
         private UnitTable unitTable = new();
@@ -91,6 +96,7 @@ namespace FalconDatabase.Objects
         private VisualSensorTable visualSensorTable = new();
         private WeaponTable weaponTable = new();
         private WeaponLoadTable weaponLoadTable = new();
+        private ObjectiveTable objectiveTable = new();
 
         #endregion Fields
 
@@ -130,15 +136,7 @@ namespace FalconDatabase.Objects
             }
             catch (Exception ex)
             {
-                // These are mostly for debugging. I don't like to share code that generates MessageBox objects for other people.
-                // You can enable them for your own purposes by removing the comment marks.
-                Logging.ErrorLogging.CreateLogFile(ex, "This error occurred while attempting to save the Database to: " + saveDirectory);
-                if (ex is IOException)
-                {
-                    MessageBox.Show("Save failed. Ensure the path is valid and verify sufficient Folder Permissions.", "Save Failed.", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
-
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while Saving the Database.");
                 throw;
             }
 
@@ -162,6 +160,10 @@ namespace FalconDatabase.Objects
         public Database(string databasePath)
             : this()
         {
+#if DEBUG
+            Trace.WriteLine("Database(" + databasePath + ") Starting");
+#endif
+
             ArgumentException.ThrowIfNullOrWhiteSpace(databasePath);
             try
             {
@@ -190,6 +192,9 @@ namespace FalconDatabase.Objects
 
                 for (int i = 0; i < dbFiles.Length; i++)
                 {
+#if DEBUG
+                    Trace.WriteLine("Reading: " + dbFiles[i].FullName);
+#endif
                     if (dbFiles[i].Name.Contains("_CT"))
                         classTable = new ClassTable(dbFiles[i].FullName);
                     else if (dbFiles[i].Name.Contains("_DDP"))
@@ -203,7 +208,7 @@ namespace FalconDatabase.Objects
                     else if (dbFiles[i].Name.Contains("_RCD"))
                         radarTable = new RadarTable(dbFiles[i].FullName);
                     else if (dbFiles[i].Name.Contains("_RWD"))
-                        radarReceiverTable = new RadarReceiverTable(dbFiles[i].FullName);
+                        radarReceiverTable = new RadarSensorTable(dbFiles[i].FullName);
                     else if (dbFiles[i].Name.Contains("_RKT"))
                         rocketTable = new RocketTable(dbFiles[i].FullName);
                     else if (dbFiles[i].Name.Contains("_SSD"))
@@ -220,44 +225,31 @@ namespace FalconDatabase.Objects
                         weaponTable = new WeaponTable(dbFiles[i].FullName);
                     else if (dbFiles[i].Name.Contains("_WLD"))
                         weaponLoadTable = new WeaponLoadTable(dbFiles[i].FullName);
-
-
                 }
+                
+
+                DirectoryInfo[] objectives = [];
+                if (databaseDir is not null)
+                    objectives = databaseDir.GetDirectories("*ObjectiveRelatedData");
+#if DEBUG
+                Trace.WriteLine("Starting Objectives in: " + objectives[0].FullName);
+#endif
+                objectiveTable = new ObjectiveTable(objectives[0].FullName);
+                
+
+
 
             }
             catch (Exception ex)
             {
-                // These are mostly for debugging. I don't like to share code that generates MessageBox objects for other people.
-                // You can enable them for your own purposes by removing the comment marks. If you don't wish to handle the errors
-                // on your own, replace "throw" with "return"
-                Logging.ErrorLogging.CreateLogFile(ex, "This error occurred while attempting to load the Database from: " + databasePath);
-                if (ex is SecurityException)
-                {
-                    MessageBox.Show("Unable to access " + databasePath + ". Check Folder Permissions.", "Access Denied.", MessageBoxButton.OK, MessageBoxImage.Error);
-                    throw;
-                }
-                else if (ex is FileNotFoundException)
-                {
-                    MessageBox.Show(databasePath + " did not conatin any FALCON4_XXX files.", "Files Not Found.", MessageBoxButton.OK, MessageBoxImage.Error);
-                    throw;
-                }
-                else if (ex is ArgumentException)
-                {
-                    MessageBox.Show(databasePath + " is not a Valid Folder", "Invalid Path.", MessageBoxButton.OK, MessageBoxImage.Error);
-                    throw;
-                }
-                else if (ex is ArgumentNullException)
-                {
-                    MessageBox.Show("Path cannot be empty.", "Invalid Path.", MessageBoxButton.OK, MessageBoxImage.Error);
-                    throw;
-                }
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading the Database.");
                 throw;
 
             }
         }
 
 
-        #endregion Constructors
+#endregion Constructors
 
 
     }

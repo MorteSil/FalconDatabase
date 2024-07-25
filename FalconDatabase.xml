@@ -1,0 +1,3857 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FalconDatabase</name>
+    </assembly>
+    <members>
+        <member name="T:FalconDatabase.Attributes.StringValueAttribute">
+            <summary>
+            Specifies a description for a property, enum, or event.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Attributes.StringValueAttribute.Default">
+            <summary>
+            Specifies the default value for the <see cref='T:FalconDatabase.Attributes.StringValueAttribute'/>,
+            which is an empty string (""). This <see langword='static'/> field is read-only.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Attributes.StringValueAttribute.#ctor">
+            <summary>
+            Constructs an empty String Value Attribute for an Enum.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Attributes.StringValueAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref='T:FalconDatabase.Attributes.StringValueAttribute'/> class with the text in <paramref name="value"/>.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Attributes.StringValueAttribute.StringValue">
+            <summary>
+            Gets the description stored in this attribute.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Attributes.StringValueAttribute._StringValue">
+            <summary>
+            Read/Write property that directly modifies the string stored in the StringValue
+            attribute. The default implementation of the <see cref="T:FalconDatabase.Attributes.StringValueAttribute"/> property
+            simply returns this value.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Attributes.StringValueAttribute.Equals(System.Object)">
+            <summary>
+            Evaluates if two StringValueAttributes are the Same.
+            </summary>
+            <param name="obj">The target object to compare the Attribute against.</param>
+            <returns><see langword=""/>true when the values are the same, otherwise <see langword="false"/>.</returns>
+        </member>
+        <member name="M:FalconDatabase.Attributes.StringValueAttribute.GetHashCode">
+            <summary>
+            Generates a HashCode for the StringValueAttribute.
+            </summary>
+            <returns><see cref="T:System.Int32"/> value representing a Hash Code of teh Text in the StringValueAttribute.</returns>
+        </member>
+        <member name="M:FalconDatabase.Attributes.StringValueAttribute.IsDefaultAttribute">
+            <summary>
+            Indicates if the <see cref="T:FalconDatabase.Attributes.StringValueAttribute"/> is initialized with a default value.
+            </summary>
+            <returns><see langword="true"/> when the <see cref="T:FalconDatabase.Attributes.StringValueAttribute"/> is empty, null, or not set, otherwise <see langword="false"/>.</returns>
+        </member>
+        <member name="T:FalconDatabase.Enums.Classtable_Class">
+            <summary>
+            Available Classes of objects in the Database Class Table.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Abstract">
+            <summary>
+            Abstract Object that cannot be interacted with.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Animal">
+            <summary>
+            An animal or other scenery object that cannot be interacted with.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Feature">
+            <summary>
+            A Building, Runway, or other static componen of the 3D World which can be interacted with.
+            Objectives, such as an Air Base, are made up of a collection of Features.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Manager">
+            <summary>
+            One of the Component Managers for the Campaign Engine. This could be the Air Tasking Manager,
+            Ground Tasking Manager, or Naval Tasking Manager. Each Team has their own set of managers.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Objective">
+            <summary>
+            A Collection of Features which make up a location, installation, or other area of
+            interest on the map that can be interacted with.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.SoundEffect">
+            <summary>
+            A Sound Effect for a particular action or event in the Game.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Unit">
+            <summary>
+            A Generic Class representing all movable objects in the 2D world.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Vehicle">
+            <summary>
+            An moveable object in the 3D world capable of interacting with other objects.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Weapon">
+            <summary>
+            An object that can be attached to,fired from, or carried on a Unit to cause damage to another object.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Weather">
+            <summary>
+            A Class encompassing the 3D Weather Components and their underlying configurations and behavior.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Session">
+            <summary>
+            A single iteration of the game being active without being closed.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Game">
+            <summary>
+            An instance of the Game.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Group">
+            <summary>
+            A Collection of Database Objects.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Class.Dialog">
+            <summary>
+            A UI Element that can be interacted with.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Enums.Classtable_Domain">
+            <summary>
+            The different Environments where a Unit, Vehicle, or object exists and operates.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Domain.Unknown">
+            <summary>
+            The Domain is unknown for this object.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Domain.Abstract">
+            <summary>
+            The object is abstract and does not interact with the 3D world.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Domain.Air">
+            <summary>
+            The object is designed to operate in the air.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Domain.Land">
+            <summary>
+            The object is designed to operate on the ground.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Domain.Sea">
+            <summary>
+            The object is designed to operate in the water.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Domain.Space">
+            <summary>
+            The object is designed to operate in space.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Domain.Underground">
+            <summary>
+            The object is designed to operate under the ground.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Domain.Undersea">
+            <summary>
+            The object is designed to operate under the water.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:FalconDatabase.Enums.Classtable_Type" -->
+        <member name="F:FalconDatabase.Enums.Classtable_Type.NOTHING">
+            <summary>
+            The object does not have a Type assigned.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.MINESWEEP">
+            <summary>
+            The Object is a Mine Sweeper.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.GUN">
+            <summary>
+            The Object is a Gun.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RACK">
+            <summary>
+            The Object is a Rack.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.LAUNCHER">
+            <summary>
+            The Object is a Launcher.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.ATM">
+            <summary>
+            An Air Tasking Manager.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FLIGHT">
+            <summary>
+            The Object is a Flight.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.PACKAGE">
+            <summary>
+            The Object is a Package.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SQUADRON">
+            <summary>
+            The Object is a Squadron.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.AIRPLANE">
+            <summary>
+            The Object is an Aircraft.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BOMB">
+            <summary>
+            The Object is a Bomb.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.POD">
+            <summary>
+            The Object is a Pod.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FUEL_TANK">
+            <summary>
+            The Object is a Fuel Tank.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.HELICOPTER">
+            <summary>
+            The Object is a Helicopter.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.MISSILE">
+            <summary>
+            The Object is a Missile.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RECON">
+            <summary>
+            The Object is a Recon Camera.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.ROCKET">
+            <summary>
+            The Object is a Rocket.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.AIRBASE">
+            <summary>
+            A large airport with infrastructure and supplies to support sustained flying operations.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.AIRSTRIP">
+            <summary>
+            An airport with infrastructure and supplies to support limited flying operations.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.ARMYBASE">
+            <summary>
+            A large installation with infrastructure and supplies to support sustained ground operations.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BEACH">
+            <summary>
+            A geographic area where land and water meet.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BORDER">
+            <summary>
+            An abstract line of demarcation between two poilitical entities.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BRIDGE">
+            <summary>
+            A structure that provides a means for land vehicles to cross water.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CHEMICAL">
+            <summary>
+            An industrial complex that produces chemicals.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CITY">
+            <summary>
+            A collection of houses, buildings, and other structures in a given area.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.COM_CONTROL">
+            <summary>
+            A Military installation designed to support Command and Control of assets.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.DEPOT">
+            <summary>
+            A location to store supplies, fuel, weapons, or other important strategic assets.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FACTORY">
+            <summary>
+            An industrial building capable of producing goods.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FORD">
+            <summary>
+            A shallow area of water that can be crossed without need for a bridge or watercraft.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FORTIFICATION">
+            <summary>
+            A defensive military installation.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.HILL_TOP">
+            <summary>
+            An elevated tactical position..
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.INTERSECT">
+            <summary>
+            A crossing of two or more means of travel.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.NAV_BEACON">
+            <summary>
+            A radio device used to send out navigation information to vehicles.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.NUCLEAR">
+            <summary>
+            A Power Plant that uses Nuclear Reactors to create steam pressure that drives turbines for Power Generation.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.PASS">
+            <summary>
+            A geographic area with a close proximity to a well-known or easily identified landmark or location.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.PORT">
+            <summary>
+            An area extending from land where Sea Vessels can be maintained, stored, repaired, and supplied.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.POWERPLANT">
+            <summary>
+            A facility where power is generated.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RADAR">
+            <summary>
+            An installation where Radio Signals are processed for Radio Detection and Ranging of vehicles.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RADIO_TOWER">
+            <summary>
+            A vertical structure where antennas or other Radio Equipment can be mounted for operational use.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RAIL_TERMINAL">
+            <summary>
+            A collection of structures and Rail Lines where train vehicles can be maintained, stored, repaired, or supplied.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RAILROAD">
+            <summary>
+            A means for Train Vehicles to travel.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.REFINERY">
+            <summary>
+            An industrial facility where petroleum or other chemicals can be processed into other, more valuable, strategic resources.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.ROAD">
+            <summary>
+            A means by which land vehicles can travel.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SEA">
+            <summary>
+            A large body of water.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TOWN">
+            <summary>
+            A small collection of buildings and structures in s given area smaller than a city.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.VILLAGE">
+            <summary>
+            A very small collection of buildings and structures in s given area smaller than a town.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.HARTS">
+            <summary>
+            A Hardened Artillery Site.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SAM_SITE">
+            <summary>
+            A location where Surface to Air Missiles can deploy and engage air targets..
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CRATER">
+            <summary>
+            An area of depressed land caused by an explosive force.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CTRL_TOWER">
+            <summary>
+            A vertical structure at an airfield designed to provide control functions for aircraft.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BARN">
+            <summary>
+            A small building.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BUNKER">
+            <summary>
+            A hardened military structure.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BUSH">
+            <summary>
+            A small plant.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FACTORYS">
+            <summary>
+            A collection of factories at an industrial complex.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CHURCH">
+            <summary>
+            A religious building.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CITY_HALL">
+            <summary>
+            A building or structure used to govern and manage a local area or city.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.DOCK">
+            <summary>
+            A structure that provides access to sea vessels from land.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RUNWAY">
+            <summary>
+            A large concrete pad used to support takeoff and landing activies of aircraft.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.WAREHOUSE">
+            <summary>
+            A building used to store goods or supplies.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.HELIPAD">
+            <summary>
+            A designated location for helicopters to takeoff and land..
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FUEL_TANKS">
+            <summary>
+            A group of structures that store fuel.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.NUKE_PLANT">
+            <summary>
+            A structure that produces electrical power using steam generated from Nuclear Fission.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BRIDGES">
+            <summary>
+            A structure used to allow land vehicles to cross water.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.PIER">
+            <summary>
+            A large structure designed to allow individuals or small vehicles access to water or sea vehicles from land.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.PPOLE">
+            <summary>
+            A power pole used to support power transmission lines.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SHOP">
+            <summary>
+            A commercial building where goods can be bought and sold.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.PTOWER">
+            <summary>
+            A large vertical structure used to provide stable support for heavy power transmission lines.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.APARTMENT">
+            <summary>
+            A residential building where multiple families or tenants live.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.HOUSE">
+            <summary>
+            A small building where a single family or tenant lives.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.PPLANT">
+            <summary>
+            A building where power is generated.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TAXI_SIGN">
+            <summary>
+            A sign that is posted parallel to an airport Taxiway or Runway indicating airport layout.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.NAV_BEAC">
+            <summary>
+            A structure used to send navigation signals to aircraft using radio transmissions.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RADAR_SITE">
+            <summary>
+            An area where radio transcievers send, receive, and process singals to perform Radio Detecion and Ranging operations.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CRATERS">
+            <summary>
+            A collection of depressed land areas.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RADARS">
+            <summary>
+            A piece of equipment used to perform Radio Detection and Ranging operations.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RTOWER">
+            <summary>
+            A vertical structure designed to support radio equipment.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TAXIWAY">
+            <summary>
+            A strip of concrete designed to allow aircraft to move around an airport.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RAIL_TERMINALS">
+            <summary>
+            A complex, area, or collection of buildings designed to support rail activities.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.REFINERYS">
+            <summary>
+            A group of industrial areas designed to process raw materials into strategic resources.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SAM">
+            <summary>
+            A Surface to Air Missile Site.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SHED">
+            <summary>
+            A very small storage structure.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BARRACKS">
+            <summary>
+            A building designed to house military personnel on an installation.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TREE">
+            <summary>
+            A tall plany.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.WTOWER">
+            <summary>
+            A large tower that moves in the wind to generate power.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TWNHALL">
+            <summary>
+            A building or small area where management of a town takes place.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.AIR_TERMINAL">
+            <summary>
+            A building at an airport where aircraft can park or load passengers, stores, or supplies.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SHRINE">
+            <summary>
+            A religious building.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.PARK">
+            <summary>
+            A small recreation area, typically outdoors.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.OFF_BLOCK">
+            <summary>
+            An area of a town or city primarily composed of office or commercial buildings.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TVSTN">
+            <summary>
+            A building where television signals are broadcast to viewers.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.HOTEL">
+            <summary>
+            A building or group of buildings where individuals can temporarily reside when visiting an area.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.HANGAR">
+            <summary>
+            A large building designed to store aircraft.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.LIGHTS">
+            <summary>
+            An electrical device that emits visible light, typically mounted on a pole or an elevated position.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.VASI">
+            <summary>
+            A group of lights and indicators used for aircraft approaches known as the Visual Approach Slope Indicator.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TANK">
+            <summary>
+            A structure used to store fuel or other liquid resources.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FENCE">
+            <summary>
+            A defensive or protective barrier used to mark the edge of a location or area.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.PARKINGLOT">
+            <summary>
+            An area of concrete used for storing vehicles.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SMOKESTACK">
+            <summary>
+            A vertical structure attached to industrial buildings to allow smoke, steam, or other particulates to leave the building.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BUILDING">
+            <summary>
+            A generic term for a physical structure.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.COOL_TWR">
+            <summary>
+            A tower used for cooling operations at a power plant, particularly with Nuclear Power plants.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CONT_DOME">
+            <summary>
+            A rounded building component that sits atop a control tower at an airport.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.GUARDHOUSE">
+            <summary>
+            A small building where security guards work.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TRANSFORMER">
+            <summary>
+            A structure or tower where power is converted from one type to another, 
+            typically by adjusting voltage to allow transfer of high amounts across large distances.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.AMMO_DUMP">
+            <summary>
+            A hardened building where ammunition is stored.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.ART_SITE">
+            <summary>
+            A hardened location where Artillery can be deployed.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.OFFICE">
+            <summary>
+            A medium to large structure used for commercial operations.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CHEM_PLANT">
+            <summary>
+            An industrial structure where chemicals are produced, refined, or processed.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TOWER">
+            <summary>
+            A gneric term for a large vertical structure.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.HOSPITAL">
+            <summary>
+            A building or area where medical services are provided to sick and wounded.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SHOPBLK">
+            <summary>
+            A commercial area of a town or city.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.STATIC">
+            <summary>
+            A persistent object that does not move.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RUNWAY_MARKER">
+            <summary>
+            Numbers and other markings that provide visual identification and information about a runway.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.STADIUM">
+            <summary>
+            A large structure used for entertainment or sports activities.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.MONUMENT">
+            <summary>
+            A structure or building designed to commemmorate an event, person, or action.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.GTM">
+            <summary>
+            A Ground Tasking Manager used by the Campaign Engine to manage ground units.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BATTALION">
+            <summary>
+            A front line land combat unit.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BRIGADE">
+            <summary>
+            A large collection of ground units capable of engaging in multiple efforts simultaneously.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FOOT">
+            <summary>
+            A type of movement where individuals use their feet.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TOWED">
+            <summary>
+            A type of movement where an object is attached to another unit for movement.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TRACKED">
+            <summary>
+            A type of vehicle where wheels are covered with a flexible tough material for better traction.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.WHEELED">
+            <summary>
+            A type vehicle that uses wheels to travel across land.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.NTM">
+            <summary>
+            Naval Tasking Manager used by the Campaign Engine to manage Naval Assets.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TASKFORCE">
+            <summary>
+            A collection of sea vehicles.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.ASSAULT">
+            <summary>
+            A fast, maneuverable sea vehicle.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BOAT">
+            <summary>
+            A generic term for sea vehicles.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.BUOY">
+            <summary>
+            A floating object used to identify area information or collect and transmit data.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CAPITAL_SHIP">
+            <summary>
+            A large sea vessel capable of engaging in combat and providing command and control support.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CARGO">
+            <summary>
+            A large sea vessel that carries goods and supplies.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CRUISER">
+            <summary>
+            A medium to large sized sea vessel designed for combat.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.DEPTHCHARGE">
+            <summary>
+            An underwater explosive designed to combat submarines.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.DESTROYER">
+            <summary>
+            A small to medium size sea vessel designed for front line combat.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FRIGATE">
+            <summary>
+            A small sea vessel designed for front line combat and support.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.PATROL">
+            <summary>
+            A small, fast sea vehicle designed to provide security to larger vehicles or ports.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.RAFT">
+            <summary>
+            A very small sea vehicle designed for emergency use.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SHIP">
+            <summary>
+            A generic term applied to large sea vehicles.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TANKER">
+            <summary>
+            A large sea vehicle that transports fuel.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TORPEDO">
+            <summary>
+            An underwater weapon capable of propelling itself through water and detonating an explosive against a target.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.WOLFPACK">
+            <summary>
+            A single sea vessel not attached to a larger group.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.SUBMARINE">
+            <summary>
+            A pressurized vehicle that is capable of operating under water for extended periods of time.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.TEAM">
+            <summary>
+            A logical collection of assets and political groups collectively attempting to accomplish a single shared goal.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.CHAFF">
+            <summary>
+            Collection of highly reflective metal shards designed to confuse Radar Signals.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FLARE">
+            <summary>
+            A bright, hot countermeasure deployed from aircraft designed to confuse Ifrared Sensors.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.EJECT">
+            <summary>
+            A rapid movement expelling an individual from an aircraft or vehicle in an emergency.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Classtable_Type.FLYING_EYE">
+            <summary>
+            A method of controlling the Simulated Aircraft in BMS.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Enums.CountryList">
+            <summary>
+            List of Country Identifiers in teh Campaign.
+            This has been changed to be more generic given the inclusion of multiple theaters.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Enums.DamageDataType">
+            <summary>
+            The types of damage a Weapon can cause to a target.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.NoDamage">
+            <summary>
+            Weapon causes no significant damage.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.PenetrationDam">
+            <summary>
+            Weapon causes penetration damage. 
+            Effective against hardened targets.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.HighExplosiveDam">
+            <summary>
+            Weapon detonates an explosion. 
+            Effective against soft or area targets.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.HeaveDam">
+            <summary>
+            Weapon causes heave damage leaving craters. 
+            Effective against Runways.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.IncendairyDam">
+            <summary>
+            Weapon causes heat or burning damage. 
+            Effective against troops and other soft targets.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.ProximityDam">
+            <summary>
+            Weapon detonates an explosion when it reaches a certain proximity. 
+            Effective against fast moving targets, such as aircraft.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.KineticDam">
+            <summary>
+            Weapon fires a projective to damage the target with an impact.
+            Effective against soft and moderately hardened targets.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.HydrostaticDam">
+            <summary>
+            Weapon causes damage by detonating an underwater explosion.
+            Effective against sea vehicles..
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.ChemicalDam">
+            <summary>
+            Weapon causes burning damage or erodes the surface of the target.
+            Effective against soft or moderately hardened targets.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.NuclearDam">
+            <summary>
+            Weapon causes significant thermal and kinetic damage through detonation of a Nuclear Device.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.DamageDataType.OtherDam">
+            <summary>
+            Weapon causes general, unspecified damage to the target.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Enums.Data_Types">
+            <summary>
+            Type of Objects contained in the Database.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Data_Types.DMIN">
+            <summary>
+            Minimum Value used for indexing.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Data_Types.FEATURE">
+            <summary>
+            A Feature Object is a component of an Objective.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Data_Types.NONE">
+            <summary>
+            Object does not have a type.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Data_Types.OBJECTIVE">
+            <summary>
+            An Objective Object is a collection of Features that make up an installation or notable location on a map..
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Data_Types.UNIT">
+            <summary>
+            A Unit Object is an abstract component of the 2D world that cannot interact with other objects in the 3D world.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Data_Types.VEHICLE">
+            <summary>
+            A Vehicle Object is moveable object of the 3D world capable of interacting with other objects.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Data_Types.WEAPON">
+            <summary>
+            A Weapon Object is used to inflict damage on a target.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Enums.MoveType">
+            <summary>
+            Types of Movement a Vehicle can perform.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.MoveType.NoMove">
+            <summary>
+            Object is stationary and cannot move.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.MoveType.Foot">
+            <summary>
+            Object is a pedestrian and moves by using it's feet.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.MoveType.Wheeled">
+            <summary>
+            Object uses Wheels to travel across land.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.MoveType.Tracked">
+            <summary>
+            Object used a large, flxible component wrapped around several wheels to move across land with better traction.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.MoveType.LowAir">
+            <summary>
+            Object travels through the air at low altitudes, such as a helicopter.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.MoveType.Air">
+            <summary>
+            Object travels through the air at various high and low altitudes.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.MoveType.Naval">
+            <summary>
+            Object moves thorugh the water.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.MoveType.Rail">
+            <summary>
+            Object travels along tracks or rails.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Enums.Mode_Types">
+            <summary>
+            Modes used by the Game to determine Configurations for the Game and Environment.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Enums.Radar_types">
+            <summary>
+            Types of Radar Equipment in the Database.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.NO_RADAR">
+            <summary>
+            No Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.F16">
+            <summary>
+            Generic F-16 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.F16_SIMPLE">
+            <summary>
+            Simplified F-16 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.F16_360">
+            <summary>
+            360 Degree F-16 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.AMRAAM">
+            <summary>
+            AIM-120 AMRAAM Seeker Head
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.Mig21">
+            <summary>
+            Mig-21 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.Mig23">
+            <summary>
+            Mig-23 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.Mig25">
+            <summary>
+            Mig-25 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.Mig31">
+            <summary>
+            Mig-31 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.R2S6">
+            <summary>
+            2S6 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.A50">
+            <summary>
+            A-50 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.ADATS">
+            <summary>
+            ADATS Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.AEGIS">
+            <summary>
+            Aegis Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.AH66">
+            <summary>
+            AH-66 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.AV8B">
+            <summary>
+            AV-8B Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.BarLock">
+            <summary>
+            Bar Lock Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.Chapparal">
+            <summary>
+            Chapparal Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.E2C">
+            <summary>
+            E2-C Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.E3">
+            <summary>
+            E-3 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.F14">
+            <summary>
+            F-14 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.F15">
+            <summary>
+            F-15 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.ZUES">
+            <summary>
+            Zeus Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.F22">
+            <summary>
+            F-22 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.F4">
+            <summary>
+            F-4 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.F5">
+            <summary>
+            f-5 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.Hawk">
+            <summary>
+            Hawk Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.Nike">
+            <summary>
+            Nike Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.J5">
+            <summary>
+            J-5 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.J7">
+            <summary>
+            J-7 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.LongTrack">
+            <summary>
+            Long Track Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.LowBlowSearch">
+            <summary>
+            Low Blow Search Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.MPQ54">
+            <summary>
+            MPQ-54 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.MSQ48">
+            <summary>
+            MSQ-48 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.MSQ50">
+            <summary>
+            MSQ-50 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.Patriot">
+            <summary>
+            Patriot Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.PHOENIX">
+            <summary>
+            Phoenix Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.FanSong">
+            <summary>
+            Fan Song Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.LowBlow">
+            <summary>
+            Low Blow Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.PatHand">
+            <summary>
+            Patriot Handoff Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.SquarePair">
+            <summary>
+            Square Pair Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.StraightFlush">
+            <summary>
+            Straight Flush Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.LandRoll">
+            <summary>
+            Land Roll Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.SA9">
+            <summary>
+            SA-9 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.FlapLid">
+            <summary>
+            Flap Lid Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.SnapShot">
+            <summary>
+            Snap Shot Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.Slotback">
+            <summary>
+            Slot Back Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.SpoonRest">
+            <summary>
+            Spoon Rest Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.SU15">
+            <summary>
+            Su-15 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.TPS63">
+            <summary>
+            TPS-63 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.SA15">
+            <summary>
+            SA-15 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.ANVPS2">
+            <summary>
+            ANVP-S2 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.DrumTilt">
+            <summary>
+            Drum Tilt Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.PopGroup">
+            <summary>
+            Pop Group Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.TopDome">
+            <summary>
+            Top Dome Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.ANSPS10">
+            <summary>
+            AN/ASPQ-10 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.ANAPQ114">
+            <summary>
+            AN/ANPQ-114 Radar.
+            </summary>
+        </member>
+        <member name="F:FalconDatabase.Enums.Radar_types.AGOnly">
+            <summary>
+            AG Only Radar.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Enums.GameFileType">
+            <summary>
+            Available File Types
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Enums.FileStreamType">
+            <summary>
+            Type of data conatined within a file
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Files.AircraftTable">
+            <summary>
+            The Aircraft Database contained in the FALCON4_ACD.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.AircraftTable.AircraftDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.AircraftDefinition" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.AircraftTable.Aircraft">
+            <summary>
+            Aircraft Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.AircraftTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.AircraftTable.ToAircraftDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.AircraftTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.AircraftTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.AircraftTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.AircraftTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.AircraftTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.AircraftTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.AircraftTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.ClassTable">
+            <summary>
+            The Class Table Database contained in the FALCON4_CT.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.ClassTable.ClassEntities">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.Falcon4EntityClassType" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.ClassTable.Classes">
+            <summary>
+            Class Table Element of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.ClassTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.ClassTable.ToFalcon4EntityClassType(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.ClassTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.ClassTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.ClassTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.ClassTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.ClassTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.ClassTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.ClassTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.DDPTable">
+            <summary>
+            The Dirty Data Priority Database contained in the FALCON4_DDP.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.DDPTable.DDPRecords">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.DirtyDataPriority" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.DDPTable.DDPriorities">
+            <summary>
+            DDP Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.DDPTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.DDPTable.ToDDPRecord(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.DDPTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.DDPTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.DDPTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.DDPTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.DDPTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.DDPTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.DDPTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.FeatureTable">
+            <summary>
+            The Feature Database contained in the FALCON4_FCD.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.FeatureTable.FeatureDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.FeatureDefinition" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.FeatureTable.Features">
+            <summary>
+            Feature Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.FeatureTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.FeatureTable.ToFeatureDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.FeatureTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.FeatureTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.FeatureTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.FeatureTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.FeatureTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.FeatureTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.FeatureTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.GameFile">
+            <summary>
+            Base Class for all Game Files.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.GameFile.FileName">
+            <summary>
+            The Name of the <see cref="T:FalconDatabase.Files.GameFile"/> this object represents.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.GameFile.FilePath">
+            <summary>
+            The Path of the <see cref="T:FalconDatabase.Files.GameFile"/> this object represents.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.GameFile.FileExtension">
+            <summary>
+            The Extension of the <see cref="T:FalconDatabase.Files.GameFile"/> this object represents.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.GameFile.FullName">
+            <summary>
+            The Full Path and File Name of the <see cref="T:FalconDatabase.Files.GameFile"/> this object represents.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.GameFile.Length">
+            <summary>
+            The Length of the <see cref="T:FalconDatabase.Files.GameFile"/> this object represents.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.GameFile.FileType">
+            <summary>
+            The type of <see cref="T:FalconDatabase.Files.GameFile"/> this object represents.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.GameFile.IsCompressed">
+            <summary>
+            When <see langword="true"/>, indicates the data within this file is stored in a compressed state using LZSS.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.GameFile.IsFileModified">
+            <summary>
+            Inidicates if the underlying File has been modified.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.GameFile.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>       
+        </member>
+        <member name="M:FalconDatabase.Files.GameFile.Read(System.String)">
+            <summary>
+            Attempts to initialze the <see cref="T:FalconDatabase.Files.GameFile"/> object from the text in <paramref name="data"/>.
+            </summary>
+            <param name="data">A <see cref="T:System.String"/> object data formatted as text for this <see cref="!:Gamefile"/></param>
+            <returns><para><see langword="true"/> if the <see cref="T:FalconDatabase.Files.GameFile"/> is successfully initialized, otherwise <see langword="false"/>.</para>
+            <para>If initialization fails due to a <see cref="!:FileFormatException"/>, a default instance of the object is created.</para></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.GameFile.Read(System.Byte[])">
+            <summary>
+            Attempts to initialze the <see cref="T:FalconDatabase.Files.GameFile"/> object from the <see cref="!:byte[]"/> in <paramref name="data"/>.
+            </summary>
+            <param name="data">A <see cref="T:System.Byte"/> array initialization data for this <see cref="!:Gamefile"/></param>
+            <returns><para><see langword="true"/> if the <see cref="T:FalconDatabase.Files.GameFile"/> is successfully initialized, otherwise <see langword="false"/>.</para>
+            <para>If initialization fails due to a <see cref="!:FileFormatException"/>, a default instance of the object is created.</para></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.GameFile.Write">
+            <summary>
+            Formats and arranges the Data within this <see cref="T:FalconDatabase.Files.GameFile"/> object for writing to a file on disk.
+            </summary>
+            <returns><see cref="!:byte[]"/> that can be written to a file</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.GameFile.Load(System.String)">
+            <summary>
+            Attempts to read and parse the Data from the <see cref="T:System.IO.File"/> located at <paramref name="path"/>.
+            </summary>
+            <param name="path">The File to read</param>
+            <returns><para><see langword="true"/> if the caller has the required permissions and <paramref name="path"/> contains the name of an existing file which is successfully parsed; otherwise, <see langword="false"/>.</para>
+            <para>This method also returns <see langword="false"/> if <paramref name="path"/> is null, an invalid path, or a zero-length string. If the caller does not have sufficient permissions to read the specified file, 
+            no exception is thrown and the method returns <see langword="false"/> regardless of the existence of path.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.GameFile.Save(System.String)">
+            <summary>
+            Attempts to open or create the file at <paramref name="path"/> and write the contents of this file to it.
+            </summary>
+            <param name="path">File name to write the data to.</param>
+            <returns><see langword="true"/> if the file was successfully saved, <see langword="false"/> otherwise.</returns>
+            <exception cref="T:System.NotImplementedException">Indicates the Save funciton is not implemented for this file type yet.</exception>
+        </member>
+        <member name="M:FalconDatabase.Files.GameFile.ToString">
+            <summary>
+            <para>Formats the data contained within the <see cref="T:FalconDatabase.Files.GameFile"/> object into Readable Text.</para>
+            <para>Readable Text does not always match the underlying file format and should not be used to save text based files such as .ini, .lst, or .txtpb files.</para>
+            <para>Instead, use Write() to format all text or binary data for writing to a file.</para>
+            </summary>
+            <returns>A formatted <see cref="T:System.String"/> with the Data contained within the <see cref="T:FalconDatabase.Files.GameFile"/> object.</returns>
+        </member>
+        <member name="T:FalconDatabase.Files.IRSensorTable">
+            <summary>
+            The IR Sensor Database contained in the FALCON4_ICD.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.IRSensorTable.IRSensorDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.IRSensorDefinition" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.IRSensorTable.IRSensors">
+            <summary>
+            IR Sensor Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.IRSensorTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.IRSensorTable.ToIRSensorDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.IRSensorTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.IRSensorTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.IRSensorTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.IRSensorTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.IRSensorTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.IRSensorTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.IRSensorTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.RadarReceiverTable">
+            <summary>
+            The Radar Receiver and RWR Database contained in the FALCON4_RWD.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.RadarReceiverTable.RadarSensorDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.RadarSensorDefinition" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.RadarReceiverTable.RadarSensors">
+            <summary>
+            Radar Sensor Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.RadarReceiverTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarReceiverTable.ToRadarSensorDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarReceiverTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarReceiverTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarReceiverTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarReceiverTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.RadarReceiverTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarReceiverTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.RadarReceiverTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.RadarTable">
+            <summary>
+            The Radar Database contained in the FALCON4_RCD.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.RadarTable.RadarDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.RadarDefinition" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.RadarTable.Radars">
+            <summary>
+            Radar Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.RadarTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarTable.ToRadarDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.RadarTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.RadarTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.RadarTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.RocketTable">
+            <summary>
+            The Rocket Database contained in the FALCON4_RKT.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.RocketTable.RocketDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.RocketDefinition" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.RocketTable.Rockets">
+            <summary>
+            Rocket Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.RocketTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.RocketTable.ToRocketDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.RocketTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.RocketTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.RocketTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.RocketTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.RocketTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.RocketTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.RocketTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.SimWeaponTable">
+            <summary>
+            The Sim Weapon Database contained in the FALCON4_SWD.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.SimWeaponTable.WeaponDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.SimWeaponDefinition" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.SimWeaponTable.Weapons">
+            <summary>
+            Weapon Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.SimWeaponTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.SimWeaponTable.ToWeaponDefinitions(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.SimWeaponTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.SimWeaponTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.SimWeaponTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.SimWeaponTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.SimWeaponTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.SimWeaponTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.SimWeaponTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.SquadronStoresTable">
+            <summary>
+            The Squadron Stores Database contained in the FALCON4_SSD.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.SquadronStoresTable.SquadronStoresDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.SquadronStoresDefinition" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.SquadronStoresTable.SquadronStores">
+            <summary>
+            Squadron Stores Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.SquadronStoresTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.SquadronStoresTable.ToSquadronStoresDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.SquadronStoresTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.SquadronStoresTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.SquadronStoresTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.SquadronStoresTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.SquadronStoresTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.SquadronStoresTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.SquadronStoresTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.UnitTable">
+            <summary>
+            The Unit Database contained in the FALCON4_UCD.xml File.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.UnitTable.UnitDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.UnitDefinition" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.UnitTable.Units">
+            <summary>
+            Unit Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.UnitTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.UnitTable.ToUnitDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.UnitTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.UnitTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.UnitTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.UnitTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.UnitTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.UnitTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.UnitTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.VehicleTable">
+            <summary>
+            A Vehicle in the Campaign.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.VehicleTable.VehicleDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Objects.Components.VehicleDefinition" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.VehicleTable.Vehicles">
+            <summary>
+            Vehicle Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.VehicleTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.VehicleTable.ToVehicleDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.VehicleTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.VehicleTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.VehicleTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.VehicleTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.VehicleTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.VehicleTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.VehicleTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.VisualSensorTable">
+            <summary>
+            Visual Sensor Table in the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.VisualSensorTable.VisualSensorDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Files.VisualSensorTable" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.VisualSensorTable.VisualSensors">
+            <summary>
+            Visual Sensor Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.VisualSensorTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.VisualSensorTable.ToVisualSensorDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.VisualSensorTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.VisualSensorTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.VisualSensorTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.VisualSensorTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.VisualSensorTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.VisualSensorTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.VisualSensorTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.WeaponLoadTable">
+            <summary>
+            Weapon Hardpoint and Rack Component of the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.WeaponLoadTable.WeaponLoadDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Files.WeaponLoadTable" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.WeaponLoadTable.WeaponLoads">
+            <summary>
+            Weapon Load Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.WeaponLoadTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponLoadTable.ToWeaponLoadDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponLoadTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponLoadTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponLoadTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponLoadTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.WeaponLoadTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponLoadTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.WeaponLoadTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.Files.WeaponTable">
+            <summary>
+            Weapon Table in the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.WeaponTable.WeaponDefinitions">
+            <summary>
+            Collection of <see cref="T:FalconDatabase.Files.WeaponTable" /> Entries exported from the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.WeaponTable.Weapons">
+            <summary>
+            Weapons Component of the Database in Raw Data Format.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Files.WeaponTable.IsDefaultInitialization">
+            <summary>
+            <para>When <see langword="true"/>, indicates this <see cref="T:FalconDatabase.Files.GameFile"/> was successfully loaded from the file.</para>
+            <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="T:FalconDatabase.Files.GameFile"/> object and empty or default values were loaded instead.</para>
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponTable.ToWeaponDefinition(System.Data.DataRow)">
+            <summary>
+            Converts a <see cref="T:System.Data.DataRow"/> with correct values into a native Falcon Object.
+            </summary>
+            <param name="row">A <see cref="T:System.Data.DataRow"/> with appropriate initializaiton data values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponTable.Read(System.String)">
+            <summary>
+            Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="T:System.Data.DataTable"/> with values read from <paramref name="data"/>.
+            </summary>
+            <param name="data">XML Data read from a Database File in the ..\TerrData\Objects\ Directory.</param>
+            <returns><see langword="true"/> if the File is successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponTable.Write">
+            <summary>
+            Formats the File Contents into bytes for writing to disk.
+            </summary>
+            <returns><see cref="T:System.Byte"/> array suitable for writing to a file.</returns>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponTable.ToString">
+            <summary>
+            Formats the Data in this Table for Generic Text Output.
+            </summary>
+            <returns><para><see cref="T:System.String"/> object with the data from this object.</para>
+            <para>NOTE: This does not format the Database file for XML Output.</para></returns>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponTable.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Files.WeaponTable"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Files.WeaponTable.#ctor(System.String)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.Files.WeaponTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Path to read the data from.</param>
+        </member>
+        <member name="T:FalconDatabase.GeoLib.Coordinate">
+            <summary>
+            Represents a 1-D Coordinate Component on a Map
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.Coordinate.Degrees">
+            <summary>
+            Degrees Component of a Lattitude or Longitude Coordinate
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.Coordinate.Minutes">
+            <summary>
+            Minutes Component of a Lattitude or Longitude Coordinate
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.Coordinate.Seconds">
+            <summary>
+            Seconds Component of a Lattitude or Longitude Coordinate
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.Coordinate.Position">
+            <summary>
+            Global Hemisphere of the coordinate
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.Coordinate.ToDouble">
+            <summary>
+            Convert the coordinate into a Double Value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.Coordinate.ToString">
+            <summary>
+            Get the <see cref="T:System.String"/> representation of the Coordinate.
+            </summary>
+            <returns>Coordinate in the "Degrees Minutes Seconds" format</returns>
+        </member>
+        <member name="T:FalconDatabase.GeoLib.GeoPoint">
+            <summary>
+             Represents a 3D Point on a Map
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.GeoPoint.Latitude">
+            <summary>
+            The String Representation of the Lattitude (N/S) of this <see cref="T:FalconDatabase.GeoLib.GeoPoint"/> in Degress Minutes Seconds (DMS) Notation.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.GeoPoint.Longitude">
+            <summary>
+            The String Representation of the Longitude (E/W) of this <see cref="T:FalconDatabase.GeoLib.GeoPoint"/> in Degress Minutes Seconds (DMS) Notation.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.GeoPoint.X">
+            <summary>
+            <para>The X Value of this <see cref="T:FalconDatabase.GeoLib.GeoPoint"/>.</para> 
+            <para>The X Value is associated with Longitude. Negative Values indicate West Longitude Values.</para>
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.GeoPoint.Y">
+            <summary>
+            <para>The Y Value of this <see cref="T:FalconDatabase.GeoLib.GeoPoint"/>.</para> 
+            <para>The Y Value is associated with Latitude. Negative Values indicate South Latitude Values.</para>
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.GeoPoint.Elevation">
+            <summary>
+            The Elevation Component of this <see cref="T:FalconDatabase.GeoLib.GeoPoint"/>.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.GeoPoint.SetLatitude(System.Double,System.Double,System.Double,FalconDatabase.GeoLib.CardinalDirection)">
+            <summary>
+            Set the Latitude Component using Degrees, Minutes, and Seconds with a Cardinal Direction
+            </summary>
+            <param name="degree">The Degree Value of the Coordinate.</param>
+            <param name="minutes">The Minute Value of the Coordinate.</param>
+            <param name="seconds">The Second Component of the Coordinate.</param>
+            <param name="direction">The Cardinal Direction (E/W)</param>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.GeoPoint.SetLongitude(System.Double,System.Double,System.Double,FalconDatabase.GeoLib.CardinalDirection)">
+            <summary>
+            Set the Latitude Component using Degrees, Minutes, and Seconds with a Cardinal Direction
+            </summary>
+            <param name="degree">The Degree Value of the Coordinate.</param>
+            <param name="minutes">The Minute Value of the Coordinate.</param>
+            <param name="seconds">The Second Component of the Coordinate.</param>
+            <param name="direction">The Cardinal Direction (N/S)</param>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.GeoPoint.#ctor">
+            <summary>
+            Initializes a default instance of the <see cref="T:FalconDatabase.GeoLib.GeoPoint"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.GeoPoint.#ctor(System.Double,System.Double)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.GeoLib.GeoPoint"/> object with the supplied values.
+            </summary>
+            <param name="x">The X (Longitude) Component</param>
+            <param name="y">The Y (Latitude) Component</param>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.GeoPoint.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Initializes an instance of the <see cref="T:FalconDatabase.GeoLib.GeoPoint"/> object with the supplied values.
+            </summary>
+            <param name="x">The X (Longitude) Component</param>
+            <param name="y">The Y (Latitude) Component</param>
+            <param name="elevation">The Elevation Component</param>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.GeoPoint.#ctor(FalconDatabase.GeoLib.GeoPoint)">
+            <summary>
+            Initializes a copy of the supplied <see cref="T:FalconDatabase.GeoLib.GeoPoint"/> object.
+            </summary>
+            <param name="geopoint">The <see cref="T:FalconDatabase.GeoLib.GeoPoint"/> object with the values to copy.</param>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.GeoPoint.#ctor(FalconDatabase.GeoLib.Coordinate,FalconDatabase.GeoLib.Coordinate,System.Double)">
+            <summary>
+            Initializes a new <see cref="T:FalconDatabase.GeoLib.GeoPoint"/> object with the supplied values.
+            </summary>
+            <param name="x">The X (Longitude) Component</param>
+            <param name="y">The Y (Latitude) Component</param>
+            <param name="elevation">The Elevation Component</param>
+        </member>
+        <member name="T:FalconDatabase.GeoLib.Vector">
+            <summary>
+            3D Vector.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.Vector.X">
+            <summary>
+            X Vecor Component.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.Vector.Y">
+            <summary>
+            Y Vecor Component.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.GeoLib.Vector.Z">
+            <summary>
+            Z Vecor Component.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.Vector.#ctor">
+            <summary>
+            Default Constructor for <see cref="T:FalconDatabase.GeoLib.Vector"/>.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.GeoLib.Vector.#ctor(System.Single,System.Single,System.Single)">
+            <summary>
+            Initializes a <see cref="T:FalconDatabase.GeoLib.Vector"/> object with the supplied values.
+            </summary>
+            <param name="x">X Component of the Vector.</param>
+            <param name="y">Y Component of the Vector.</param>
+            <param name="z">Z Component of the Vector.</param>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.AircraftDefinition">
+            <summary>
+            An Aircraft Entry in the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.AircraftDefinition.CombatClass">
+            <summary>
+            Combat Class of the Aircraft.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.AircraftDefinition.AircraftID">
+            <summary>
+            Index into the Aircraft Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.AircraftDefinition.SignatureID">
+            <summary>
+            Index into the Signature Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.AircraftDefinition.SensorType">
+            <summary>
+            Collection of Sensor Types on the Aircraft.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.AircraftDefinition.SensorIndex">
+            <summary>
+            Index in the Sensor Table of each Sensor on the Aircraft.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.AircraftDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.AircraftDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.CampaignEvent">
+            <summary>
+            A Campaign Event Entry.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.CampaignEvent.Id">
+            <summary>
+            Event ID.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.CampaignEvent.Flags">
+            <summary>
+            Event Flags.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.CampaignEvent.#ctor">
+            <summary>
+            Default constructor for the <see cref="T:FalconDatabase.Objects.Components.CampaignEvent"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.DirtyDataPriority">
+            <summary>
+            An DDP Record in the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.DirtyDataPriority.Priority">
+            <summary>
+            Priority Value.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.DirtyDataPriority.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.DirtyDataPriority"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.Falcon4EntityClassType">
+            <summary>
+            Entity Class Type Entry in the Database Class Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.Falcon4EntityClassType.ClassData">
+            <summary>
+            Virtual Unit Entity Type Data.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.Falcon4EntityClassType.VisualType">
+            <summary>
+            Collection of Visual Type Index values.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.Falcon4EntityClassType.EntityType">
+            <summary>
+            The Generic Entity Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.Falcon4EntityClassType.EntityIndex">
+            <summary>
+            Index into the Entity List.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.Falcon4EntityClassType.DataPtr">
+            <summary>
+            Unused outside the Campaign Engine.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.FeatureDefinition">
+            <summary>
+            Defines a Feature that can be interacted with in the Campaign.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.ID">
+            <summary>
+            ID of this Feature.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.RepairTime">
+            <summary>
+            Time in Hours it takes to repair this item.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.Priority">
+            <summary>
+            Display Priority used by the Graphics Engine.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.Flags">
+            <summary>
+            Feature Flags.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.Name">
+            <summary>
+            Feature Name.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.HitPoints">
+            <summary>
+            How much damage the Feature can sustain before being destroyed.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.Height">
+            <summary>
+            Height of Vehicle Ramp if one exists.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.Angle">
+            <summary>
+            Angle of Vehicle Ramp if one exists.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.RadarType">
+            <summary>
+            Radar Id of an attached Radar Object if one exists.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.Detection">
+            <summary>
+            Collection of Detection Ranges for each Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureDefinition.DamageMod">
+            <summary>
+            Collection of Damage Modifiers for each Damage Type.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.FeatureDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.FeatureDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.FeatureEntry">
+            <summary>
+            A Component of a Feature.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureEntry.Index">
+            <summary>
+            Feature ID.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureEntry.Flags">
+            <summary>
+            Flags.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureEntry.FeatureClasses">
+            <summary>
+            Class Entities contained within the Feature Entity.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureEntry.Value">
+            <summary>
+            Percentage of operational loss if destroyed.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureEntry.Offset">
+            <summary>
+            Offset of Component from the Feature Coordinates.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.FeatureEntry.Facing">
+            <summary>
+            The Direction the Component is facing.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.FeatureEntry.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.FeatureEntry"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.IRSensorDefinition">
+            <summary>
+            IR Sensor Database Definition .
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.IRSensorDefinition.Name">
+            <summary>
+            Sensor Name.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.IRSensorDefinition.Range">
+            <summary>
+            Detection Range against F-16 Sized Target.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.IRSensorDefinition.FOV">
+            <summary>
+            Field of View from Center.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.IRSensorDefinition.GimbalLimit">
+            <summary>
+            Gimbal Limit from Center.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.IRSensorDefinition.GroundFactor">
+            <summary>
+            Range Multiplier applied to Ground Targets.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.IRSensorDefinition.FlareChance">
+            <summary>
+            Base Probability a Flare will work.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.IRSensorDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.AircraftDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.PersistentObject">
+            <summary>
+            A Persistent Object in the Campaign.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PersistentObject.X">
+            <summary>
+            X Coordinate of the Object.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PersistentObject.Y">
+            <summary>
+            Y Coordinate of the Object
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PersistentObject.Location">
+            <summary>
+            Map Coordiante Wrapper for Location of Object.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PersistentObject.UnionData">
+            <summary>
+            Unique Identifier to associate this Persistent Object with another Object in the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PersistentObject.VisType">
+            <summary>
+            The Visual Type of the Object.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PersistentObject.Flags">
+            <summary>
+            Object Flags.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.PersistentObject.#ctor">
+            <summary>
+            Default constructor for the <see cref="T:FalconDatabase.Objects.Components.PersistentObject"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.PilotInfo">
+            <summary>
+            A Pilot in the Campaign.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PilotInfo.Usage">
+            <summary>
+            Number of times this Pilot is used.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PilotInfo.VoiceID">
+            <summary>
+            Voice ID Index of this Pilot.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PilotInfo.PhotoID">
+            <summary>
+            Photo ID Index of this Pilot.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.PilotInfo.#ctor">
+            <summary>
+            Default constructor for the <see cref="T:FalconDatabase.Objects.Components.PilotInfo"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.PrimaryObjective">
+            <summary>
+            A Primary Objective in the Campaign.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PrimaryObjective.ID">
+            <summary>
+            Objective ID.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PrimaryObjective.Priority">
+            <summary>
+            Objective Priority in the Current Campaign.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.PrimaryObjective.Flags">
+            <summary>
+            Objective Flags.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.PrimaryObjective.#ctor">
+            <summary>
+            Default constructir for the <see cref="T:FalconDatabase.Objects.Components.PrimaryObjective"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.RadarDefinition">
+            <summary>
+            Radar Object Definition.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.Name">
+            <summary>
+            Radar Name.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.RWRsound">
+            <summary>
+            Sound to play when detected by an RWR.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.RWRsymbol">
+            <summary>
+            Symbol to show when detected by an RWR.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.ID">
+            <summary>
+            Index into the RDr Data Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.Lethality">
+            <summary>
+            Effectiveness against Low Altitude Targets.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.Range">
+            <summary>
+            Detection Range.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.BeamWidth">
+            <summary>
+            Width of the Beam from Center.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.ScanWidth">
+            <summary>
+            Max Angle of the Scan Capability from Center.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.SweepRate">
+            <summary>
+            Speed which the Beam Sweeps.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.CoastTime">
+            <summary>
+            How long the Radar will hold a lock when the target is lost.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.LookDownPenalty">
+            <summary>
+            How much to degrade the Signal to Noise Ratio when in a Look-Down Scenario.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.JammingPenalty">
+            <summary>
+            How much to degrade the Signal to Noise Ratio when in being Jammed.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.NotchPenalty">
+            <summary>
+            How much to degrade the Signal to Noise Ratio when Target Aircraft Notches.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.NotchSpeed">
+            <summary>
+            Effective Speed Target needs to fly to cause Radar to lose tracking ability.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.ChaffChance">
+            <summary>
+            Base probability a Chaff will be effective.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarDefinition.Flags">
+            <summary>
+            Radar Flags.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.RadarDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.RadarDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.RadarSensorDefinition">
+            <summary>
+            The Radar Receiver and RWR Sensor Component of the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarSensorDefinition.Name">
+            <summary>
+            Sensor Name.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarSensorDefinition.Range">
+            <summary>
+            Detection Range Modifier of the Sensor in reference to the default F-16 RWR.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarSensorDefinition.TopAngle">
+            <summary>
+            Maximum Angle of Detection in the Top Quadrant of the Sensor.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarSensorDefinition.BottomAngle">
+            <summary>
+            Maximum Angle of Detection in the Bottom Quadrant of the Sensor.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarSensorDefinition.LeftAngle">
+            <summary>
+            Maximum Angle of Detection in the Left Quadrant of the Sensor.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarSensorDefinition.RightAngle">
+            <summary>
+            Maximum Angle of Detection in the Right Quadrant of the Sensor.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RadarSensorDefinition.Flags">
+            <summary>
+            Sensor Flags.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.RadarSensorDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.RadarSensorDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.RocketDefinition">
+            <summary>
+            A Rocket Definition for the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RocketDefinition.PodIndex">
+            <summary>
+            Index of the Pod that can fire this Rocket Object.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RocketDefinition.WeaponIndex">
+            <summary>
+            Weapon ID of the Rocket.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.RocketDefinition.WeaponCount">
+            <summary>
+            Number of Rockets in the Pod.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.RocketDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.RocketDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.SimWeaponDefinition">
+            <summary>
+            A Weapon Definition in the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.Flags">
+            <summary>
+            Weapon Flags.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.DragCoefficient">
+            <summary>
+            Drag Coefficient.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.Weight">
+            <summary>
+            Weapon Weight.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.Area">
+            <summary>
+            Weapon Surface Area.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.XEjection">
+            <summary>
+            X Component of the Ejection Velocity when the weapon is released.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.YEjection">
+            <summary>
+            Y Component of the Ejection Velocity when the weapon is released.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.ZEjection">
+            <summary>
+            Z Component of the Ejection Velocity when the weapon is released.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.SMSMnemonic">
+            <summary>
+            Mnemonic displayed in the SMS Display.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.WeaponClass">
+            <summary>
+            Weapon Class.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.Domain">
+            <summary>
+            Weapon Domain.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.WeaponType">
+            <summary>
+            Weapon Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SimWeaponDefinition.WeaponID">
+            <summary>
+            Weapon ID.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.SimWeaponDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.SimWeaponDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.SquadronStoresDefinition">
+            <summary>
+            Squadron Stores Definition in the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SquadronStoresDefinition.Stores">
+            <summary>
+            Weapon Stores for a Squadron. Key = WeaponID, Value = Count.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SquadronStoresDefinition.InfiniteAG">
+            <summary>
+            An A-G Weapon ID that never runs out.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SquadronStoresDefinition.InfiniteAA">
+            <summary>
+            An A-A Weapon ID that never runs out.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.SquadronStoresDefinition.InfiniteGun">
+            <summary>
+            A Gun Weapon ID that never runs out.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.SquadronStoresDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.SquadronStoresDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.UnitDefinition">
+            <summary>
+            A Unit in the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.ID">
+            <summary>
+            ID in the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.NumElements">
+            <summary>
+            Number of Vehicles in each Element.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.VehicleType">
+            <summary>
+            Type of Vehicle in each Element.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.ElementFlags">
+            <summary>
+            Vehicle Flags for each Element.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.Flags">
+            <summary>
+            Unit Flags.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.Name">
+            <summary>
+            Unit Name.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.MovementType">
+            <summary>
+            Movement Type of this Unit.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.MovementSpeed">
+            <summary>
+            Movement Speed of this Unit.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.MaxRange">
+            <summary>
+            Maximum Range of this Unit.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.Fuel">
+            <summary>
+            Internal Fuel Load.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.Rate">
+            <summary>
+            Rate which the Unit burns Fuel.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.PtDataIndex">
+            <summary>
+            Point Data Index.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.Scores">
+            <summary>
+            Mission Type Score Value.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.Role">
+            <summary>
+            Primary Mission Type Score.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.HitChance">
+            <summary>
+            Hit Chance against Targets with a given Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.Strength">
+            <summary>
+            Hit Chance against Targets with a given Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.Range">
+            <summary>
+            Range against Targets with a given Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.Detection">
+            <summary>
+            Detection against Targets with a given Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.DamageMod">
+            <summary>
+            Damage Modifier against Targets with a given Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.RadarVehicle">
+            <summary>
+            Vehicle ID of a Radar Vehicle in the Unit.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.SquadronStoresID">
+            <summary>
+            Variable Indexer into other Tables, such as the Squadron Stores Table for Squadrons.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.UnitDefinition.IconIndex">
+            <summary>
+            Icon Index.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.UnitDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.UnitDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.VehicleDefinition">
+            <summary>
+            A vehicle in the Campaign.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.ID">
+            <summary>
+            Vehicle ID in the Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.HitPoints">
+            <summary>
+            Damage the Vehicle can withstand.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.Flags">
+            <summary>
+            Vehicle Flags.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.Name">
+            <summary>
+            Vehicle Name.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.NCTR">
+            <summary>
+            Value displayed in the FCR when NCTR is evaluated.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.RCSFactor">
+            <summary>
+            Radar Cross Section calculated as log2( 1 + RCS relative to an F16 ).
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.MaxWeight">
+            <summary>
+            Maximum Weight the Vehicle can operate with.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.EmptyWeightt">
+            <summary>
+            Vehicle Empty or Dry Weight.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.FuelWeight">
+            <summary>
+            Amount of Fuel the Vehicle can carry.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.FuelBurnRate">
+            <summary>
+            Rate the Vehicle burns fuel.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.EngineSoundID">
+            <summary>
+            Index into the Engine Sound Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.MinAltitude">
+            <summary>
+            Minimum Operating Altitude.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.MaxAltitude">
+            <summary>
+            Maximum Operating Altituide.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.CruiseAlt">
+            <summary>
+            Standard Operating Altitude.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.MaxSpeed">
+            <summary>
+            Maximum Speed the Vehicle can operate at.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.RadarType">
+            <summary>
+            Radar Type from the Radar Database installed on the Vehicle.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.NumberOfPilots">
+            <summary>
+            Number of Pilots assigned to the Vehicle. Used when displaying Ejection Events.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.VisibleFlags">
+            <summary>
+            <para>Visbility Flags used by the Graphics Engine for Rack Visibility.</para>
+            <para>//0x01 means hardpoint 0 is visible, 0x02 -> hdpt 1, etc</para>
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.CallsignIndex">
+            <summary>
+            Index into the Callsign List for this Vehicle.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.CallsignSlots">
+            <summary>
+            Number of Callsign Numbers this Vehicle requires.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.HitChance">
+            <summary>
+            Hit Chance of Vehicle against Targets by Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.Strength">
+            <summary>
+            Strength against Targets by Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.Range">
+            <summary>
+            Effective Range against Targets by Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.Detection">
+            <summary>
+            Detection Range against Targets by Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.DamageMod">
+            <summary>
+            Damage Modifier Against Targets by Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.WeaponList">
+            <summary>
+            Collection of Weapons Installed on the Vehicle.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.AmmunitionCount">
+            <summary>
+            Maximum Ammo for each Weapon Installed on the Vehicle.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.VisualSignature">
+            <summary>
+            Signature of the Vehicle when observed from a Visual Sensor Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.IRSignature">
+            <summary>
+            Signature of Vehicle when observed from an IR Sensor Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.RackFlags">
+            <summary>
+            <para>Determines which Hardpoints require Racks on the Vehicle.</para>
+            <para>//0x01 means hardpoint 0 needs a rack, 0x02 -> hdpt 1, etc</para>
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.GunIsAACapable">
+            <summary>
+            Determines if the Gun installed on the Vehicle can engage Air Targets.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.CarrierObjectiveCTIndex">
+            <summary>
+            Objective ID of Carrier Target Objectives.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VehicleDefinition.IsVerticalLaunchingSystem">
+            <summary>
+            If the Vehicle is a Vertical Launch System (VLS).
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.VehicleDefinition.#ctor">
+            <summary>
+            Default Constructor the <see cref="T:FalconDatabase.Objects.Components.VehicleDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.VisualSensorDefinition">
+            <summary>
+            A Visual Sensor in the Campaign.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VisualSensorDefinition.Name">
+            <summary>
+            Sensor Name.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VisualSensorDefinition.Range">
+            <summary>
+            Range of the Sensor.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VisualSensorDefinition.Top">
+            <summary>
+            Top View Angle from Center.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VisualSensorDefinition.Bottom">
+            <summary>
+            Bottom View Angle from Center.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VisualSensorDefinition.Left">
+            <summary>
+            Left View Angle from Center.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VisualSensorDefinition.Right">
+            <summary>
+            Right View Angle from Center.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.VisualSensorDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.VisualSensorDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.VuEntityType">
+            <summary>
+            Entity Type Class Definition.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.ID">
+            <summary>
+            Entity Type ID.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.CollisionType">
+            <summary>
+            Collision Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.CollisionRadius">
+            <summary>
+            Collision Radius.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.ClassInfo">
+            <summary>
+            Collection of Class Info values.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.UpdateRate">
+            <summary>
+            Rate this Entity updates the Rendering Engine.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.UpdateTolerance">
+            <summary>
+            Tolerance for skipped draw calls to the Rendering Engine.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.FineUpdateRange">
+            <summary>
+            Range which this Entity generates a 3D Update Bubble.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.FineUpdateForceRange">
+            <summary>
+            Range at which this Entity forces an update within the Render Engine.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.FineUpdateMultiplier">
+            <summary>
+            Multiplier used by the Render Engine. Should not be adjusted externally.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.DamageSeed">
+            <summary>
+            Random Seed for Damage calculations.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.Hitpoints">
+            <summary>
+            Current Health of the Entity.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.MajorRevisionNumber">
+            <summary>
+            Entity Major Revision Number.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.MinorRevisionNumber">
+            <summary>
+            Entity Minor Revision Number.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.CreatePriority">
+            <summary>
+            Prioritization value for the Render Engine.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.ManagementDomain">
+            <summary>
+            Management Engine within the Campaign that handles this Entity.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.Transferable">
+            <summary>
+            Indicates if this Entity can be transferred between Objects or Domains.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.Private">
+            <summary>
+            Indicates if this Entity is Private.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.Tangible">
+            <summary>
+            Indicates if this Entity is Tangible.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.Collidable">
+            <summary>
+            Indicates if this Entity causes Collisions.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.Global">
+            <summary>
+            Indicates if this is a Global Object.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.VuEntityType.Persistent">
+            <summary>
+            Indicates if this is a Persistent Object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.WeaponDefinition">
+            <summary>
+            A Weapon in the Campaign.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.ID">
+            <summary>
+            Weapon ID.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.Strength">
+            <summary>
+            Amount of Damage this Weapon inflicts.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.DamageType">
+            <summary>
+            The Damage Type this Weapon Does.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.Range">
+            <summary>
+            Effective Range.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.Flags">
+            <summary>
+            Weapon Flags.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.Name">
+            <summary>
+            Weapon Name.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.HitChance">
+            <summary>
+            Hit Chance of Weapon against Targets by Movement Type.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.FireRate">
+            <summary>
+            Number of projectivels this weapon fires per fire event.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.Rariety">
+            <summary>
+            How rare the Weapon is in Re-Supply calculations.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.GuidanceFlags">
+            <summary>
+            Determines Guidance Type and Characteristics.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.Collective">
+            <summary>
+            If this Weapon is a member of a Collection of other Weapons, such as bomblets.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.RackGroup">
+            <summary>
+            Which Rack Group this Weapon belongs to.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.Weight">
+            <summary>
+            Weapon Weight.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.DragIndex">
+            <summary>
+            Drag Index of the Weapon.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.BlastRadius">
+            <summary>
+            Effective Blast Radius of the Weapon.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.RadarType">
+            <summary>
+            Weapon Radar Type in the Radar Database.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.SimDataIdx">
+            <summary>
+            Index into the SimWeapon Table for Campaign Engine characteristics.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.MaxAltitude">
+            <summary>
+            Maximum Operating Altitude.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.MinAltitude">
+            <summary>
+            Minimum Operating Altitude.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.BulletTTL">
+            <summary>
+            How long the Projective stays alive when fired.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.BulletVelocity">
+            <summary>
+            Initial Velocity of the Weapon or Projectile when fired.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.BulletDispersion">
+            <summary>
+            Base amount of spread or dispersion when multiple projectiles are fired in a single burst.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponDefinition.BulletRoundsPerSec">
+            <summary>
+            How fast the weapon fires when multiple projectiles are fired in a single burst.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.WeaponDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.WeaponDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Components.WeaponLoadDefinition">
+            <summary>
+            Defines the types and number of Weapons that can be loaded on a Specific Rack or Hardpoint.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponLoadDefinition.Name">
+            <summary>
+            Rack or Hardpoint NAme.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Components.WeaponLoadDefinition.WeaponList">
+            <summary>
+            Type and Number of each Weapon that can be loaded on this Rack or Hardpoint.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Components.WeaponLoadDefinition.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Components.WeaponLoadDefinition"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.Database">
+            <summary>
+            The Object Database for the Campaign.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.Classes">
+            <summary>
+            Database Class Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.DDPTable">
+            <summary>
+            Database Display Priorities Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.Aircraft">
+            <summary>
+            Database Aircraft Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.FeatureTable">
+            <summary>
+            Database Feature Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.IrSensorTable">
+            <summary>
+            Database IR Sensor Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.RadarTable">
+            <summary>
+            Database Radar Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.RadarReceiverTable">
+            <summary>
+            Radar Receiver and RWR Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.RocketTable">
+            <summary>
+            Rocket Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.SquadronStoresTable">
+            <summary>
+            Squadron Stores Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.UnitTable">
+            <summary>
+            Unit Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.WeaponTable">
+            <summary>
+            Sim Weapons Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.VehicleTable">
+            <summary>
+            Vehicle Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.VisualSensorTable">
+            <summary>
+            Visual Sensor Table.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.WeaponTable1">
+            <summary>
+            Weapon Table
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.Database.WeaponLoadTable">
+            <summary>
+            Rack and Hardpoint Table.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Database.Save(System.String)">
+            <summary>
+            Saves the current Database to the specific Directory in <paramref name="saveDirectory"/>.
+            </summary>
+            <param name="saveDirectory">The Directory where the Database will write the Files.</param>
+            <returns><see langword="true"/> if the Save is successful, otherwise <see langword="false"/>.</returns>
+        </member>
+        <member name="M:FalconDatabase.Objects.Database.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.Database"/> object.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.Database.#ctor(System.String)">
+            <summary>
+            Searches the Directory in <paramref name="databasePath"/> and attempts to initialize a Falcon4 Datase.
+            </summary>
+            <param name="databasePath">The Directory Path to the Objects Folder where the Falcon4 Database XML Files are located.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if the path in <paramref name="databasePath"/> is empty or null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="databasePath"/> does not exist or is invalid.</exception>
+            <exception cref="T:System.IO.FileNotFoundException">Thrown if no Database FIles are found in <paramref name="databasePath"/>.</exception>
+            <exception cref="T:System.Security.SecurityException">Thrown if the Application is unable to access to location or files contained in <paramref name="databasePath"/>.</exception>
+        </member>
+        <member name="T:FalconDatabase.Objects.PackedVirtualUniqueIdentifier">
+            <summary>
+            UniqueIdentifier with an Index Component for indexing into Database Tables.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.PackedVirtualUniqueIdentifier.ID">
+            <summary>
+            Item ID.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.PackedVirtualUniqueIdentifier.Creator">
+            <summary>
+            Creator ID.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.PackedVirtualUniqueIdentifier.Index">
+            <summary>
+            Item index in a given Database Table.
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.PackedVirtualUniqueIdentifier.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.PackedVirtualUniqueIdentifier"/> object.
+            </summary>
+        </member>
+        <member name="T:FalconDatabase.Objects.VirtualUniqueIdentifier">
+            <summary>
+            Used as a Virtual ID and index into Tables and arrays for various Campaign Items.
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.VirtualUniqueIdentifier.ID">
+            <summary>
+            ID / Index Value of Item
+            </summary>
+        </member>
+        <member name="P:FalconDatabase.Objects.VirtualUniqueIdentifier.Creator">
+            <summary> 
+            CreatorID of an object (Not Used)
+            </summary>
+        </member>
+        <member name="M:FalconDatabase.Objects.VirtualUniqueIdentifier.#ctor">
+            <summary>
+            Default Constructor for the <see cref="T:FalconDatabase.Objects.VirtualUniqueIdentifier"/> object.
+            </summary>
+        </member>
+    </members>
+</doc>

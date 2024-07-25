@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="CTRecords">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="CT">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Id" type="xs:int" />
+							<xs:element name="CollisionType" type="xs:unsignedShort" />
+							<xs:element name="CollisionRadius" type="xs:float" />
+							<xs:element name="Domain" type="xs:int" />
+							<xs:element name="Class" type="xs:int" />
+							<xs:element name="Type" type="xs:int" />
+							<xs:element name="SubType" type="xs:int" />
+							<xs:element name="Specific" type="xs:int" />
+							<xs:element name="Owner" type="xs:int" />
+							<xs:element name="Class_6" type="xs:int" />
+							<xs:element name="Class_7" type="xs:int" />
+							<xs:element name="UpdateRate" type="xs:int" />
+							<xs:element name="UpdateTolerance" type="xs:int" />
+							<xs:element name="FineUpdateRange" type="xs:float" />
+							<xs:element name="FineUpdateForceRange" type="xs:float" />
+							<xs:element name="FineUpdateMultiplier" type="xs:float" />
+							<xs:element name="DamageSeed" type="xs:unsignedInt" />
+							<xs:element name="HitPoints" type="xs:int" />
+							<xs:element name="MajorRev" type="xs:unsignedShort" />
+							<xs:element name="MinRev" type="xs:unsignedShort" />
+							<xs:element name="CreatePriority" type="xs:unsignedShort" />
+							<xs:element name="ManagementDomain" type="xs:unsignedByte" />
+							<xs:element name="Transferable" type="xs:unsignedByte" />
+							<xs:element name="Private" type="xs:unsignedByte" />
+							<xs:element name="Tangible" type="xs:unsignedByte" />
+							<xs:element name="Collidable" type="xs:unsignedByte" />
+							<xs:element name="Global" type="xs:unsignedByte" />
+							<xs:element name="Persistent" type="xs:unsignedByte" />
+							<xs:element name="GraphicsNormal" type="xs:int" />
+							<xs:element name="GraphicsRepaired" type="xs:int" />
+							<xs:element name="GraphicsDamaged" type="xs:int" />
+							<xs:element name="GraphicsDestroyed" type="xs:int" />
+							<xs:element name="GraphicsLeftDestroyed" type="xs:int" />
+							<xs:element name="GraphicsRightDestroyed" type="xs:int" />
+							<xs:element name="GraphicsBothDestroyed" type="xs:int" />
+							<xs:element name="MoverDefinitionData" type="xs:int" />
+							<xs:element name="EntityType" type="xs:int" />
+							<xs:element name="EntityIdx" type="xs:int" />
+						</xs:sequence>
+						<xs:attribute name="Num" type="xs:int" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

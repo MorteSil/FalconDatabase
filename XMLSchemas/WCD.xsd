@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="WCDRecords">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="WCD">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CtIdx" type="xs:short" />
+							<xs:element name="Strength" type="xs:unsignedShort" />
+							<xs:element name="DamageType" type="xs:unsignedByte" />
+							<xs:element name="Range" type="xs:float" />
+							<xs:element name="Flags" type="xs:unsignedShort" />
+							<xs:element name="Name" type="xs:string" />
+							<xs:element name="Hit_NoMove" type="xs:unsignedByte" />
+							<xs:element name="Hit_Foot" type="xs:unsignedByte" />
+							<xs:element name="Hit_Wheeled" type="xs:unsignedByte" />
+							<xs:element name="Hit_Tracked" type="xs:unsignedByte" />
+							<xs:element name="Hit_LowAir" type="xs:unsignedByte" />
+							<xs:element name="Hit_Air" type="xs:unsignedByte" />
+							<xs:element name="Hit_Naval" type="xs:unsignedByte" />
+							<xs:element name="Hit_Rail" type="xs:unsignedByte" />
+							<xs:element name="FireRate" type="xs:unsignedByte" />
+							<xs:element name="Rariety" type="xs:unsignedByte" />
+							<xs:element name="Guidance" type="xs:unsignedShort" />
+							<xs:element name="Collective" type="xs:unsignedByte" />
+							<xs:element name="Rackgroup" type="xs:short" />
+							<xs:element name="Weight" type="xs:unsignedShort" />
+							<xs:element name="Drag" type="xs:short" />
+							<xs:element name="BlastRadius" type="xs:unsignedShort" />
+							<xs:element name="RadarIdx" type="xs:short" />
+							<xs:element name="SimWeaponDataIdx" type="xs:short" />
+							<xs:element name="MaxAlt" type="xs:short" />
+							<xs:element name="MinAlt" type="xs:short" />
+							<xs:element name="BulletTTL" type="xs:short" />
+							<xs:element name="BulletVelocity" type="xs:short" />
+							<xs:element name="BulletDispersion" type="xs:unsignedByte" />
+							<xs:element name="BulletRoundsPerSec" type="xs:unsignedByte" />
+						</xs:sequence>
+						<xs:attribute name="Num" type="xs:int" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

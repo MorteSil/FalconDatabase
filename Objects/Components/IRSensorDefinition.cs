@@ -1,17 +1,24 @@
-﻿using System.Text;
+﻿using System.Data;
+using System.Reflection;
+using System.Text;
+using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
     /// <summary>
-    /// IR Sensor Database Definition .
+    /// IR Sensor Database Definition.
     /// </summary>
     public class IRSensorDefinition
     {
         #region Properties
         /// <summary>
+        /// Index of this Entry in the Table.
+        /// </summary>
+        public int ID { get => iD; set => iD = value; }
+        /// <summary>
         /// Sensor Name.
         /// </summary>
-        public string Name { get => name; set => name = value; }
+        public string Name { get => string.IsNullOrWhiteSpace(name) ? " " : name; set => name = value; }
         /// <summary>
         /// Detection Range against F-16 Sized Target.
         /// </summary>
@@ -32,9 +39,11 @@ namespace FalconDatabase.Objects.Components
         /// Base Probability a Flare will work.
         /// </summary>
         public float FlareChance { get => flareChance; set => flareChance = value; }
+        
         #endregion Properties
 
         #region Fields
+        private int iD = 0;
         private string name = "";
         private float nominalRange = 0;
         private float fOVHalfAngle = 0;
@@ -44,10 +53,36 @@ namespace FalconDatabase.Objects.Components
 
         #endregion Fields
 
+        #region Helper Methods
+        internal void Write(Stream stream)
+        {
+            // Note: This has a well-formed DataTable and does not use this function. Added for ease of future updates.
+            using XmlWriter writer = XmlWriter.Create(stream);
+            writer.WriteStartElement("ICD");
+            writer.WriteAttributeString("Num", ID.ToString());
+            {
+                writer.WriteElementString("Name", Name);
+                writer.WriteElementString("DetectionRange", Range.ToString());
+                writer.WriteElementString("FOV", FOV.ToString());
+                writer.WriteElementString("GimbalLimit", GimbalLimit.ToString());
+                writer.WriteElementString("GroundFactor", GroundFactor.ToString());
+                writer.WriteElementString("FlareChance", FlareChance.ToString());
+            }
+            writer.WriteEndElement();
+        }
+        #endregion Helper Methods
+
         #region Functional Methods
+        /// <summary>
+        /// <para>Formats the data contained within this object into Readable Text.</para>
+        /// <para>Readable Text does not always match the underlying file format and should not be used to save text based files such as .xml, .ini, .lst, or .txtpb files.</para>
+        /// <para>Instead, use Write() to format all text or binary data for writing to a file.</para>
+        /// </summary>
+        /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("ID: " + ID);
             sb.AppendLine("Name: " + Name);
             sb.AppendLine("Range: " + Range);
             sb.AppendLine("FoV: " + FOV);
@@ -57,13 +92,68 @@ namespace FalconDatabase.Objects.Components
 
             return sb.ToString();
         }
+        /// <summary>
+        /// Formats the <see cref="IRSensorDefinition"/> as a <see cref="DataRow"/>.
+        /// </summary>
+        /// <returns><see cref="DataRow"/> object conforming to the ACD.xsd Schema in the XMLSchemas Directory.</returns>
+        public DataRow ToDataRow()
+        {
+            string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\ICD.xsd");
+            if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
+
+            DataSet dataSet = new();
+            dataSet.ReadXmlSchema(schemaFile);
+            DataTable table = dataSet.Tables[0];
+            DataRow row = table.NewRow();
+
+            row["Num"] = ID;
+            row["DetectionRange"] = Range;
+            row["FOV"] = FOV;
+            row["GimbalLimit"] = GimbalLimit;
+            row["GroundFactor"] = GroundFactor;
+            row["FlareChance"] = FlareChance;
+
+            return row;
+        }
+
         #endregion Funcitnoal Methods
 
         #region Constructors
         /// <summary>
-        /// Default Constructor for the <see cref="AircraftDefinition"/> object.
+        /// Default Constructor for the <see cref="IRSensorDefinition"/> object.
         /// </summary>
         public IRSensorDefinition() { }
+        /// <summary>
+        /// Initializes an instance of the <see cref="IRSensorDefinition"/> object with a <see cref="DataRow"/> that conforms to the ACD.xsd Schema File.
+        /// </summary>
+        /// <param name="row"></param>
+        public IRSensorDefinition(DataRow row)
+        {
+            string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\ICD.xsd");
+            if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
+
+            DataSet dataSet = new ();
+            dataSet.ReadXmlSchema(schemaFile);
+            DataTable table = dataSet.Tables[0];
+            try
+            {
+                // Verify row conforms to Schema
+                table.Rows.Add(row.ItemArray);
+
+                // Create Object
+                ID = (int)row["Num"];
+                Range = (float)row["DetectionRange"];
+                FOV = (float)row["FOV"];
+                GimbalLimit = (float)row["GimbalLimit"];
+                GroundFactor = (float)row["GroundFactor"];
+                FlareChance = (float)row["FlareChance"];
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading an ICD Entry.");
+                throw;
+            }
+        }
         #endregion Constructors     
     }
 }

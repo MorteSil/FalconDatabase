@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="OCDRecords">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OCD">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CtIdx" type="xs:short" />
+							<xs:element name="Name" type="xs:string" />
+							<xs:element name="DataRate" type="xs:short" />
+							<xs:element name="DeaggDistance" type="xs:short" />
+							<xs:element name="Det_NoMove" type="xs:float" />
+							<xs:element name="Det_Foot" type="xs:float" />
+							<xs:element name="Det_Wheeled" type="xs:float" />
+							<xs:element name="Det_Tracked" type="xs:float" />
+							<xs:element name="Det_LowAir" type="xs:float" />
+							<xs:element name="Det_Air" type="xs:float" />
+							<xs:element name="Det_Naval" type="xs:float" />
+							<xs:element name="Det_Rail" type="xs:float" />
+							<xs:element name="Dam_None" type="xs:unsignedByte" />
+							<xs:element name="Dam_Penetration" type="xs:unsignedByte" />
+							<xs:element name="Dam_HighExplosive" type="xs:unsignedByte" />
+							<xs:element name="Dam_Heave" type="xs:unsignedByte" />
+							<xs:element name="Dam_Incendairy" type="xs:unsignedByte" />
+							<xs:element name="Dam_Proximity" type="xs:unsignedByte" />
+							<xs:element name="Dam_Kinetic" type="xs:unsignedByte" />
+							<xs:element name="Dam_Hydrostatic" type="xs:unsignedByte" />
+							<xs:element name="Dam_Chemical" type="xs:unsignedByte" />
+							<xs:element name="Dam_Nuclear" type="xs:unsignedByte" />
+							<xs:element name="Dam_Other" type="xs:unsignedByte" />
+							<xs:element name="ObjectiveIcon" type="xs:short" />
+							<xs:element name="RadarFeature" type="xs:unsignedByte" />
+						</xs:sequence>
+						<xs:attribute name="Num" type="xs:int" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

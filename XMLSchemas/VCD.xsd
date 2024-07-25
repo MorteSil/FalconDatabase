@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="VCDRecords">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="VCD">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CtIdx" type="xs:short" />
+							<xs:element name="HitPoints" type="xs:short" />
+							<xs:element name="Flags" type="xs:unsignedInt" />
+							<xs:element name="Name" type="xs:string" />
+							<xs:element name="NCTR" type="xs:string" />
+							<xs:element name="RadarCs" type="xs:float" />
+							<xs:element name="MaxWeight" type="xs:int" />
+							<xs:element name="EmptyWeight" type="xs:int" />
+							<xs:element name="FuelWeight" type="xs:int" />
+							<xs:element name="FuelRate" type="xs:short" />
+							<xs:element name="EngineSound" type="xs:short" />
+							<xs:element name="MaxAlt" type="xs:short" />
+							<xs:element name="MinAlt" type="xs:short" />
+							<xs:element name="CruiseAlt" type="xs:short" />
+							<xs:element name="MaxSpeed" type="xs:short" />
+							<xs:element name="RadarIdx" type="xs:short" />
+							<xs:element name="NumberOfCrew" type="xs:unsignedByte" />
+							<xs:element name="RackFlags" type="xs:unsignedShort" />
+							<xs:element name="VisibleFlags" type="xs:unsignedShort" />
+							<xs:element name="CallsignIdx" type="xs:unsignedByte" />
+							<xs:element name="CallsignSlots" type="xs:unsignedByte" />
+							<xs:element name="Hit_NoMove" type="xs:unsignedByte" />
+							<xs:element name="Hit_Foot" type="xs:unsignedByte" />
+							<xs:element name="Hit_Wheeled" type="xs:unsignedByte" />
+							<xs:element name="Hit_Tracked" type="xs:unsignedByte" />
+							<xs:element name="Hit_LowAir" type="xs:unsignedByte" />
+							<xs:element name="Hit_Air" type="xs:unsignedByte" />
+							<xs:element name="Hit_Naval" type="xs:unsignedByte" />
+							<xs:element name="Hit_Rail" type="xs:unsignedByte" />
+							<xs:element name="Str_NoMove" type="xs:unsignedByte" />
+							<xs:element name="Str_Foot" type="xs:unsignedByte" />
+							<xs:element name="Str_Wheeled" type="xs:unsignedByte" />
+							<xs:element name="Str_Tracked" type="xs:unsignedByte" />
+							<xs:element name="Str_LowAir" type="xs:unsignedByte" />
+							<xs:element name="Str_Air" type="xs:unsignedByte" />
+							<xs:element name="Str_Naval" type="xs:unsignedByte" />
+							<xs:element name="Str_Rail" type="xs:unsignedByte" />
+							<xs:element name="Rng_NoMove" type="xs:unsignedByte" />
+							<xs:element name="Rng_Foot" type="xs:unsignedByte" />
+							<xs:element name="Rng_Wheeled" type="xs:unsignedByte" />
+							<xs:element name="Rng_Tracked" type="xs:unsignedByte" />
+							<xs:element name="Rng_LowAir" type="xs:unsignedByte" />
+							<xs:element name="Rng_Air" type="xs:unsignedByte" />
+							<xs:element name="Rng_Naval" type="xs:unsignedByte" />
+							<xs:element name="Rng_Rail" type="xs:unsignedByte" />
+							<xs:element name="Det_NoMove" type="xs:float" />
+							<xs:element name="Det_Foot" type="xs:float" />
+							<xs:element name="Det_Wheeled" type="xs:float" />
+							<xs:element name="Det_Tracked" type="xs:float" />
+							<xs:element name="Det_LowAir" type="xs:float" />
+							<xs:element name="Det_Air" type="xs:float" />
+							<xs:element name="Det_Naval" type="xs:float" />
+							<xs:element name="Det_Rail" type="xs:float" />							
+							<xs:element name="Dam_None" type="xs:unsignedByte" />
+							<xs:element name="Dam_Penetration" type="xs:unsignedByte" />
+							<xs:element name="Dam_HighExplosive" type="xs:unsignedByte" />
+							<xs:element name="Dam_Heave" type="xs:unsignedByte" />
+							<xs:element name="Dam_Incendairy" type="xs:unsignedByte" />
+							<xs:element name="Dam_Proximity" type="xs:unsignedByte" />
+							<xs:element name="Dam_Kinetic" type="xs:unsignedByte" />
+							<xs:element name="Dam_Hydrostatic" type="xs:unsignedByte" />
+							<xs:element name="Dam_Chemical" type="xs:unsignedByte" />
+							<xs:element name="Dam_Nuclear" type="xs:unsignedByte" />
+							<xs:element name="Dam_Other" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_0" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_1" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_2" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_3" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_4" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_5" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_6" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_7" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_8" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_9" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_10" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_11" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_12" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_13" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_14" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnOrHpIdx_15" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnCount_0" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_1" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_2" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_3" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_4" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_5" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_6" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_7" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_8" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_9" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_10" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_11" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_12" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_13" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_14" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_15" type="xs:unsignedByte" />
+						</xs:sequence>
+						<xs:attribute name="Num" type="xs:int" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

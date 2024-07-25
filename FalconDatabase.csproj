@@ -4,11 +4,100 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Files\" />
-    <Folder Include="Attributes\" />
+    <None Remove="XMLSchemas\ACD.xsd" />
+    <None Remove="XMLSchemas\CT.xsd" />
+    <None Remove="XMLSchemas\DDP.xsd" />
+    <None Remove="XMLSchemas\FCD.xsd" />
+    <None Remove="XMLSchemas\FED.xsd" />
+    <None Remove="XMLSchemas\ICD.xsd" />
+    <None Remove="XMLSchemas\OCD.xsd" />
+    <None Remove="XMLSchemas\PDX.xsd" />
+    <None Remove="XMLSchemas\PHD.xsd" />
+    <None Remove="XMLSchemas\RCD.xsd" />
+    <None Remove="XMLSchemas\RKT.xsd" />
+    <None Remove="XMLSchemas\RWD.xsd" />
+    <None Remove="XMLSchemas\SSD.xsd" />
+    <None Remove="XMLSchemas\SWD.xsd" />
+    <None Remove="XMLSchemas\UCD.xsd" />
+    <None Remove="XMLSchemas\VCD.xsd" />
+    <None Remove="XMLSchemas\VSD.xsd" />
+    <None Remove="XMLSchemas\WCD.xsd" />
+    <None Remove="XMLSchemas\WLD.xsd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="XMLSchemas\ACD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\CT.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\DDP.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\FCD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\FED.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\ICD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\OCD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\PDX.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\PHD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\RCD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\RKT.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\RWD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\SSD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\SWD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\UCD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\VCD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\VSD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\WCD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XMLSchemas\WLD.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Utilities">
+      <HintPath>..\Utilities\bin\Release\net8.0\Utilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Utilities" />
   </ItemGroup>
 
 </Project>

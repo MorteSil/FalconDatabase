@@ -1,7 +1,7 @@
-﻿using FalconDatabase.Enums;
-using FalconDatabase.Objects.Components;
+﻿using FalconDatabase.Objects.Components;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 
@@ -10,62 +10,44 @@ namespace FalconDatabase.Files
     /// <summary>
     /// Weapon Hardpoint and Rack Component of the Database.
     /// </summary>
-    public class WeaponLoadTable : GameFile, IEquatable<WeaponLoadTable>
+    public class WeaponLoadTable : AppFile, IEquatable<WeaponLoadTable>
     {
         #region Properties
         /// <summary>
-        /// Collection of <see cref="WeaponLoadTable" /> Entries exported from the Database.
+        /// Collection of <see cref="WeaponLoadDefinition" /> Entries exported from the Database.
         /// </summary>
-        public Collection<WeaponLoadDefinition> WeaponLoadDefinitions
+        public Collection<WeaponLoadDefinition> WeaponLoads { get => dbObjects; set => dbObjects = value; }
+        /// <summary>
+        /// Aircraft Component of the Database in Raw Data Format.
+        /// </summary>
+        public DataTable WeaponLoadDataTable
         {
             get
             {
-                Collection<WeaponLoadDefinition> output = new();
-                foreach (DataRow row in dbTable.Rows)
-                    output.Add(ToWeaponLoadDefinition(row));
-
-                return output;
+                DataSet dataSet = new();
+                dataSet.ReadXmlSchema(schemaFile);
+                DataTable table = dataSet.Tables[0];
+                foreach (var entry in dbObjects)
+                {
+                    table.Rows.Add(entry.ToDataRow());
+                }
+                return table;
             }
         }
         /// <summary>
-        /// Weapon Load Component of the Database in Raw Data Format.
+        /// <para>When <see langword="true"/>, indicates this <see cref="AppFile"/> was successfully loaded from the file.</para>
+        /// <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="AppFile"/> object and empty or default values were loaded instead.</para>
         /// </summary>
-        public DataTable WeaponLoads { get => dbTable; set => dbTable = value; }
-        /// <summary>
-        /// <para>When <see langword="true"/>, indicates this <see cref="GameFile"/> was successfully loaded from the file.</para>
-        /// <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="GameFile"/> object and empty or default values were loaded instead.</para>
-        /// </summary>
-        public override bool IsDefaultInitialization { get => dbTable.Rows.Count > 0; }
+        public override bool IsDefaultInitialization { get => dbObjects.Count > 0; }
         #endregion Properties
 
         #region Fields
-        private DataTable dbTable = new();
+        private Collection<WeaponLoadDefinition> dbObjects = [];
+        private string schemaFile =
+            Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\WLD.xsd");
         #endregion Fields
 
-        #region Helper Methods
-
-        /// <summary>
-        /// Converts a <see cref="DataRow"/> with correct values into a native Falcon Object.
-        /// </summary>
-        /// <param name="row">A <see cref="DataRow"/> with appropriate initializaiton data values.</param>
-        /// <returns></returns>
-        private static WeaponLoadDefinition ToWeaponLoadDefinition(DataRow row)
-        {
-            try
-            {
-                WeaponLoadDefinition output = new()
-                {
-                    Name = (string)row[0],
-                    WeaponList = (Collection<Tuple<short, short>>)row[2]
-
-                };
-
-                return output;
-            }
-            catch (Exception ex)
-            { return null; }
-
-        }
+        #region Helper Methods        
         /// <summary>
         /// Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="DataTable"/> with values read from <paramref name="data"/>.
         /// </summary>
@@ -75,49 +57,22 @@ namespace FalconDatabase.Files
         protected override bool Read(string data)
         {
             ArgumentException.ThrowIfNullOrEmpty(data);
-
-            using StringReader reader = new StringReader(data);
+            using StringReader reader = new(data);
             try
             {
-                DataSet table = new();
-                table.ReadXml(reader);
-                table.Tables[0].Columns.Add("WeaponsTuple", typeof(Collection<Tuple<short, short>>));
-
-                for (int i = 0; i < table.Tables[0].Rows.Count; i++)
-                {
-                    Collection<Tuple<short, short>> weaponValues = new();
-                    DataRow row = table.Tables[0].Rows[i];
-                    for (int j = 0; j < 100; j++)
-                    {
-                        weaponValues.Add(new Tuple<short, short>(0, 0));
-                        if (table.Tables[0].Columns.Contains("WpnIdx_" + j) && row["WpnIdx_" + j] != DBNull.Value)
-                        {
-                            int key = j;
-                            short val = short.Parse((string)row["WpnIdx_" + j]);
-                            short val2 = short.Parse((string)row["WpnCount_" + j]);
-                            weaponValues[j] = new Tuple<short, short>(val, val2);
-                        }
-                    }
-                    row["WeaponsTuple"] = weaponValues;
-                }
-                for (int i = 0; i < 100; i++)
-                {
-                    if (table.Tables[0].Columns.Contains("WpnIdx_" + i))
-                        table.Tables[0].Columns.Remove("WpnIdx_" + i);
-                    else if (table.Tables[0].Columns.Contains("WpnCount_" + i))
-                        table.Tables[0].Columns.Remove("WpnCount_" + i);
-                }
-
-                dbTable = table.Tables[0];
+                DataSet ds = new();
+                ds.ReadXmlSchema(schemaFile);
+                ds.ReadXml(reader, XmlReadMode.ReadSchema);
+                foreach (DataRow row in ds.Tables[0].Rows) dbObjects.Add(new(row));
             }
             catch (Exception ex)
             {
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading the WLD Table.");
                 reader.Close();
-
                 throw;
             }
 
-            return dbTable.Rows.Count > 0;
+            return IsDefaultInitialization;
         }
         /// <summary>
         /// Formats the File Contents into bytes for writing to disk.
@@ -125,54 +80,24 @@ namespace FalconDatabase.Files
         /// <returns><see cref="byte"/> array suitable for writing to a file.</returns>
         protected override byte[] Write()
         {
-            WeaponLoadDefinition[] weapons = WeaponLoadDefinitions.ToArray();
-            using MemoryStream stream = new MemoryStream();
+            DataSet ds = new();
+            ds.ReadXmlSchema(schemaFile);
+
+            using MemoryStream stream = new();
+            using XmlWriter writer = XmlWriter.Create(stream);
             try
             {
-                XmlWriter writer = XmlWriter.Create(stream);
-                writer.WriteStartDocument();
-                writer.WriteStartElement("WLDRecords");
-                for (int i = 0; i < weapons.Length; i++)
-                {
-                    writer.WriteStartElement("WLD");
-                    writer.WriteAttributeString("Num", i.ToString());
-                    {
-                        writer.WriteStartElement("Name");
-                        writer.WriteString(weapons[i].Name);
-                        writer.WriteEndElement();
-                        for (int j = 0; j < weapons[i].WeaponList.Count; j++)
-                        {
-                            if (weapons[i].WeaponList[j].Item1 > 0)
-                            {
-                                writer.WriteStartElement("WpnIdx_" + j.ToString());
-                                writer.WriteString(weapons[i].WeaponList[j].Item1.ToString());
-                                writer.WriteEndElement();
-                            }
-                        }
+                foreach (var entry in dbObjects)
+                    ds.Tables[0].Rows.Add(entry.ToDataRow());
 
-                        for (int j = 0; j < weapons[i].WeaponList.Count; j++)
-                        {
-                            if (weapons[i].WeaponList[j].Item2 > 0)
-                            {
-                                writer.WriteStartElement("WpnCount_" + j.ToString());
-                                writer.WriteString(weapons[i].WeaponList[j].Item2.ToString());
-                                writer.WriteEndElement();
-                            }
-                        }
-                    }
-                    writer.WriteEndElement();
-                }
-                writer.WriteEndElement();
-
-                writer.WriteEndDocument();
-
+                ds.WriteXml(writer, XmlWriteMode.IgnoreSchema);
                 stream.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
-                writer.Close();
                 stream.Position = 0;
                 return Encoding.UTF8.GetBytes(new StreamReader(stream).ReadToEnd());
             }
             catch (Exception ex)
             {
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while writing the WLD Table.");
                 stream.Close();
                 throw;
             }
@@ -189,12 +114,10 @@ namespace FalconDatabase.Files
         /// <para>NOTE: This does not format the Database file for XML Output.</para></returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (DataRow row in dbTable.Rows)
-            {
-                sb.AppendLine("***** Weapon Table Entry *****");
-                sb.Append(ToWeaponLoadDefinition(row).ToString());
-            }
+            StringBuilder sb = new();
+            sb.Append("***** Weapon Load Table *****");
+            foreach (var entry in dbObjects)
+                sb.Append(entry.ToString());
 
             return sb.ToString();
         }
@@ -217,8 +140,8 @@ namespace FalconDatabase.Files
             unchecked
             {
                 int hash = 2539;
-                for (int i = 0; i < dbTable.Rows.Count; i++)
-                    hash = hash * 5483 + dbTable.Rows[i].GetHashCode();
+                for (int i = 0; i < dbObjects.Count; i++)
+                    hash = hash * 5483 + dbObjects[i].GetHashCode();
                 return hash;
             }
 
@@ -241,9 +164,8 @@ namespace FalconDatabase.Files
         /// </summary>
         public WeaponLoadTable()
         {
-            _FileType = GameFileType.DatabaseWLD;
+            _FileType = ApplicationFileType.DatabaseWLD;
             _StreamType = FileStreamType.XML;
-            _IsFileModified = false;
             _IsCompressed = false;
         }
         /// <summary>

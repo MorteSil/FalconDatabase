@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System.Data;
+using System.Reflection;
+using System.Text;
+using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -9,9 +12,13 @@ namespace FalconDatabase.Objects.Components
     {
         #region Properties
         /// <summary>
+        /// Index in the Table.
+        /// </summary>
+        public int ID { get => iD; set => iD = value; }
+        /// <summary>
         /// Sensor Name.
         /// </summary>
-        public string Name { get => name; set => name = value; }
+        public string Name { get => string.IsNullOrWhiteSpace(name) ? " " : name; set => name = value; }
         /// <summary>
         /// Range of the Sensor.
         /// </summary>
@@ -32,10 +39,12 @@ namespace FalconDatabase.Objects.Components
         /// Right View Angle from Center.
         /// </summary>
         public float Right { get => right; set => right = value; }
+        
 
         #endregion Properties
 
         #region Fields
+        private int iD = 0;
         string name = "";
         private float nominalRange = 0;              // Nominal detection range
         private float top = 0;                       // Scan volume top (Degrees in text file)
@@ -46,10 +55,37 @@ namespace FalconDatabase.Objects.Components
 
         #endregion Fields
 
+        #region Helper Methods
+        internal void Write(Stream stream)
+        {
+            using XmlWriter writer = XmlWriter.Create(stream);
+            {
+                writer.WriteStartElement("VSD");
+                writer.WriteAttributeString("Num", ID.ToString());
+                {
+                    writer.WriteElementString("Name", Name);
+                    writer.WriteElementString("DetectionRange", Range.ToString());
+                    writer.WriteElementString("ScanAngleTop", Top.ToString());
+                    writer.WriteElementString("ScanAngleBottom", Bottom.ToString());
+                    writer.WriteElementString("ScanAngleLeft", left.ToString());
+                    writer.WriteElementString("ScanAngleRight", Right.ToString());
+                }
+                writer.WriteEndElement();
+            }
+        }
+        #endregion Helper Methods
+
         #region Functional Methods
+        /// <summary>
+        /// <para>Formats the data contained within this object into Readable Text.</para>
+        /// <para>Readable Text does not always match the underlying file format and should not be used to save text based files such as .xml, .ini, .lst, or .txtpb files.</para>
+        /// <para>Instead, use Write() to format all text or binary data for writing to a file.</para>
+        /// </summary>
+        /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("ID: " + ID);
             sb.AppendLine("Range: " + Range);
             sb.AppendLine("Top Angle: " + Top);
             sb.AppendLine("Bottom Angle: " + Bottom);
@@ -57,6 +93,31 @@ namespace FalconDatabase.Objects.Components
             sb.AppendLine("Right Angle: " + Right);
             return sb.ToString();
         }
+        /// <summary>
+        /// Formats the <see cref="VisualSensorDefinition"/> as a <see cref="DataRow"/>.
+        /// </summary>
+        /// <returns><see cref="DataRow"/> object conforming to the ACD.xsd Schema in the XMLSchemas Directory.</returns>
+        public DataRow ToDataRow()
+        {
+            string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\VSD.xsd");
+            if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
+
+            DataSet dataSet = new();
+            dataSet.ReadXmlSchema(schemaFile);
+            DataTable table = dataSet.Tables[0];
+            DataRow row = table.NewRow();
+
+            row["Num"] = ID;
+            row["Name"] = Name;
+            row["DetectionRange"] = Range;
+            row["ScanAngleTop"] = Top;
+            row["ScanAngleBottom"] = Bottom;
+            row["ScanAngleLeft"] = Left;
+            row["ScanAngleRight"] = Right;
+
+            return row;
+        }
+
         #endregion Funcitnoal Methods
 
         #region Constructors
@@ -64,6 +125,38 @@ namespace FalconDatabase.Objects.Components
         /// Default Constructor for the <see cref="VisualSensorDefinition"/> object.
         /// </summary>
         public VisualSensorDefinition() { }
+        /// <summary>
+        /// Initializes an instance of the <see cref="VisualSensorDefinition"/> object with a <see cref="DataRow"/> that conforms to the ACD.xsd Schema File.
+        /// </summary>
+        /// <param name="row"></param>
+        public VisualSensorDefinition(DataRow row)
+        {
+            string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\VSD.xsd");
+            if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
+
+            DataSet dataSet = new DataSet();
+            dataSet.ReadXmlSchema(schemaFile);
+            DataTable table = dataSet.Tables[0];
+            try
+            {
+                // Verify row conforms to Schema
+                table.Rows.Add(row.ItemArray);
+
+                // Create Object
+                ID = (int)row["Num"];
+                Name = (string)row["Name"];
+                Range = (float)row["DetectionRange"];
+                Top = (float)row["ScanAngleTop"];
+                Bottom = (float)row["ScanAngleBottom"];
+                Left = (float)row["ScanAngleLeft"];
+                Right = (float)row["ScanAngleRight"];
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading a VSD Entry.");
+                throw;
+            }
+        }
         #endregion Constructors     
 
     }

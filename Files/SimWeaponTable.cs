@@ -1,80 +1,53 @@
-﻿using FalconDatabase.Enums;
-using FalconDatabase.Objects.Components;
+﻿using FalconDatabase.Objects.Components;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Reflection;
 using System.Text;
+using System.Xml;
 
 namespace FalconDatabase.Files
 {
     /// <summary>
     /// The Sim Weapon Database contained in the FALCON4_SWD.xml File.
     /// </summary>
-    public class SimWeaponTable : GameFile, IEquatable<SimWeaponTable>
+    public class SimWeaponTable : AppFile, IEquatable<SimWeaponTable>
     {
         #region Properties
         /// <summary>
         /// Collection of <see cref="SimWeaponDefinition" /> Entries exported from the Database.
         /// </summary>
-        public Collection<SimWeaponDefinition> WeaponDefinitions
+        public Collection<SimWeaponDefinition> SimWeaponData { get => dbObjects; set => dbObjects = value; }
+        /// <summary>
+        /// Aircraft Component of the Database in Raw Data Format.
+        /// </summary>
+        public DataTable SimWeaponDataTable
         {
             get
             {
-                Collection<SimWeaponDefinition> output = new();
-                foreach (DataRow row in dbTable.Rows)
-                    output.Add(ToWeaponDefinitions(row));
-
-                return output;
+                DataSet dataSet = new();
+                dataSet.ReadXmlSchema(schemaFile);
+                DataTable table = dataSet.Tables[0];
+                foreach (var entry in dbObjects)
+                {
+                    table.Rows.Add(entry.ToDataRow());
+                }
+                return table;
             }
         }
         /// <summary>
-        /// Weapon Component of the Database in Raw Data Format.
+        /// <para>When <see langword="true"/>, indicates this <see cref="AppFile"/> was successfully loaded from the file.</para>
+        /// <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="AppFile"/> object and empty or default values were loaded instead.</para>
         /// </summary>
-        public DataTable Weapons { get => dbTable; set => dbTable = value; }
-        /// <summary>
-        /// <para>When <see langword="true"/>, indicates this <see cref="GameFile"/> was successfully loaded from the file.</para>
-        /// <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="GameFile"/> object and empty or default values were loaded instead.</para>
-        /// </summary>
-        public override bool IsDefaultInitialization { get => dbTable.Rows.Count > 0; }
+        public override bool IsDefaultInitialization { get => dbObjects.Count > 0; }
         #endregion Properties
 
         #region Fields
-        private DataTable dbTable = new();
+        private Collection<SimWeaponDefinition> dbObjects = [];
+        private string schemaFile =
+            Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\SWD.xsd");
         #endregion Fields
 
-        #region Helper Methods
-
-        /// <summary>
-        /// Converts a <see cref="DataRow"/> with correct values into a native Falcon Object.
-        /// </summary>
-        /// <param name="row">A <see cref="DataRow"/> with appropriate initializaiton data values.</param>
-        /// <returns></returns>
-        private static SimWeaponDefinition ToWeaponDefinitions(DataRow row)
-        {
-            try
-            {
-                int index = 0;
-                SimWeaponDefinition output = new()
-                {
-                    Flags = int.Parse((string)row[index++]),
-                    DragCoefficient = float.Parse((string)row[index++]),
-                    Weight = float.Parse((string)row[index++]),
-                    Area = float.Parse((string)row[index++]),
-                    XEjection = float.Parse((string)row[index++]),
-                    YEjection = float.Parse((string)row[index++]),
-                    ZEjection = float.Parse((string)row[index++]),
-                    SMSMnemonic = (string)row[index++],
-                    WeaponClass = int.Parse((string)row[index++]),
-                    Domain = int.Parse((string)row[index++]),
-                    WeaponType = int.Parse((string)row[index++]),
-                    WeaponID = int.Parse((string)row[index++])
-                };
-
-                return output;
-            }
-            catch (Exception ex)
-            { return null; }
-
-        }
+        #region Helper Methods        
         /// <summary>
         /// Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="DataTable"/> with values read from <paramref name="data"/>.
         /// </summary>
@@ -84,22 +57,22 @@ namespace FalconDatabase.Files
         protected override bool Read(string data)
         {
             ArgumentException.ThrowIfNullOrEmpty(data);
-
             using StringReader reader = new(data);
             try
             {
-                // DataSet can auto configure the XML Schema
-                DataSet table = new();
-                table.ReadXml(reader);
-                dbTable = table.Tables[0];
+                DataSet ds = new();
+                ds.ReadXmlSchema(schemaFile);
+                ds.ReadXml(reader, XmlReadMode.ReadSchema);
+                foreach (DataRow row in ds.Tables[0].Rows) dbObjects.Add(new(row));
             }
             catch (Exception ex)
             {
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading the SWD Table.");
                 reader.Close();
                 throw;
             }
 
-            return dbTable.Rows.Count > 0;
+            return IsDefaultInitialization;
         }
         /// <summary>
         /// Formats the File Contents into bytes for writing to disk.
@@ -107,17 +80,24 @@ namespace FalconDatabase.Files
         /// <returns><see cref="byte"/> array suitable for writing to a file.</returns>
         protected override byte[] Write()
         {
-            using MemoryStream stream = new MemoryStream();
+            DataSet ds = new();
+            ds.ReadXmlSchema(schemaFile);
+
+            using MemoryStream stream = new();
+            using XmlWriter writer = XmlWriter.Create(stream);
             try
             {
-                stream.Write(Encoding.UTF8.GetBytes("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine));
-                dbTable.WriteXml(stream);
+                foreach (var entry in dbObjects)
+                    ds.Tables[0].Rows.Add(entry.ToDataRow());
+
+                ds.WriteXml(writer, XmlWriteMode.IgnoreSchema);
                 stream.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
                 stream.Position = 0;
                 return Encoding.UTF8.GetBytes(new StreamReader(stream).ReadToEnd());
             }
             catch (Exception ex)
             {
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while writing the SWD Table.");
                 stream.Close();
                 throw;
             }
@@ -134,12 +114,10 @@ namespace FalconDatabase.Files
         /// <para>NOTE: This does not format the Database file for XML Output.</para></returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (DataRow row in dbTable.Rows)
-            {
-                sb.AppendLine("***** Weapon Table Entry *****");
-                sb.Append(ToWeaponDefinitions(row).ToString());
-            }
+            StringBuilder sb = new();
+            sb.Append("***** Sim Weapons Table *****");
+            foreach (var entry in dbObjects)
+                sb.Append(entry.ToString());
 
             return sb.ToString();
         }
@@ -162,8 +140,8 @@ namespace FalconDatabase.Files
             unchecked
             {
                 int hash = 2539;
-                for (int i = 0; i < dbTable.Rows.Count; i++)
-                    hash = hash * 5483 + dbTable.Rows[i].GetHashCode();
+                for (int i = 0; i < dbObjects.Count; i++)
+                    hash = hash * 5483 + dbObjects[i].GetHashCode();
                 return hash;
             }
 
@@ -186,9 +164,8 @@ namespace FalconDatabase.Files
         /// </summary>
         public SimWeaponTable()
         {
-            _FileType = GameFileType.DatabaseSWD;
+            _FileType = ApplicationFileType.DatabaseSWD;
             _StreamType = FileStreamType.XML;
-            _IsFileModified = false;
             _IsCompressed = false;
         }
         /// <summary>

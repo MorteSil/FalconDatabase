@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="SWDRecords">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="SWD">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Flags" type="xs:int" />
+							<xs:element name="Drag" type="xs:float" />
+							<xs:element name="Weight" type="xs:float" />
+							<xs:element name="Area" type="xs:float" />
+							<xs:element name="EjectX" type="xs:float" />
+							<xs:element name="EjectY" type="xs:float" />
+							<xs:element name="EjectZ" type="xs:float" />
+							<xs:element name="WpnName" type="xs:string" />
+							<xs:element name="WpnClass" type="xs:int" />
+							<xs:element name="Domain" type="xs:int" />
+							<xs:element name="WpnType" type="xs:int" />
+							<xs:element name="WpnDatIdx" type="xs:int" />
+						</xs:sequence>
+						<xs:attribute name="Num" type="xs:int" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

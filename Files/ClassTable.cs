@@ -1,117 +1,53 @@
-﻿using FalconDatabase.Enums;
-using FalconDatabase.Objects.Components;
+﻿using FalconDatabase.Objects.Components;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Reflection;
 using System.Text;
+using System.Xml;
 
 namespace FalconDatabase.Files
 {
     /// <summary>
     /// The Class Table Database contained in the FALCON4_CT.xml File.
     /// </summary>
-    public class ClassTable : GameFile, IEquatable<ClassTable>
+    public class ClassTable : AppFile, IEquatable<ClassTable>
     {
         #region Properties
         /// <summary>
-        /// Collection of <see cref="Falcon4EntityClassType" /> Entries exported from the Database.
+        /// Collection of <see cref="ClassEntityDefinition" /> Entries exported from the Database.
         /// </summary>
-        public Collection<Falcon4EntityClassType> ClassEntities
-        {
-            get
-            {
-                Collection<Falcon4EntityClassType> output = [];
-                foreach (DataRow row in dbTable.Rows)
-                    output.Add(ToFalcon4EntityClassType(row));
-
-                return output;
-            }
-        }
+        public Collection<ClassEntityDefinition> Classes { get => dbObjects; set => dbObjects = value; }
         /// <summary>
         /// Class Table Element of the Database in Raw Data Format.
         /// </summary>
-        public DataTable Classes { get => dbTable; set => dbTable = value; }
+        public DataTable ClassDataTable 
+        {
+            get
+            {
+                DataSet dataSet = new();
+                dataSet.ReadXmlSchema(schemaFile);
+                DataTable table = dataSet.Tables[0];
+                foreach (var entry in dbObjects)
+                {
+                    table.Rows.Add(entry.ToDataRow());
+                }
+                return table;
+            }
+        }
         /// <summary>
-        /// <para>When <see langword="true"/>, indicates this <see cref="GameFile"/> was successfully loaded from the file.</para>
-        /// <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="GameFile"/> object and empty or default values were loaded instead.</para>
+        /// <para>When <see langword="true"/>, indicates this <see cref="AppFile"/> was successfully loaded from the file.</para>
+        /// <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="AppFile"/> object and empty or default values were loaded instead.</para>
         /// </summary>
-        public override bool IsDefaultInitialization { get => dbTable.Rows.Count > 0; }
+        public override bool IsDefaultInitialization { get => dbObjects.Count > 0; }
         #endregion Properties
 
         #region Fields
-        private DataTable dbTable = new();
+        private Collection<ClassEntityDefinition> dbObjects = [];
+        private readonly string schemaFile =
+            Path.Combine(Path.GetDirectoryName(path: Assembly.GetExecutingAssembly().Location ?? Environment.CurrentDirectory), @"XMLSchemas\CT.xsd");
         #endregion Fields
 
-        #region Helper Methods
-
-        /// <summary>
-        /// Converts a <see cref="DataRow"/> with correct values into a native Falcon Object.
-        /// </summary>
-        /// <param name="row">A <see cref="DataRow"/> with appropriate initializaiton data values.</param>
-        /// <returns></returns>
-        private static Falcon4EntityClassType ToFalcon4EntityClassType(DataRow row)
-        {
-            try
-            {
-                int index = 0;
-                Falcon4EntityClassType output = new()
-                {
-
-                    ClassData = new VuEntityType()
-                    {
-                        ID = ushort.Parse((string)row[index++]),
-                        CollisionType = ushort.Parse((string)row[index++]),
-                        CollisionRadius = float.Parse((string)row[index++]),
-                        ClassInfo =
-                           [
-                                byte.Parse((string)row[index++]),
-                                byte.Parse((string)row[index++]),
-                                byte.Parse((string)row[index++]),
-                                byte.Parse((string)row[index++]),
-                                byte.Parse((string)row[index++]),
-                                byte.Parse((string)row[index++]),
-                                byte.Parse((string)row[index++]),
-                                byte.Parse((string)row[index++])
-                           ],
-                        UpdateRate = uint.Parse((string)row[index++]),
-                        UpdateTolerance = uint.Parse((string)row[index++]),
-                        FineUpdateRange = float.Parse((string)row[index++]),
-                        FineUpdateForceRange = float.Parse((string)row[index++]),
-                        FineUpdateMultiplier = float.Parse((string)row[index++]),
-                        DamageSeed = uint.Parse((string)row[index++]),
-                        Hitpoints = int.Parse((string)row[index++]),
-                        MajorRevisionNumber = ushort.Parse((string)row[index++]),
-                        MinorRevisionNumber = ushort.Parse((string)row[index++]),
-                        CreatePriority = ushort.Parse((string)row[index++]),
-                        ManagementDomain = byte.Parse((string)row[index++]),
-                        Transferable = Convert.ToBoolean(int.Parse((string)row[index++])),
-                        Private = Convert.ToBoolean(int.Parse((string)row[index++])),
-                        Tangible = Convert.ToBoolean(int.Parse((string)row[index++])),
-                        Collidable = Convert.ToBoolean(int.Parse((string)row[index++])),
-                        Global = Convert.ToBoolean(int.Parse((string)row[index++])),
-                        Persistent = Convert.ToBoolean(int.Parse((string)row[index++]))
-                    },
-
-                    VisualType =
-                    [
-                    short.Parse((string)row[index++]),
-                    short.Parse((string)row[index++]),
-                    short.Parse((string)row[index++]),
-                    short.Parse((string)row[index++]),
-                    short.Parse((string)row[index++]),
-                    short.Parse((string)row[index++]),
-                    short.Parse((string)row[index++]),
-                    short.Parse((string)row[index++])
-
-                    ],
-                    EntityType = byte.Parse((string)row[index++]),
-                    EntityIndex = short.Parse((string)row[index++])
-                };
-
-                return output;
-            }
-            catch (Exception ex)
-            { return null; }
-        }
+        #region Helper Methods               
         /// <summary>
         /// Processes the XML Data in <paramref name="data"/> and attempts to convert it into a <see cref="DataTable"/> with values read from <paramref name="data"/>.
         /// </summary>
@@ -121,22 +57,22 @@ namespace FalconDatabase.Files
         protected override bool Read(string data)
         {
             ArgumentException.ThrowIfNullOrEmpty(data);
-
             using StringReader reader = new(data);
             try
             {
-                // DataSet can auto configure the XML Schema
-                DataSet table = new();
-                table.ReadXml(reader);
-                dbTable = table.Tables[0];
+                DataSet ds = new();
+                ds.ReadXmlSchema(schemaFile);
+                ds.ReadXml(reader, XmlReadMode.ReadSchema);
+                foreach (DataRow row in ds.Tables[0].Rows) dbObjects.Add(new(row));
             }
             catch (Exception ex)
             {
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading the CT Table.");
                 reader.Close();
                 throw;
             }
 
-            return dbTable.Rows.Count > 0;
+            return IsDefaultInitialization;
         }
         /// <summary>
         /// Formats the File Contents into bytes for writing to disk.
@@ -144,17 +80,24 @@ namespace FalconDatabase.Files
         /// <returns><see cref="byte"/> array suitable for writing to a file.</returns>
         protected override byte[] Write()
         {
-            using MemoryStream stream = new MemoryStream();
+            DataSet ds = new();
+            ds.ReadXmlSchema(schemaFile);
+
+            using MemoryStream stream = new();
+            using XmlWriter writer = XmlWriter.Create(stream);
             try
             {
-                stream.Write(Encoding.UTF8.GetBytes("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine));
-                dbTable.WriteXml(stream);
+                foreach (var entry in dbObjects)
+                    ds.Tables[0].Rows.Add(entry.ToDataRow());
+
+                ds.WriteXml(writer, XmlWriteMode.IgnoreSchema);
                 stream.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
                 stream.Position = 0;
                 return Encoding.UTF8.GetBytes(new StreamReader(stream).ReadToEnd());
             }
             catch (Exception ex)
             {
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while writing the CT Table.");
                 stream.Close();
                 throw;
             }
@@ -171,12 +114,10 @@ namespace FalconDatabase.Files
         /// <para>NOTE: This does not format the Database file for XML Output.</para></returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (DataRow row in dbTable.Rows)
-            {
-                sb.AppendLine("***** Class Table Entry *****");
-                sb.Append(ToFalcon4EntityClassType(row).ToString());
-            }
+            StringBuilder sb = new();
+            sb.Append("***** Class Table *****");
+            foreach (var entry in dbObjects)
+                sb.Append(entry.ToString());
 
             return sb.ToString();
         }
@@ -199,8 +140,8 @@ namespace FalconDatabase.Files
             unchecked
             {
                 int hash = 2539;
-                for (int i = 0; i < dbTable.Rows.Count; i++)
-                    hash = hash * 5483 + dbTable.Rows[i].GetHashCode();
+                for (int i = 0; i < Classes.Count; i++)
+                    hash = hash * 5483 + Classes[i].GetHashCode();
                 return hash;
             }
 
@@ -223,9 +164,8 @@ namespace FalconDatabase.Files
         /// </summary>
         public ClassTable()
         {
-            _FileType = GameFileType.DatabaseCT;
+            _FileType = ApplicationFileType.DatabaseCT;
             _StreamType = FileStreamType.XML;
-            _IsFileModified = false;
             _IsCompressed = false;
         }
         /// <summary>
@@ -241,4 +181,5 @@ namespace FalconDatabase.Files
         #endregion Constructors
 
     }
+   
 }

@@ -1,6 +1,9 @@
 ﻿using FalconDatabase.Enums;
-using System.Collections.ObjectModel;
+using FalconDatabase.Internal;
+using System.Data;
+using System.Reflection;
 using System.Text;
+using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -11,9 +14,13 @@ namespace FalconDatabase.Objects.Components
     {
         #region Properties
         /// <summary>
-        /// Weapon ID.
+        /// Index in the Table.
         /// </summary>
-        public short ID { get => id; set => id = value; }
+        public int ID { get => iD; set => iD = value; }
+        /// <summary>
+        /// Weapon Class ID.
+        /// </summary>
+        public short ClassID { get => index; set => index = value; }
         /// <summary>
         /// Amount of Damage this Weapon inflicts.
         /// </summary>
@@ -33,11 +40,11 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Weapon Name.
         /// </summary>
-        public string Name { get => name; set => name = value; }
+        public string Name { get => string.IsNullOrWhiteSpace(name) ? " " : name; set => name = value; }
         /// <summary>
         /// Hit Chance of Weapon against Targets by Movement Type.
         /// </summary>
-        public Collection<byte> HitChance { get => hitChance; set => hitChance = value; }
+        public MovementTypes HitChance { get => hitChance; set => hitChance = value; }
         /// <summary>
         /// Number of projectivels this weapon fires per fire event.
         /// </summary>
@@ -69,7 +76,7 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Effective Blast Radius of the Weapon.
         /// </summary>
-        public short BlastRadius { get => blastRadius; set => blastRadius = value; }
+        public ushort BlastRadius { get => blastRadius; set => blastRadius = value; }
         /// <summary>
         /// Weapon Radar Type in the Radar Database.
         /// </summary>
@@ -77,7 +84,7 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Index into the SimWeapon Table for Campaign Engine characteristics.
         /// </summary>
-        public short SimDataIdx { get => simDataIdx; set => simDataIdx = value; }
+        public short SimDataID { get => simDataIdx; set => simDataIdx = value; }
         /// <summary>
         /// Maximum Operating Altitude.
         /// </summary>
@@ -102,17 +109,19 @@ namespace FalconDatabase.Objects.Components
         /// How fast the weapon fires when multiple projectiles are fired in a single burst.
         /// </summary>
         public byte BulletRoundsPerSec { get => bulletRoundsPerSec; set => bulletRoundsPerSec = value; }
+        
 
         #endregion Properties
 
         #region Fields
-        private short id = 0;
+        private int iD = 0;
+        private short index = 0;
         private ushort strength = 0;
         private DamageDataType damageType;
         private float range = 0;
         private ushort flags = 0;
         private string name = "";
-        private Collection<byte> hitChance = [];
+        private MovementTypes hitChance = new();
         private byte fireRate = 0;
         private byte rariety = 0;
         private ushort guidanceFlags = 0;
@@ -120,7 +129,7 @@ namespace FalconDatabase.Objects.Components
         private short rackGroup = 0;
         private ushort weight = 0;
         private short dragIndex = 0;
-        private short blastRadius = 0;
+        private ushort blastRadius = 0;
         private short radarType;
         private short simDataIdx;
         private short maxAlt = 0;
@@ -132,22 +141,62 @@ namespace FalconDatabase.Objects.Components
 
         #endregion Fields
 
+        #region Helper Methods
+        internal void Write(Stream stream)
+        {
+            using XmlWriter writer = XmlWriter.Create(stream);
+            {
+                writer.WriteStartElement("WCD");
+                writer.WriteAttributeString("Num", ID.ToString());
+                {
+                    writer.WriteElementString("CtIdx", ClassID.ToString());
+                    writer.WriteElementString("Strength", Strength.ToString());
+                    writer.WriteElementString("DamageType", ((int)DamageType).ToString());
+                    writer.WriteElementString("Range", Range.ToString());
+                    writer.WriteElementString("Flags", Flags.ToString());
+                    writer.WriteElementString("Name", Name.ToString());
+                    HitChance.Write(stream, "Hit");
+                    writer.WriteElementString("FireRate", FireRate.ToString());
+                    writer.WriteElementString("Rariety", Rariety.ToString());
+                    writer.WriteElementString("Guidance", GuidanceFlags.ToString());
+                    writer.WriteElementString("Collective", Collective.ToString());
+                    writer.WriteElementString("Rackgroup", RackGroup.ToString());
+                    writer.WriteElementString("Weight", Weight.ToString());
+                    writer.WriteElementString("Drag", DragIndex.ToString());
+                    writer.WriteElementString("BlastRadius", BlastRadius.ToString());
+                    writer.WriteElementString("RadarIdx", RadarType.ToString());
+                    writer.WriteElementString("SimWeaponDataIdx", SimDataID.ToString());
+                    writer.WriteElementString("MaxAlt", MaxAltitude.ToString());
+                    writer.WriteElementString("MinAlt", MinAltitude.ToString());
+                    writer.WriteElementString("BulletTTL", BulletTTL.ToString());
+                    writer.WriteElementString("BulletVelocity", BulletVelocity.ToString());
+                    writer.WriteElementString("BulletDispersion", BulletDispersion.ToString());
+                    writer.WriteElementString("BulletRoundsPerSec", BulletRoundsPerSec.ToString());
+                }
+                writer.WriteEndElement();
+            }
+        }
+        #endregion Helper Methods
+
         #region Functional Methods
+        /// <summary>
+        /// <para>Formats the data contained within this object into Readable Text.</para>
+        /// <para>Readable Text does not always match the underlying file format and should not be used to save text based files such as .xml, .ini, .lst, or .txtpb files.</para>
+        /// <para>Instead, use Write() to format all text or binary data for writing to a file.</para>
+        /// </summary>
+        /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Weapon ID: " + id);
+            StringBuilder sb = new ();
+            sb.AppendLine("ID: " + ID);
+            sb.AppendLine("Weapon ID: " + index);
             sb.AppendLine("Strength: " + strength);
             sb.AppendLine("Damage Type: " + damageType.ToString());
             sb.AppendLine("Range: " + range);
             sb.AppendLine("Flags: " + flags);
             sb.AppendLine("Name: " + name);
-            sb.AppendLine("Statistics by Enemy Movement Type: ");
-            for (int i = 0; i < HitChance.Count; i++)
-            {
-                sb.AppendLine("   Movement Type " + i + ":");
-                sb.AppendLine("     Hit Chance: " + HitChance[i]);
-            }
+            sb.AppendLine("Hit Chance by Enemy Movement Type: ");
+            sb.Append(hitChance.ToString());
             sb.AppendLine("Projectiles per Burst: " + fireRate);
             sb.AppendLine("Rarety: " + rariety);
             sb.AppendLine("Guidance Flags: " + guidanceFlags);
@@ -167,6 +216,60 @@ namespace FalconDatabase.Objects.Components
 
             return sb.ToString();
         }
+        /// <summary>
+        /// Formats the <see cref="WeaponDefinition"/> as a <see cref="DataRow"/>.
+        /// </summary>
+        /// <returns><see cref="DataRow"/> object conforming to the ACD.xsd Schema in the XMLSchemas Directory.</returns>
+        public DataRow ToDataRow()
+        {
+            string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\WCD.xsd");
+            if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
+
+            DataSet dataSet = new();
+            dataSet.ReadXmlSchema(schemaFile);
+            DataTable table = dataSet.Tables[0];
+            DataRow row = table.NewRow();
+
+            row["Num"] = ID;
+            row["CtIdx"] = ClassID;
+            row["Strength"] = Strength;
+            row["DamageType"] = (byte)DamageType;
+            row["Range"] = Range;
+            row["Flags"] = Flags;
+            row["Name"] = Name;
+
+            {
+                row["Hit_NoMove"] = (byte)HitChance.NoMovement;
+                row["Hit_Foot"] = (byte)HitChance.Foot;
+                row["Hit_Wheeled"] = (byte)HitChance.Wheeled;
+                row["Hit_Tracked"] = (byte)HitChance.Tracked;
+                row["Hit_LowAir"] = (byte)HitChance.LowAir;
+                row["Hit_Air"] = (byte)HitChance.Air;
+                row["Hit_Naval"] = (byte)HitChance.Naval;
+                row["Hit_Rail"] = (byte)HitChance.Rail;
+            }
+
+            row["FireRate"] = FireRate;
+            row["Rariety"] = Rariety;
+            row["Guidance"] = GuidanceFlags;
+            row["Collective"] = Collective;
+            row["Rackgroup"] = RackGroup;
+            row["Weight"] = Weight;
+            row["Drag"] = DragIndex;
+            row["BlastRadius"] = BlastRadius;
+            row["RadarIdx"] = RadarType;
+            row["SimWeaponDataIdx"] = SimDataID;
+            row["MaxAlt"] = MaxAltitude;
+            row["MinAlt"] = MinAltitude;
+            row["BulletTTL"] = BulletTTL;
+            row["BulletVelocity"] = BulletVelocity;
+            row["BulletDispersion"] = BulletDispersion;
+            row["BulletRoundsPerSec"] = BulletRoundsPerSec;
+
+
+            return row;
+        }
+        
         #endregion Funcitnoal Methods
 
         #region Constructors
@@ -174,6 +277,67 @@ namespace FalconDatabase.Objects.Components
         /// Default Constructor for the <see cref="WeaponDefinition"/> object.
         /// </summary>
         public WeaponDefinition() { }
+        /// <summary>
+        /// Initializes an instance of the <see cref="WeaponDefinition"/> object with a <see cref="DataRow"/> that conforms to the ACD.xsd Schema File.
+        /// </summary>
+        /// <param name="row"></param>
+        public WeaponDefinition(DataRow row)
+        {
+            string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\WCD.xsd");
+            if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
+
+            DataSet dataSet = new DataSet();
+            dataSet.ReadXmlSchema(schemaFile);
+            DataTable table = dataSet.Tables[0];
+            try
+            {
+                // Verify row conforms to Schema
+                table.Rows.Add(row.ItemArray);
+
+                // Create Object
+                ID = (int)row["Num"];
+                ClassID = (short)row["CtIdx"];
+                Strength = (ushort)row["Strength"];
+                DamageType = (DamageDataType)(byte)row["DamageType"];
+                Range = (float)row["Range"];
+                Flags = (ushort)row["Flags"];
+                Name = (string)row["Name"];
+
+                {
+                    HitChance.NoMovement = (byte)row["Hit_NoMove"];
+                    HitChance.Foot = (byte)row["Hit_Foot"];
+                    HitChance.Wheeled = (byte)row["Hit_Wheeled"];
+                    HitChance.Tracked = (byte)row["Hit_Tracked"];
+                    HitChance.LowAir = (byte)row["Hit_LowAir"];
+                    HitChance.Air = (byte)row["Hit_Air"];
+                    HitChance.Naval = (byte)row["Hit_Naval"];
+                    HitChance.Rail = (byte)row["Hit_Rail"];
+                }
+
+                FireRate = (byte)row["FireRate"];
+                Rariety = (byte)row["Rariety"];
+                GuidanceFlags = (ushort)row["Guidance"];
+                Collective = (byte)row["Collective"];
+                RackGroup = (short)row["Rackgroup"];
+                Weight = (ushort)row["Weight"];
+                DragIndex = (short)row["Drag"];
+                BlastRadius = (ushort)row["BlastRadius"];
+                RadarType = (short)row["RadarIdx"];
+                SimDataID = (short)row["SimWeaponDataIdx"];
+                MaxAltitude = (short)row["MaxAlt"];
+                MinAltitude = (short)row["MinAlt"];
+                BulletTTL = (short)row["BulletTTL"];
+                BulletVelocity = (short)row["BulletVelocity"];
+                BulletDispersion = (byte)row["BulletDispersion"];
+                BulletRoundsPerSec = (byte)row["BulletRoundsPerSec"];
+
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading a WCD Entry.");
+                throw;
+            }
+        }
         #endregion Constructors     
 
     }

@@ -1,5 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using FalconDatabase.Enums;
+using System.Collections.ObjectModel;
 using System.Text;
+using System.Xml;
+using System.Data;
+using System.Reflection;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -10,9 +14,13 @@ namespace FalconDatabase.Objects.Components
     {
         #region Properties
         /// <summary>
+        /// ID of this Aircraft Definition in the Aircraft Table.
+        /// </summary>
+        public int ID { get => iD; set => iD = value; }
+        /// <summary>
         /// Combat Class of the Aircraft.
         /// </summary>
-        public int CombatClass { get => combatClass; set => combatClass = value; }
+        public CombatClass CombatClass { get => combatClass; set => combatClass = value; }
         /// <summary>
         /// Index into the Aircraft Table.
         /// </summary>
@@ -20,43 +28,108 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Index into the Signature Table.
         /// </summary>
-        public int SignatureID { get => signatureIdx; set => signatureIdx = value; }
+        public int IRSignatureID { get => signatureIdx; set => signatureIdx = value; }       
         /// <summary>
-        /// Collection of Sensor Types on the Aircraft.
+        /// Collection of Sensor Type and Specific Sensors on this aircraft.
+        /// Item1 = SensorType Enum Sensor Type,. Item2 = ID of Sensor in the Corresponding Sensor Table
         /// </summary>
-        public Collection<int> SensorType { get => sensorType; set => sensorType = value; }
-        /// <summary>
-        /// Index in the Sensor Table of each Sensor on the Aircraft.
-        /// </summary>
-        public Collection<int> SensorIndex { get => sensorIdx; set => sensorIdx = value; }
+        public Collection<(SensorType SensorType, int SensorID)> Sensors 
+        { 
+            get => sensors;
+            set
+            {
+                while (value.Count > 5) value.RemoveAt(5);
+                sensors = value;
+            } 
+        }
+       
         #endregion Properties
 
         #region Fields
-        private int combatClass = 0;                      // What type of combat does it do?
-        private int airframeIdx = 0;                      // Index into airframe tables
-        private int signatureIdx = 0;                     // Index into signature tables (IR only for now)
-        private Collection<int> sensorType = [];          // Sensor Types [5]
-        private Collection<int> sensorIdx = [];          // Index into sensor data tables [5]
-
-
+        private int iD = 0;
+        private CombatClass combatClass = CombatClass.LegacyFighterBomber;                    
+        private int airframeIdx = 0;                     
+        private int signatureIdx = 0;
+        private Collection<(SensorType SensorType, int SensorID)> sensors = [];
         #endregion Fields
 
+        #region Helper Methods
+        internal void Write(Stream stream)
+        {
+            using XmlWriter writer = XmlWriter.Create(stream);
+            writer.WriteStartElement("ACD");
+            writer.WriteAttributeString("Num", ID.ToString());
+            {
+                writer.WriteElementString("CombatClass", ((int)CombatClass).ToString());
+                writer.WriteElementString("AirframeDatIdx", AircraftID.ToString());
+                writer.WriteElementString("IrSignatureIdx", IRSignatureID.ToString());
+                for (int i = 0; i < 5; i++)
+                    writer.WriteAttributeString("SensorType_" + i, ((int)Sensors[i].SensorType).ToString());
+                for (int i = 0; i < 5; i++)
+                    writer.WriteAttributeString("SensorIdx_" + i, ((int)Sensors[i].SensorID).ToString());
+            }
+            writer.WriteEndElement();
+        }
+        #endregion Helper Methods
+
         #region Functional Methods
+        /// <summary>
+        /// <para>Formats the data contained within this object into Readable Text.</para>
+        /// <para>Readable Text does not always match the underlying file format and should not be used to save text based files such as .xml, .ini, .lst, or .txtpb files.</para>
+        /// <para>Instead, use Write() to format all text or binary data for writing to a file.</para>
+        /// </summary>
+        /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Aircraft ID: " + AircraftID);
+            StringBuilder sb = new();
+            sb.AppendLine("ID: " + ID);
             sb.AppendLine("Combat Class: " + CombatClass);
+            sb.AppendLine("Aircraft ID: " + AircraftID);            
             sb.AppendLine("Signature ID: " + signatureIdx);
             sb.AppendLine("Sensors: ");
-            for (int i = 0; i < SensorType.Count; i++)
+            for (int i = 0; i < Sensors.Count; i++)
             {
-                sb.AppendLine("Sensor " + i + ":");
-                sb.AppendLine("   Type: " + SensorType[i]);
-                sb.AppendLine("   Index: " + SensorIndex[i]);
+                sb.AppendLine("   Sensor " + i + ":");
+                sb.AppendLine("     Type: " + Sensors[i].SensorType);
+                sb.AppendLine("     Index: " + Sensors[i].SensorID);
             }
 
             return sb.ToString();
+        }
+        /// <summary>
+        /// Formats the <see cref="AircraftDefinition"/> as a <see cref="DataRow"/>.
+        /// </summary>
+        /// <returns><see cref="DataRow"/> object conforming to the ACD.xsd Schema in the XMLSchemas Directory.</returns>
+        public DataRow ToDataRow()
+        {
+            string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\ACD.xsd");
+            if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
+
+            DataSet dataSet = new ();            
+            dataSet.ReadXmlSchema(schemaFile);
+            DataTable table = dataSet.Tables[0];
+            DataRow row = table.NewRow();
+
+            row["Num"] = ID;
+            row["CombatClass"] = (int)CombatClass;
+            row["AirframeDatIdx"] = AircraftID;
+            row["IrSignatureIdx"] = signatureIdx;
+            for (int i = 0; i < 5; i++)
+            {
+                if (sensors[i].SensorID != -1)
+                {
+                    row["SensorType_" + i] = (int)Sensors[i].SensorType;
+                    row["SensorIdx_" + i] = (int)Sensors[i].SensorID;
+                }
+                else
+                {
+                    row["SensorType_" + i] = DBNull.Value;
+                    row["SensorIdx_" + i] = DBNull.Value;
+                }
+                
+            }
+            
+            return row;
         }
         #endregion Funcitnoal Methods
 
@@ -65,6 +138,40 @@ namespace FalconDatabase.Objects.Components
         /// Default Constructor for the <see cref="AircraftDefinition"/> object.
         /// </summary>
         public AircraftDefinition() { }
+        /// <summary>
+        /// Initializes an instance of the <see cref="AircraftDefinition"/> object with a <see cref="DataRow"/> that conforms to the ACD.xsd Schema File.
+        /// </summary>
+        /// <param name="row"></param>
+        public AircraftDefinition(DataRow row)
+        {
+            string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\ACD.xsd");
+            if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
+
+            DataSet dataSet = new ();            
+            dataSet.ReadXmlSchema(schemaFile);
+            DataTable table = dataSet.Tables[0];
+            try
+            {
+                // Verify row conforms to Schema
+                table.Rows.Add(row.ItemArray);
+
+                // Create Object
+                ID = (int)table.Rows[0]["Num"];
+                CombatClass = (CombatClass)row["CombatClass"];
+                AircraftID = (int)row["AirframeDatIdx"];
+                for (int i = 0; i < 5; i++)
+                    sensors.Add(((SensorType)row["SensorType_" + i], (int)row["SensorIdx_" + i]));
+
+                // ?? table.Rows[0]["param"]
+
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading an ACD Entry.");
+                throw;
+            }
+            
+        }
         #endregion Constructors     
 
     }

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="ACDRecords">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="ACD">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CombatClass" type="xs:int" maxOccurs="1" minOccurs="1" default="0" />
+							<xs:element name="AirframeDatIdx" type="xs:int" maxOccurs="1" minOccurs="1" default="0" />
+							<xs:element name="IrSignatureIdx" type="xs:int" maxOccurs="1" minOccurs="1" default="0" />
+							<xs:element name="SensorType_0" type="xs:int" minOccurs="0" default="0"/>
+							<xs:element name="SensorType_1" type="xs:int" minOccurs="0" default="0"/>
+							<xs:element name="SensorType_2" type="xs:int" minOccurs="0" default="0"/>
+							<xs:element name="SensorType_3" type="xs:int" minOccurs="0" default="0"/>
+							<xs:element name="SensorType_4" type="xs:int" minOccurs="0" default="0"/>
+							<xs:element name="SensorIdx_0" type="xs:int" minOccurs="0" default="0"/>
+							<xs:element name="SensorIdx_1" type="xs:int" minOccurs="0" default="0"/>
+							<xs:element name="SensorIdx_2" type="xs:int" minOccurs="0" default="0"/>
+							<xs:element name="SensorIdx_3" type="xs:int" minOccurs="0" default="0"/>
+							<xs:element name="SensorIdx_4" type="xs:int" minOccurs="0" default="0"/>
+						</xs:sequence>
+						<xs:attribute name="Num" type="xs:int" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

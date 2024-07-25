@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="WLDRecords">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="WLD">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Name" type="xs:string" />
+							<xs:element minOccurs="0" name="WpnIdx_0" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_1" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_2" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_3" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_4" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_5" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_6" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_7" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_8" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_9" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_10" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_11" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_12" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_13" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_14" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_15" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_16" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_17" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_18" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_19" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_20" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_21" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_22" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_23" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_24" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_25" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_26" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_27" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_28" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_29" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_30" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_31" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_32" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_33" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_34" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_35" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_36" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_37" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_38" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_39" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_40" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_41" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_42" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_43" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_44" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_45" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_46" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_47" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_48" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_49" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_50" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_51" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_52" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_53" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_54" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_55" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_56" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_57" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_58" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_59" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_60" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_61" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_62" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnIdx_63" type="xs:short" />
+							<xs:element minOccurs="0" name="WpnCount_0" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_1" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_2" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_3" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_4" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_5" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_6" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_7" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_8" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_9" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_10" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_11" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_12" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_13" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_14" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_15" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_16" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_17" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_18" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_19" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_20" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_21" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_22" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_23" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_24" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_25" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_26" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_27" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_28" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_29" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_30" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_31" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_32" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_33" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_34" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_35" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_36" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_37" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_38" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_39" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_40" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_41" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_42" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_43" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_44" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_45" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_46" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_47" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_48" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_49" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_50" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_51" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_52" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_53" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_54" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_55" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_56" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_57" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_58" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_59" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_60" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_61" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_62" type="xs:unsignedByte" />
+							<xs:element minOccurs="0" name="WpnCount_63" type="xs:unsignedByte" />
+						</xs:sequence>
+						<xs:attribute name="Num" type="xs:int" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
