@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -60,26 +59,7 @@ namespace FalconDatabase.Objects.Components
 											  0x08 = can only detect group of radar types */
 
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("RWD");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("Name", Name);
-                writer.WriteElementString("DetectionRange", Range.ToString());
-                writer.WriteElementString("ScanAngleTop", TopAngle.ToString());
-                writer.WriteElementString("ScanAngleBottom", BottomAngle.ToString());
-                writer.WriteElementString("ScanAngleLeft", LeftAngle.ToString());
-                writer.WriteElementString("ScanAngleRight", RightAngle.ToString());
-                writer.WriteElementString("Flags", Flags.ToString());
-            }
-            writer.WriteEndElement();
-        }
-        #endregion Helper Methods
-
+             
         #region Functional Methods
         /// <summary>
         /// <para>Formats the data contained within this object into Readable Text.</para>

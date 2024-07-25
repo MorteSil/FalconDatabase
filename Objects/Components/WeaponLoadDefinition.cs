@@ -2,7 +2,6 @@
 using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -34,25 +33,6 @@ namespace FalconDatabase.Objects.Components
         private Collection<(short WeaponID, byte WeaponCount)> weaponList = [];
 
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("WLD");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("Name", Name);
-                for (int i = 0; i < WeaponList.Count; i++)
-                    if (WeaponList[i].WeaponCount != 0)
-                        writer.WriteElementString("WpnIdx_" + i, WeaponList[i].WeaponID.ToString());
-                for (int i = 0; i < WeaponList.Count; i++)
-                    if (WeaponList[i].WeaponCount != 0)
-                        writer.WriteElementString("WpnCount_" + i, WeaponList[i].WeaponCount.ToString());
-            }
-            writer.WriteEndElement();
-        }
-        #endregion Helper Methods
 
         #region Functional Methods
         /// <summary>

@@ -3,7 +3,6 @@ using FalconDatabase.Internal;
 using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -140,43 +139,6 @@ namespace FalconDatabase.Objects.Components
         private byte bulletRoundsPerSec = 0;
 
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            {
-                writer.WriteStartElement("WCD");
-                writer.WriteAttributeString("Num", ID.ToString());
-                {
-                    writer.WriteElementString("CtIdx", ClassID.ToString());
-                    writer.WriteElementString("Strength", Strength.ToString());
-                    writer.WriteElementString("DamageType", ((int)DamageType).ToString());
-                    writer.WriteElementString("Range", Range.ToString());
-                    writer.WriteElementString("Flags", Flags.ToString());
-                    writer.WriteElementString("Name", Name.ToString());
-                    HitChance.Write(stream, "Hit");
-                    writer.WriteElementString("FireRate", FireRate.ToString());
-                    writer.WriteElementString("Rariety", Rariety.ToString());
-                    writer.WriteElementString("Guidance", GuidanceFlags.ToString());
-                    writer.WriteElementString("Collective", Collective.ToString());
-                    writer.WriteElementString("Rackgroup", RackGroup.ToString());
-                    writer.WriteElementString("Weight", Weight.ToString());
-                    writer.WriteElementString("Drag", DragIndex.ToString());
-                    writer.WriteElementString("BlastRadius", BlastRadius.ToString());
-                    writer.WriteElementString("RadarIdx", RadarType.ToString());
-                    writer.WriteElementString("SimWeaponDataIdx", SimDataID.ToString());
-                    writer.WriteElementString("MaxAlt", MaxAltitude.ToString());
-                    writer.WriteElementString("MinAlt", MinAltitude.ToString());
-                    writer.WriteElementString("BulletTTL", BulletTTL.ToString());
-                    writer.WriteElementString("BulletVelocity", BulletVelocity.ToString());
-                    writer.WriteElementString("BulletDispersion", BulletDispersion.ToString());
-                    writer.WriteElementString("BulletRoundsPerSec", BulletRoundsPerSec.ToString());
-                }
-                writer.WriteEndElement();
-            }
-        }
-        #endregion Helper Methods
 
         #region Functional Methods
         /// <summary>

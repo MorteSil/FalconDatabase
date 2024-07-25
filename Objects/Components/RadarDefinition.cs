@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -107,36 +106,7 @@ namespace FalconDatabase.Objects.Components
         private short flag = 0;                          // 0x01 = NCTR capable
 
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("RCD");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("Name", Name);
-                writer.WriteElementString("RwrSound", RWRSound.ToString());
-                writer.WriteElementString("RwrSymbol", RWRSymbol.ToString());
-                writer.WriteElementString("RadarDatIdx", RadarDataID.ToString());
-                writer.WriteElementString("HighAltLethality", HighAltitudeLethality.ToString());
-                writer.WriteElementString("LowAltitudeLethality", LowAltitudeLethality.ToString());
-                writer.WriteElementString("DetectionRange", Range.ToString());
-                writer.WriteElementString("BeamWidth", BeamWidth.ToString());
-                writer.WriteElementString("ScanWidth", ScanWidth.ToString());
-                writer.WriteElementString("SweepRate", SweepRate.ToString());
-                writer.WriteElementString("CoastTime", CoastTime.ToString());
-                writer.WriteElementString("LookDownPenalty", lookDownPenalty.ToString());
-                writer.WriteElementString("JammingPenalty", JammingPenalty.ToString());
-                writer.WriteElementString("NotchPenalty", NotchPenalty.ToString());
-                writer.WriteElementString("NotchSpeed", notchSpeed.ToString());
-                writer.WriteElementString("ChaffChance", ChaffChance.ToString());
-                writer.WriteElementString("Flags", Flags.ToString());
-            }
-            writer.WriteEndElement();
-        }
-        #endregion Helper Methods
-
+             
         #region Functional Methods
         /// <summary>
         /// <para>Formats the data contained within this object into Readable Text.</para>

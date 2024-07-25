@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -83,30 +82,6 @@ namespace FalconDatabase.Objects.Components
 
 
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("SWD");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("Flags", Flags.ToString());
-                writer.WriteElementString("Drag", DragCoefficient.ToString());
-                writer.WriteElementString("Weight", Weight.ToString());
-                writer.WriteElementString("Area", Area.ToString());
-                writer.WriteElementString("EjectX", XEjection.ToString());
-                writer.WriteElementString("EjectY", YEjection.ToString());
-                writer.WriteElementString("EjectZ", ZEjection.ToString());
-                writer.WriteElementString("WpnName", SMSMnemonic.ToString());
-                writer.WriteElementString("WpnClass", WeaponClass.ToString());
-                writer.WriteElementString("Domain", Domain.ToString());
-                writer.WriteElementString("WpnType", WeaponType.ToString());
-                writer.WriteElementString("WpnDatIdx", WeaponID.ToString());
-            }
-            writer.WriteEndElement();
-        }
-        #endregion Helper Methods
 
         #region Functional Methods
         /// <summary>

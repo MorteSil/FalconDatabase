@@ -2,7 +2,6 @@
 using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -52,28 +51,6 @@ namespace FalconDatabase.Objects.Components
 
 
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("SSD");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                for (int i = 0; i < Stores.Count; i++)
-                {
-                    if (stores[i] > 0)
-                        writer.WriteElementString("WpnStores_" + stores[i].ToString(), Stores[i].ToString());
-                }
-                writer.WriteElementString("InfiniteAG", InfiniteAG.ToString());
-                writer.WriteElementString("InfiniteAA", InfiniteAA.ToString());
-                writer.WriteElementString("InfiniteGun", InfiniteGun.ToString());
-            }
-            writer.WriteEndElement();
-
-
-        }
-        #endregion Helper Methods
 
         #region Functional Methods
         /// <summary>

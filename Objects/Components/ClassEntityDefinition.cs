@@ -1,10 +1,7 @@
 ﻿using FalconDatabase.Enums;
 using System.Data;
-using System.Numerics;
 using System.Reflection;
 using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -51,26 +48,6 @@ namespace FalconDatabase.Objects.Components
         private ClassExternalDataDefinition externalData = new();
         #endregion Fields
 
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            // Note: This has a well-formed DataTable and does not use this function. Added for ease of future updates.
-            XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("CT");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("Id", graphicsID.ToString());
-                collisionData.Write(stream);
-                classData.Write(stream);
-                updateData.Write(stream);
-                entityData.Write(stream);
-                textures.Write(stream);
-                externalData.Write(stream);
-            }
-            writer.WriteEndElement();
-        }
-        #endregion Helper Methods
-
         #region Functional Methods
         /// <summary>
         /// <para>Formats the data contained within this object into Readable Text.</para>
@@ -94,7 +71,6 @@ namespace FalconDatabase.Objects.Components
 
             return sb.ToString();
         }
-
         /// <summary>
         /// Formats the <see cref="ClassEntityDefinition"/> as a <see cref="DataRow"/>.
         /// </summary>
@@ -233,13 +209,7 @@ namespace FalconDatabase.Objects.Components
             /// <summary>
             /// Collision Radius.
             /// </summary>
-            internal float CollisionRadius { get; set; } = 0; // Not used
-            internal void Write(Stream stream)
-            {
-                using XmlWriter writer = XmlWriter.Create(stream);
-                writer.WriteElementString("CollisionType", CollisionType.ToString());
-                writer.WriteElementString("CollisionRadius", CollisionRadius.ToString());
-            }
+            internal float CollisionRadius { get; set; } = 0; // Not used           
             internal ClassCollisionData() { }
         }
 
@@ -293,22 +263,6 @@ namespace FalconDatabase.Objects.Components
             private int class_6 = 255;
             private int class_7 = 255;
             #endregion Fields
-
-            #region Helper Methods
-            internal void Write(Stream stream)
-            {
-                using XmlWriter writer = XmlWriter.Create(stream);
-                writer.WriteElementString("Domain", ((int)Domain).ToString());
-                writer.WriteElementString("Class", ((int)Class).ToString());
-                writer.WriteElementString("Type", ((int)Type).ToString());
-                writer.WriteElementString("SubType", ((int)SubType).ToString());
-                writer.WriteElementString("Specific", ((int)SpecificType).ToString());
-                writer.WriteElementString("Owner", ((int)Owner).ToString());
-                writer.WriteElementString("Class_6", ((byte)255).ToString());
-                writer.WriteElementString("Class_7", ((byte)255).ToString());
-
-            }
-            #endregion Helper Methods
 
             #region Functional Methods
             /// <summary>
@@ -387,21 +341,7 @@ namespace FalconDatabase.Objects.Components
             private int leftDestroyed = 0;
             private int rightDestroyed = 0;
             private int bothDestroyed = 0;
-            #endregion Fields
-
-            #region Helper Methods
-            internal void Write(Stream stream)
-            {
-                using XmlWriter writer = XmlWriter.Create(stream);
-                writer.WriteElementString("GraphicsNormal", Normal.ToString());
-                writer.WriteElementString("GraphicsRepaired", Repaired.ToString());
-                writer.WriteElementString("GraphicsDamaged", Damaged.ToString());
-                writer.WriteElementString("GraphicsDestroyed", Destroyed.ToString());
-                writer.WriteElementString("GraphicsLeftDestroyed", LeftDestroyed.ToString());
-                writer.WriteElementString("GraphicsRightDestroyed", RightDestroyed.ToString());
-                writer.WriteElementString("GraphicsBothDestroyed", BothDestroyed.ToString());
-            }
-            #endregion Helper Methods
+            #endregion Fields            
 
             #region Functional Methods
             /// <summary>
@@ -475,18 +415,6 @@ namespace FalconDatabase.Objects.Components
 
             #endregion Fields
 
-            #region Helper Methods
-            internal void Write(Stream stream)
-            {
-                using XmlWriter writer = XmlWriter.Create(stream);
-                writer.WriteElementString("UpdateRate", updateRate.ToString());
-                writer.WriteElementString("UpdateTolerance", updateTolerance.ToString());
-                writer.WriteElementString("FineUpdateRange", fineUpdateRange.ToString());
-                writer.WriteElementString("FineUpdateForceRange", fineUpdateForceRange.ToString());
-                writer.WriteElementString("FineUpdateMultiplier", fineUpdateMultiplier.ToString());
-            }
-            #endregion Helper Methods
-
             #region Functional Methods
             /// <summary>
             /// <para>Formats the data contained within this object into Readable Text.</para>
@@ -557,17 +485,7 @@ namespace FalconDatabase.Objects.Components
 
 
             #endregion Fields
-
-            #region Helper Methods
-            internal void Write(Stream stream)
-            {
-                using XmlWriter writer = XmlWriter.Create(stream);
-                writer.WriteElementString("MoverDefinitionData", ((int)-1).ToString());
-                writer.WriteElementString("EntityType", entityClassType.ToString());
-                writer.WriteElementString("EntityIdx", classTypeTableID.ToString());
-            }
-            #endregion Helper Methods
-
+                        
             #region Functional Methods
             /// <summary>
             /// <para>Formats the data contained within this object into Readable Text.</para>
@@ -668,25 +586,6 @@ namespace FalconDatabase.Objects.Components
             private byte persistent = 0;
 
             #endregion Fields
-
-            #region Helper Methods
-            internal void Write(Stream stream)
-            {
-                using XmlWriter writer = XmlWriter.Create(stream);
-                writer.WriteElementString("DamageSeed", damageSeed.ToString());
-                writer.WriteElementString("HitPoints", hitpoints.ToString());
-                writer.WriteElementString("MajorRev", majorRevisionNumber.ToString());
-                writer.WriteElementString("MinRev", minorRevisionNumber.ToString());
-                writer.WriteElementString("CreatePriority", createPriority.ToString());
-                writer.WriteElementString("ManagementDomain", managementDomain.ToString());
-                writer.WriteElementString("Transferable", ((int)(Transferable ? 1 : 0)).ToString());
-                writer.WriteElementString("Private", ((int)(Private ? 1 : 0)).ToString());
-                writer.WriteElementString("Tangible", ((int)(Tangible ? 1 : 0)).ToString());
-                writer.WriteElementString("Collidable", ((int)(Collidable ? 1 : 0)).ToString());
-                writer.WriteElementString("Global", ((int)(Global ? 1 : 0)).ToString());
-                writer.WriteElementString("Persistent", ((int)(Persistent ? 1 : 0)).ToString());
-            }
-            #endregion Helper Methods
 
             #region Functional Methods
             /// <summary>

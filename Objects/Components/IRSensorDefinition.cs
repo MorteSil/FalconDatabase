@@ -53,25 +53,6 @@ namespace FalconDatabase.Objects.Components
 
         #endregion Fields
 
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            // Note: This has a well-formed DataTable and does not use this function. Added for ease of future updates.
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("ICD");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("Name", Name);
-                writer.WriteElementString("DetectionRange", Range.ToString());
-                writer.WriteElementString("FOV", FOV.ToString());
-                writer.WriteElementString("GimbalLimit", GimbalLimit.ToString());
-                writer.WriteElementString("GroundFactor", GroundFactor.ToString());
-                writer.WriteElementString("FlareChance", FlareChance.ToString());
-            }
-            writer.WriteEndElement();
-        }
-        #endregion Helper Methods
-
         #region Functional Methods
         /// <summary>
         /// <para>Formats the data contained within this object into Readable Text.</para>

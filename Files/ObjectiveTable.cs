@@ -147,7 +147,7 @@ namespace FalconDatabase.Files
         /// <returns><see cref="byte"/> array suitable for writing to a file.</returns>
         protected override byte[] Write()
         {
-            
+            SetOutputLocation(_OutputFolder + "\\ObjectiveRelatedData");
             for (int i = 0; i < Objectives.Count; i++)
             {
                 DataSet ds = new();
@@ -197,10 +197,20 @@ namespace FalconDatabase.Files
         public override string ToString()
         {
             StringBuilder sb = new();
-
+            sb.AppendLine("***** Objective Table *****");
+            foreach (ObjectiveDefinition obj in Objectives)
+                sb.Append(obj.ToString());
             return sb.ToString();
         }
-
+        /// <summary>
+        /// Sets the output location for the Objective Database.
+        /// </summary>
+        /// <param name="outputLocation"></param>
+        private void SetOutputLocation(string outputLocation)
+        {
+            if (Directory.Exists(outputLocation))
+                dbLocation = new DirectoryInfo(outputLocation);
+        }
         #region Equality Functions        
         public override bool Equals(object? other)
         {

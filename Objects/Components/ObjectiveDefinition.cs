@@ -132,8 +132,18 @@ namespace FalconDatabase.Objects.Components
             sb.AppendLine("DeaggDistance: " + DeagDistance);
             sb.Append(detection.ToString());
             sb.Append(damageMod.ToString());
-            sb.AppendLine("ObjectiveIcon: " + IconIndex);
+            sb.AppendLine("Objective Icon: " + IconIndex);
             sb.AppendLine("Radar Feature ID: " + RadarFeature);
+            sb.AppendLine("***** Objective Features *****");
+            foreach (FeatureEntry f in features)
+                sb.Append(f.ToString());
+            sb.AppendLine("***** Points *****");
+            foreach (PointData p in Points)
+                sb.Append(p.ToString());
+            sb.AppendLine("***** Point Header Data *****");
+            foreach (PointHeaderData h in HeaderData)
+                sb.Append(h.ToString());
+
             return sb.ToString(); 
         }
         /// <summary>
@@ -322,11 +332,11 @@ namespace FalconDatabase.Objects.Components
             public override string ToString()
             {
                 StringBuilder sb = new();
-                sb.AppendLine("ID: " + ID);
-                sb.AppendLine("Feature ID: " + FeatureID);
-                sb.AppendLine("Data Value: " + Value);
-                sb.AppendLine("Offset: (" + offset.X + ", " + offset.Y + ", " + offset.Z + ")");
-                sb.AppendLine("Front Facing Direction: " + facing);
+                sb.AppendLine("   ID: " + ID);
+                sb.AppendLine("   Feature ID: " + FeatureID);
+                sb.AppendLine("   Data Value: " + Value);
+                sb.AppendLine("   Offset: (" + offset.X + ", " + offset.Y + ", " + offset.Z + ")");
+                sb.AppendLine("   Front Facing Direction: " + facing);
 
                 return sb.ToString();
             }
@@ -538,10 +548,21 @@ namespace FalconDatabase.Objects.Components
             public override string ToString()
             {
                 StringBuilder sb = new();
-                sb.AppendLine("ID: " + ID);
-                sb.AppendLine("Point Type: " + pointType);
-                sb.AppendLine("Offset: (" + offset.X + ", " + offset.Y + ", " + offset.Z + ")");
-                sb.AppendLine("Flags: " + flags);
+                sb.AppendLine("   ID: " + ID);
+                sb.AppendLine("   Point Type: " + pointType);
+                sb.AppendLine("   Offset: (" + offset.X + ", " + offset.Y + ", " + offset.Z + ")");
+                sb.AppendLine("   Flags: " + flags);
+                sb.AppendLine("   Max Height: " + maxHeight);
+                sb.AppendLine("   Max Width: " + MaxWidth);
+                sb.AppendLine("   Max Length: " + MaxLength);
+                sb.AppendLine("   Taxiway Letter: " + TaxiwayLetter);
+                sb.AppendLine("   Parking Point Group: " + parkingPointGroup);
+                sb.AppendLine("   Runway Side: " + runwaySide);
+                sb.AppendLine("   Heading: " + heading);
+                sb.AppendLine("   Root Index: " + rootIdx.ToString());
+                sb.AppendLine("   Branch Index: " + branchIdx.ToString());
+                sb.AppendLine("   Crossing Point: " + crossingPoint);
+                sb.AppendLine("   Runway Number: " + runwayNumber);
 
                 return sb.ToString();
             }
@@ -745,15 +766,15 @@ namespace FalconDatabase.Objects.Components
             public override string ToString()
             {
                 StringBuilder sb = new();
-                sb.AppendLine("ID: " + ID);
-                sb.AppendLine("Objective ID: " + ObjectiveID);
-                sb.AppendLine("Point Type: " + PointType);
-                sb.AppendLine("Point Count: " + PointCount);
-                sb.AppendLine("Vraiable Data: " + dataValue);
-                sb.AppendLine("First Point: " + FirstPoint);
-                sb.AppendLine("Runway Texture: " + RunwayTexture);
-                sb.AppendLine("Runway Number: " + RunwayNumber);
-                sb.AppendLine("Landing Pattern: " + LandingPattern);
+                sb.AppendLine("   ID: " + ID);
+                sb.AppendLine("   Objective ID: " + ObjectiveID);
+                sb.AppendLine("   Point Type: " + PointType);
+                sb.AppendLine("   Point Count: " + PointCount);
+                sb.AppendLine("   Variable Data: " + dataValue);
+                sb.AppendLine("   First Point: " + FirstPoint);
+                sb.AppendLine("   Runway Texture: " + RunwayTexture);
+                sb.AppendLine("   Runway Number: " + RunwayNumber);
+                sb.AppendLine("   Landing Pattern: " + LandingPattern);
                 for (int i=0;i<Dependencies.Count;i++)
                     sb.AppendLine("   Dependency " + i + ": " + dependencies[i]);
 

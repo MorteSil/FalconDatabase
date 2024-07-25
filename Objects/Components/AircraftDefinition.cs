@@ -1,9 +1,8 @@
 ﻿using FalconDatabase.Enums;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Xml;
 using System.Data;
 using System.Reflection;
+using System.Text;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -52,25 +51,6 @@ namespace FalconDatabase.Objects.Components
         private int signatureIdx = 0;
         private Collection<(SensorType SensorType, int SensorID)> sensors = [];
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("ACD");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("CombatClass", ((int)CombatClass).ToString());
-                writer.WriteElementString("AirframeDatIdx", AircraftID.ToString());
-                writer.WriteElementString("IrSignatureIdx", IRSignatureID.ToString());
-                for (int i = 0; i < 5; i++)
-                    writer.WriteAttributeString("SensorType_" + i, ((int)Sensors[i].SensorType).ToString());
-                for (int i = 0; i < 5; i++)
-                    writer.WriteAttributeString("SensorIdx_" + i, ((int)Sensors[i].SensorID).ToString());
-            }
-            writer.WriteEndElement();
-        }
-        #endregion Helper Methods
 
         #region Functional Methods
         /// <summary>
@@ -161,8 +141,6 @@ namespace FalconDatabase.Objects.Components
                 AircraftID = (int)row["AirframeDatIdx"];
                 for (int i = 0; i < 5; i++)
                     sensors.Add(((SensorType)row["SensorType_" + i], (int)row["SensorIdx_" + i]));
-
-                // ?? table.Rows[0]["param"]
 
             }
             catch (Exception ex)

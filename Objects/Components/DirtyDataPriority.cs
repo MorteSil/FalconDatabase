@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -26,21 +25,6 @@ namespace FalconDatabase.Objects.Components
         private int iD = 0;
         private int priority = 0;
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            // Note: This has a well-formed DataTable and does not use this function. Added for ease of future updates.
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("DDP");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("Priority", Priority.ToString());
-            }
-            writer.WriteEndElement();
-
-        }
-        #endregion Helper Methods
 
         #region Functional Methods
         /// <summary>

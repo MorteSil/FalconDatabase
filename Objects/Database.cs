@@ -1,9 +1,6 @@
 ﻿using FalconDatabase.Files;
-using System;
 using System.Diagnostics;
-using System.IO;
 using System.Security;
-using System.Windows;
 
 namespace FalconDatabase.Objects
 {
@@ -116,21 +113,21 @@ namespace FalconDatabase.Objects
             bool result = true;
             try
             {
-                result &= classTable.Save(saveDirectory);
-                result &= ddpTable.Save(saveDirectory);
-                result &= aircraftTable.Save(saveDirectory);
-                result &= featureTable.Save(saveDirectory);
-                result &= irSensorTable.Save(saveDirectory);
-                result &= radarTable.Save(saveDirectory);
-                result &= radarReceiverTable.Save(saveDirectory);
-                result &= rocketTable.Save(saveDirectory);
-                result &= squadronStoresTable.Save(saveDirectory);
-                result &= unitTable.Save(saveDirectory);
-                result &= WeaponTable1.Save(saveDirectory);
-                result &= VehicleTable.Save(saveDirectory);
-                result &= VisualSensorTable.Save(saveDirectory);
-                result &= weaponTable.Save(saveDirectory);
-                result &= weaponLoadTable.Save(saveDirectory);
+                result &= classTable.Save(saveDirectory + "\\Falcon4_CT.xml");
+                result &= ddpTable.Save(saveDirectory + "\\Falcon4_DDP.xml");
+                result &= aircraftTable.Save(saveDirectory + "\\Falcon4_ACD.xml");
+                result &= featureTable.Save(saveDirectory + "\\Falcon4_FCD.xml");
+                result &= irSensorTable.Save(saveDirectory + "\\Falcon4_ICD.xml");
+                result &= radarTable.Save(saveDirectory + "\\Falcon4_RCD.xml");
+                result &= radarReceiverTable.Save(saveDirectory + "\\Falcon4_RWD.xml");
+                result &= rocketTable.Save(saveDirectory + "\\Falcon4_RKT.xml");
+                result &= squadronStoresTable.Save(saveDirectory + "\\Falcon4_SSD.xml");
+                result &= unitTable.Save(saveDirectory + "\\Falcon4_UCD.xml");
+                result &= weaponTable.Save(saveDirectory + "\\Falcon4_WCD.xml");
+                result &= vehicleTable.Save(saveDirectory + "\\Falcon4_VCD.xml");
+                result &= visualSensorTable.Save(saveDirectory + "\\Falcon4_VSD.xml");
+                result &= weaponLoadTable.Save(saveDirectory + "\\Falcon4_WLD.xml");
+                result &= objectiveTable.Save(saveDirectory);
                 if (!result)
                     throw new IOException("Save Failed.");
             }

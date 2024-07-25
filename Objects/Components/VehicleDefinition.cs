@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -176,52 +175,6 @@ namespace FalconDatabase.Objects.Components
         private Collection<(short WpnID, byte WpnCount)> weapons = [];
         private DamageTypes damageMod = new();
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            {
-                writer.WriteStartElement("VCD");
-                writer.WriteAttributeString("Num", ID.ToString());
-                {
-                    writer.WriteElementString("CtIdx", ClassID.ToString());
-                    writer.WriteElementString("HitPoints", HitPoints.ToString());
-                    writer.WriteElementString("Flags", Flags.ToString());
-                    writer.WriteElementString("Name", Name);
-                    writer.WriteElementString("NCTR", NCTR);
-                    writer.WriteElementString("RadarCs", RCSFactor.ToString());
-                    writer.WriteElementString("MaxWeight", MaxWeight.ToString());
-                    writer.WriteElementString("EmptyWeight", EmptyWeightt.ToString());
-                    writer.WriteElementString("FuelWeight", FuelWeight.ToString());
-                    writer.WriteElementString("FuelRate", FuelBurnRate.ToString());
-                    writer.WriteElementString("EngineSound", EngineSoundID.ToString());
-                    writer.WriteElementString("MaxAlt", MaxAltitude.ToString());
-                    writer.WriteElementString("MinAlt", MinAltitude.ToString());
-                    writer.WriteElementString("CruiseAlt", CruiseAlttitude.ToString());
-                    writer.WriteElementString("MaxSpeed", MaxSpeed.ToString());
-                    writer.WriteElementString("RadarIdx", RadarType.ToString());
-                    writer.WriteElementString("NumberOfCrew", NumberOfPilots.ToString());
-                    writer.WriteElementString("RackFlags", RackFlags.ToString());
-                    writer.WriteElementString("VisibleFlags", VisibleFlags.ToString());
-                    writer.WriteElementString("CallsignIdx", CallsignIndex.ToString());
-                    writer.WriteElementString("CallsignSlots", CallsignSlots.ToString());
-                    HitChance.Write(stream, "Hit");
-                    Strength.Write(stream, "Hit");
-                    Range.Write(stream, "Str");
-                    Detection.Write(stream, "Det");
-                    for (int i = 0; i < Weapons.Count; i++)
-                        if (Weapons[i].WpnID != 0)
-                            writer.WriteElementString("WpnOrHpIdx_" + i, Weapons[i].WpnID.ToString());
-                    for (int i = 0; i < Weapons.Count; i++)
-                        if (Weapons[i].WpnCount != 0)
-                            writer.WriteElementString("WpnCount_" + i, Weapons[i].WpnCount.ToString());
-                    DamageModifier.Write(stream);
-                }
-                writer.WriteEndElement();
-            }
-        }
-        #endregion Helper Methods
 
         #region Functional Methods
         /// <summary>

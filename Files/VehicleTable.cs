@@ -181,6 +181,4 @@ namespace FalconDatabase.Files
         #endregion Constructors
 
     }
-
-   
 }

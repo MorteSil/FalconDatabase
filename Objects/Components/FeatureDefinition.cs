@@ -3,7 +3,6 @@ using FalconDatabase.Internal;
 using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -79,29 +78,6 @@ namespace FalconDatabase.Objects.Components
 
 
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("FCD");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("CtIdx", ClassID.ToString());
-                writer.WriteElementString("RepairTime", RepairTime.ToString());
-                writer.WriteElementString("DisplayPriority", Priority.ToString());
-                writer.WriteElementString("Flags", Flags.ToString());
-                writer.WriteElementString("Name", Name.ToString());
-                writer.WriteElementString("HitPoints", HitPoints.ToString());
-                writer.WriteElementString("RampHeight", RampHeight.ToString());
-                writer.WriteElementString("RampAngle", RampAngle.ToString());
-                writer.WriteElementString("RadarIdx", RadarType.ToString());
-                Detection.Write(stream, "Det");
-                DamageModifiers.Write(stream);
-            }
-            writer.WriteEndElement();
-        }
-        #endregion Helper Methods
 
         #region Functional Methods
         /// <summary>

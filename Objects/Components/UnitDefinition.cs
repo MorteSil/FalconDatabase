@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -189,56 +188,6 @@ namespace FalconDatabase.Objects.Components
         private Collection<short> elementDecals = [];
 
         #endregion Fields
-
-        #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("UCD");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("CtIdx", ClassID.ToString());
-                for (int i = 0; i < Elements.Count; i++)
-                {
-                    if (Elements[i].VehicleCount != 0)
-                        writer.WriteElementString("ElementCount_" + i, Elements[i].VehicleCount.ToString());
-                }
-                for (int i = 0; i < Elements.Count; i++)
-                {
-                    if (Elements[i].VehicleID != 0)
-                        writer.WriteElementString("VehicleCtIdx_ " + i, Elements[i].VehicleID.ToString());
-                }
-                for (int i = 0; i < Elements.Count; i++)
-                {
-                    if (Elements[i].ElementFlags != 0)
-                        writer.WriteElementString("ElementFlags_" + i, Elements[i].ElementFlags.ToString());
-                }
-
-                writer.WriteElementString("Flags", Flags.ToString());
-                writer.WriteElementString("Name", ClassID.ToString());
-                writer.WriteElementString("MoveType", ((int)movementType).ToString());
-                writer.WriteElementString("MoveSpeed", MovementSpeed.ToString());
-                writer.WriteElementString("MaxRange", MaxRange.ToString());
-                writer.WriteElementString("Fuel", Fuel.ToString());
-                writer.WriteElementString("FuelRate", Rate.ToString());
-                writer.WriteElementString("Name", ClassID.ToString());
-                writer.WriteElementString("PtDataIdx", ((int)0).ToString());
-                for (int i = 0; i < scores.Count; i++)
-                    writer.WriteElementString("RoleScore_" + scores[i].RoleType.ToString(), scores[i].RoleScore.ToString());
-                writer.WriteElementString("MainRole", PrimaryRole.ToString());
-                hitChance.Write(stream, "Hit");
-                strength.Write(stream, "Str");
-                range.Write(stream, "Rng");
-                detection.Write(stream, "Det");
-                damageMod.Write(stream);
-                writer.WriteElementString("RadarVehicle", RadarVehicle.ToString());
-                writer.WriteElementString("SquadronStoresIdx", SquadronStoresID.ToString());
-                writer.WriteElementString("UnitIcon", iconIndex.ToString());
-
-            }
-            writer.WriteEndElement();
-        }
-        #endregion Helper Methods
 
         #region Functional Methods
         /// <summary>
