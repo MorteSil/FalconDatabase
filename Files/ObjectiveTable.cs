@@ -125,7 +125,7 @@ namespace FalconDatabase.Files
                             obj.HeaderData.Add(new(row2));
                         hReader.Close();
 
-                        dbObjects.Add(new(row));
+                        dbObjects.Add(obj);
 
                     }                        
                    
