@@ -8,4 +8,6 @@ Additional testing required to see how the Game reacts to files formatted slight
 ***** Read Carefully *****
 
 TODO: Initial Refactor complete and all files read correctly. Save Testing is still in progress (See above, unit testing tough without the original XSD documents). DO NOT use your real files.
+
+TODO: Read/Write functions for binary and text proto are WIP (~70%)
 	
