@@ -29,7 +29,7 @@ namespace FalconDatabase.Files
                 DataTable table = dataSet.Tables[0];
                 foreach (var entry in dbObjects)
                 {
-                    table.Rows.Add(entry.ToDataRow());
+                    table.Rows.Add(entry.ToDataRow().ItemArray);
                 }
                 return table;
             }

@@ -31,13 +31,13 @@ namespace FalconDatabase.Files
                 dataSet.ReadXmlSchema(schemaFile.Replace("OCD", "PDH"));
                 foreach (var entry in dbObjects)
                 {
-                    dataSet.Tables[0].Rows.Add(entry.ToDataRow());
+                    dataSet.Tables[0].Rows.Add(entry.ToDataRow().ItemArray);
                     foreach (var feature in entry.Features)
-                        dataSet.Tables[1].Rows.Add(feature.ToDataRow());
+                        dataSet.Tables[1].Rows.Add(feature.ToDataRow().ItemArray);
                     foreach (var point in entry.Points)
-                        dataSet.Tables[2].Rows.Add(point.ToDataRow());
+                        dataSet.Tables[2].Rows.Add(point.ToDataRow().ItemArray);
                     foreach (var header in entry.HeaderData)
-                        dataSet.Tables[3].Rows.Add(header.ToDataRow());
+                        dataSet.Tables[3].Rows.Add(header.ToDataRow().ItemArray);
                 }
                 return dataSet;
             }
@@ -155,24 +155,24 @@ namespace FalconDatabase.Files
                 string path = dbLocation + "\\OCD_" + i.ToString("D5") + "\\"; 
                 try
                 {
-                    ds.Tables[0].Rows.Add(Objectives[i].ToDataRow());
+                    ds.Tables[0].Rows.Add(Objectives[i].ToDataRow().ItemArray);
                     ds.WriteXml(path+"\\OCD_" + i.ToString("D5") + ".xml", XmlWriteMode.IgnoreSchema);
                     
                     DataSet dsf = new();
                     foreach (var feature in Objectives[i].Features)
-                        dsf.Tables[0].Rows.Add(feature.ToDataRow());
+                        dsf.Tables[0].Rows.Add(feature.ToDataRow().ItemArray);
                     dsf.ReadXmlSchema(schemaFile.Replace("OCD", "FED"));
                     dsf.WriteXml(path + "\\FED_" + i.ToString("D5") + ".xml");
 
                     DataSet dspx = new();
                     foreach (var point in Objectives[i].Points)
-                        dspx.Tables[0].Rows.Add(point.ToDataRow());
+                        dspx.Tables[0].Rows.Add(point.ToDataRow().ItemArray);
                     dsf.ReadXmlSchema(schemaFile.Replace("OCD", "PDX"));
                     dsf.WriteXml(path + "\\PDX_" + i.ToString("D5") + ".xml");
 
                     DataSet dsph = new();
                     foreach (var point in Objectives[i].HeaderData)
-                        dsph.Tables[0].Rows.Add(point.ToDataRow());
+                        dsph.Tables[0].Rows.Add(point.ToDataRow().ItemArray);
                     dsf.ReadXmlSchema(schemaFile.Replace("OCD", "PHD"));
                     dsf.WriteXml(path + "\\PHD_" + i.ToString("D5") + ".xml");
                 }

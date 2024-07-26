@@ -29,7 +29,7 @@ namespace FalconDatabase.Files
                 DataTable table = dataSet.Tables[0];
                 foreach (var entry in dbObjects)
                 {
-                    table.Rows.Add(entry.ToDataRow());
+                    table.Rows.Add(entry.ToDataRow().ItemArray);
                 }
                 return table;
             }
@@ -88,7 +88,7 @@ namespace FalconDatabase.Files
             try
             {
                 foreach (var entry in dbObjects)
-                    ds.Tables[0].Rows.Add(entry.ToDataRow());
+                    ds.Tables[0].Rows.Add(entry.ToDataRow().ItemArray);
 
                 ds.WriteXml(writer, XmlWriteMode.IgnoreSchema);
                 stream.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
