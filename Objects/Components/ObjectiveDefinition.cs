@@ -84,23 +84,6 @@ namespace FalconDatabase.Objects.Components
         #endregion Fields
 
         #region Helper Methods
-        internal void Write(Stream stream)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            writer.WriteStartElement("OCD");
-            writer.WriteAttributeString("Num", ID.ToString());
-            {
-                writer.WriteElementString("CtIdx", ClassID.ToString());
-                writer.WriteElementString("Name", Name);
-                writer.WriteElementString("DataRate", DataRate.ToString());
-                writer.WriteElementString("DeaggDistance", DeagDistance.ToString());
-                Detection.Write(stream, "Det");
-                DamageMod.Write(stream);
-                writer.WriteElementString("ObjectiveIcon", IconIndex.ToString());
-                writer.WriteElementString("RadarFeature", RadarFeature.ToString());
-            }
-            writer.WriteEndElement();
-        }
         /// <summary>
         /// Updates the Point Header Data FirstPoint field.
         /// </summary>
@@ -304,24 +287,6 @@ namespace FalconDatabase.Objects.Components
             private double facing = 0;
             #endregion Fields
 
-            #region Helper Methods
-            internal void Write(Stream stream)
-            {
-                using XmlWriter writer = XmlWriter.Create(stream);
-                writer.WriteStartElement("FED");
-                writer.WriteAttributeString("Num", ID.ToString());
-                {
-                    writer.WriteElementString("FeatureCtIdx", FeatureID.ToString());
-                    writer.WriteElementString("Value", value.ToString()); // Fixes the terrible source schema by printing it no matter what
-                    writer.WriteElementString("OffsetX", Offset.X.ToString());
-                    writer.WriteElementString("OffsetY", Offset.Y.ToString());
-                    writer.WriteElementString("OffsetZ", Offset.Z.ToString());
-                    writer.WriteElementString("Heading", Heading.ToString());
-                }
-                writer.WriteEndElement();
-            }
-            #endregion Helper Methods
-
             #region Functional Methods
             /// <summary>
             /// <para>Formats the data contained within this object into Readable Text.</para>
@@ -496,47 +461,6 @@ namespace FalconDatabase.Objects.Components
             private bool crossingPoint = false;
             private int runwayNumber = -1;
             #endregion Fields
-
-            #region Helper Methods
-            internal void Write(Stream stream)
-            {
-                using XmlWriter writer = XmlWriter.Create(stream);
-                writer.WriteStartElement("PD");
-                writer.WriteAttributeString("Num", ID.ToString());
-                {
-                    writer.WriteElementString("OffsetX", Offset.X.ToString());
-                    writer.WriteElementString("OffsetY", Offset.Y.ToString());
-                    writer.WriteElementString("OffsetZ", Offset.Z.ToString());
-                    if (pointType != -1)
-                        writer.WriteElementString("Type", PointType.ToString());
-                    if (Flags != -1)
-                        writer.WriteElementString("Flags", Flags.ToString());
-                    if (MaxHeight != -1)
-                        writer.WriteElementString("MaxHeight", MaxHeight.ToString());
-                    if (MaxWidth != -1)
-                        writer.WriteElementString("MaxWidth", MaxWidth.ToString());
-                    if (MaxLength != -1)
-                        writer.WriteElementString("MaxLength", MaxLength.ToString());
-                    if (ParkingPointGroup != -1)
-                        writer.WriteElementString("ParkingPointGroup", parkingPointGroup.ToString());
-                    if (TaxiwayLetter != 255)
-                        writer.WriteElementString("TaxiwayLetter", TaxiwayLetter.ToString());
-                    if (runwaySide != 255)
-                        writer.WriteElementString("RunwaySide", runwaySide.ToString());
-                    if (Heading != -1)
-                        writer.WriteElementString("Heading", Heading.ToString());
-                    if (BranchIdx != -1)
-                        writer.WriteElementString("BranchIdx", branchIdx.ToString());
-                    if (RootIdx != -1)
-                        writer.WriteElementString("RootIdx", rootIdx.ToString());
-                    if (crossingPoint)
-                        writer.WriteElementString("CrossingPoint", crossingPoint.ToString());
-                    if (RunwayNumber != -1)
-                        writer.WriteElementString("RunwayNumber", runwayNumber.ToString());
-                }
-                writer.WriteEndElement();
-            }
-            #endregion Helper Methods
 
             #region Functional Methods
             /// <summary>
@@ -733,28 +657,6 @@ namespace FalconDatabase.Objects.Components
             private short runwayNumber = -1;
             private LandingPattern landingPattern = LandingPattern.None;
             #endregion Fields
-
-            #region Helper Methods
-            internal void Write(Stream stream, int firstPoint)
-            {
-                using XmlWriter writer = XmlWriter.Create(stream);
-                writer.WriteStartElement("PHD");
-                writer.WriteAttributeString("Num", ID.ToString());
-                {
-                    writer.WriteElementString("ObjIdx", ObjectiveID.ToString());
-                    writer.WriteElementString("Type", PointType.ToString());
-                    for (int i = 0; i < Dependencies.Count; i++)
-                        if (Dependencies[i] != 0)
-                            writer.WriteElementString("FeatureDependencyIdx_" + i, dependencies[i].ToString());
-                    writer.WriteElementString("Data", DataValue.ToString());
-                    writer.WriteElementString("FirstPtIdx", firstPoint.ToString());
-                    writer.WriteElementString("RunwayTexture", RunwayTexture.ToString());
-                    writer.WriteElementString("RunwayNumber", RunwayNumber.ToString());
-                    writer.WriteElementString("LandingPattern", ((int)LandingPattern).ToString());
-                }
-                writer.WriteEndElement();
-            }
-            #endregion Helper Methods
 
             #region Functional Methods
             /// <summary>
