@@ -94,6 +94,7 @@ namespace FalconDatabase.Objects.Components
             row["Type"] = classData.Type;
             row["SubType"] = classData.SubType;
             row["Specific"] = classData.SpecificType;
+            row["Owner"] = classData.Owner;
             row["Class_6"] = classData.Class_6;
             row["Class_7"] = classData.Class_7;
             row["UpdateRate"] = updateData.UpdateRate;
@@ -158,6 +159,7 @@ namespace FalconDatabase.Objects.Components
                 classData.Type = (int)row["Type"];
                 classData.SubType = (int)row["SubType"];
                 classData.SpecificType =(int)row["Specific"];
+                ClassData.Owner = (ModeType)(int)row["Owner"];
                 classData.Class_6 = (int)row["Class_6"];
                 classData.Class_7 = (int)row["Class_7"];
                 updateData.UpdateRate = (int)row["UpdateRate"];

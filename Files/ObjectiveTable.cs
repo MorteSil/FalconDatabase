@@ -147,7 +147,7 @@ namespace FalconDatabase.Files
         /// <returns><see cref="byte"/> array suitable for writing to a file.</returns>
         protected override byte[] Write()
         {
-            SetOutputLocation(_OutputFolder + "\\ObjectiveRelatedData");
+            
             for (int i = 0; i < Objectives.Count; i++)
             {
                 DataSet ds = new();
@@ -176,15 +176,25 @@ namespace FalconDatabase.Files
                     dsf.ReadXmlSchema(schemaFile.Replace("OCD", "PHD"));
                     dsf.WriteXml(path + "\\PHD_" + i.ToString("D5") + ".xml");
                 }
-                catch
-                {                    
-                    throw;
+                catch (Exception ex)
+                {
+                    Utilities.Logging.ErrorLog.CreateLogFile(ex, "This error occurred while writing the Objective Database.");
+                    return [0];
                 }
 
             }
 
-            return [];
+            return [1];
             
+        }
+        /// <summary>
+        /// Sets the output location for the Objective Database.
+        /// </summary>
+        /// <param name="outputLocation"></param>
+        private void SetOutputLocation(string outputLocation)
+        {
+            if (Directory.Exists(outputLocation))
+                dbLocation = new DirectoryInfo(outputLocation);
         }
         #endregion Helper Methods
 
@@ -203,14 +213,18 @@ namespace FalconDatabase.Files
             return sb.ToString();
         }
         /// <summary>
-        /// Sets the output location for the Objective Database.
+        /// Saves the <see cref="ObjectiveTable"/> to the Folder supplied in <paramref name="path"/>.
         /// </summary>
-        /// <param name="outputLocation"></param>
-        private void SetOutputLocation(string outputLocation)
+        /// <param name="path">A Folder to save the Objective Database to. 
+        /// Output will conform to the current practice of creating a Directory for each Objective containing the OCD, FED, PDX, and PHD files.</param>
+        /// <returns></returns>
+        public override bool Save(string path)
         {
-            if (Directory.Exists(outputLocation))
-                dbLocation = new DirectoryInfo(outputLocation);
+            SetOutputLocation(path);
+            byte[] result = Write();
+            return result[0] == 1;
         }
+
         #region Equality Functions        
         public override bool Equals(object? other)
         {

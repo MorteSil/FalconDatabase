@@ -88,9 +88,9 @@ namespace FalconDatabase.Files
             try
             {
                 foreach (var entry in dbObjects)
-                    ds.Tables[0].Rows.Add(entry.ToDataRow());
+                    ds.Tables[0].Rows.Add(entry.ToDataRow().ItemArray);
 
-                ds.WriteXml(writer, XmlWriteMode.IgnoreSchema);
+                ds.WriteXml(writer);
                 stream.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
                 stream.Position = 0;
                 return Encoding.UTF8.GetBytes(new StreamReader(stream).ReadToEnd());
