@@ -127,7 +127,7 @@ namespace FalconDatabase.Objects
                 result &= vehicleTable.Save(saveDirectory + "\\Falcon4_VCD.xml");
                 result &= visualSensorTable.Save(saveDirectory + "\\Falcon4_VSD.xml");
                 result &= weaponLoadTable.Save(saveDirectory + "\\Falcon4_WLD.xml");
-                result &= objectiveTable.Save(saveDirectory);
+                result &= objectiveTable.Save(saveDirectory + "\\ObjectiveRelatedData");
                 if (!result)
                     throw new IOException("Save Failed.");
             }

@@ -128,6 +128,7 @@ namespace FalconDatabase.Objects.Components
             row["Name"] = Name;
             row["HitPoints"] = HitPoints;
             row["RampHeight"] = RampHeight;
+            row["RampAngle"] = RampAngle;
             row["RadarIdx"] = RadarType;
             {
                 row["Det_NoMove"] = Detection.NoMovement;
@@ -192,6 +193,7 @@ namespace FalconDatabase.Objects.Components
                 Name = (string)row["Name"];
                 HitPoints = (short)row["HitPoints"];
                 RampHeight = (short)row["RampHeight"];
+                RampAngle = (float)row["RampAngle"];
                 RadarType = (RadarType)((short)row["RadarIdx"]);
                 {
                     Detection.NoMovement = (float)row["Det_NoMove"];

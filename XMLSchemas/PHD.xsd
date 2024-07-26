@@ -27,9 +27,9 @@
 							<xs:element minOccurs="0" name="FeatureDependencyIdx_15" type="xs:unsignedByte" />
 							<xs:element minOccurs="0" name="Data" type="xs:float" />
 							<xs:element name="FirstPtIdx" type="xs:unsignedShort" />
-							<xs:element name="RunwayTexture" type="xs:short" />
-							<xs:element name="RunwayNumber" type="xs:short" />
-							<xs:element name="LandingPattern" type="xs:short" />
+							<xs:element minOccurs="0" name="RunwayTexture" type="xs:short" />
+							<xs:element minOccurs="0" name="RunwayNumber" type="xs:short" />
+							<xs:element minOccurs="0" name="LandingPattern" type="xs:short" />
 						</xs:sequence>
 						<xs:attribute name="Num" type="xs:int" use="required" />
 					</xs:complexType>

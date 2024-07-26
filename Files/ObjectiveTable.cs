@@ -152,29 +152,31 @@ namespace FalconDatabase.Files
             {
                 DataSet ds = new();
                 ds.ReadXmlSchema(schemaFile);
-                string path = dbLocation + "\\OCD_" + i.ToString("D5") + "\\"; 
+                string path = dbLocation + "\\OCD_" + i.ToString("D5");                
                 try
                 {
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
                     ds.Tables[0].Rows.Add(Objectives[i].ToDataRow().ItemArray);
-                    ds.WriteXml(path+"\\OCD_" + i.ToString("D5") + ".xml", XmlWriteMode.IgnoreSchema);
+                    ds.WriteXml(path+"\\OCD_" + i.ToString("D5") + ".xml");
                     
                     DataSet dsf = new();
-                    foreach (var feature in Objectives[i].Features)
-                        dsf.Tables[0].Rows.Add(feature.ToDataRow().ItemArray);
                     dsf.ReadXmlSchema(schemaFile.Replace("OCD", "FED"));
+                    foreach (var feature in Objectives[i].Features)
+                        dsf.Tables[0].Rows.Add(feature.ToDataRow().ItemArray);                    
                     dsf.WriteXml(path + "\\FED_" + i.ToString("D5") + ".xml");
 
                     DataSet dspx = new();
+                    dspx.ReadXmlSchema(schemaFile.Replace("OCD", "PDX"));
                     foreach (var point in Objectives[i].Points)
-                        dspx.Tables[0].Rows.Add(point.ToDataRow().ItemArray);
-                    dsf.ReadXmlSchema(schemaFile.Replace("OCD", "PDX"));
-                    dsf.WriteXml(path + "\\PDX_" + i.ToString("D5") + ".xml");
+                        dspx.Tables[0].Rows.Add(point.ToDataRow().ItemArray);                    
+                    dspx.WriteXml(path + "\\PDX_" + i.ToString("D5") + ".xml");
 
                     DataSet dsph = new();
+                    dsph.ReadXmlSchema(schemaFile.Replace("OCD", "PHD"));
                     foreach (var point in Objectives[i].HeaderData)
-                        dsph.Tables[0].Rows.Add(point.ToDataRow().ItemArray);
-                    dsf.ReadXmlSchema(schemaFile.Replace("OCD", "PHD"));
-                    dsf.WriteXml(path + "\\PHD_" + i.ToString("D5") + ".xml");
+                        dsph.Tables[0].Rows.Add(point.ToDataRow().ItemArray);                    
+                    dsph.WriteXml(path + "\\PHD_" + i.ToString("D5") + ".xml");
                 }
                 catch (Exception ex)
                 {
@@ -195,6 +197,8 @@ namespace FalconDatabase.Files
         {
             if (Directory.Exists(outputLocation))
                 dbLocation = new DirectoryInfo(outputLocation);
+            else
+                Directory.CreateDirectory(outputLocation);
         }
         #endregion Helper Methods
 

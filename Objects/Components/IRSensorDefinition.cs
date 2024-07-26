@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Xml;
 
 namespace FalconDatabase.Objects.Components
 {
@@ -88,6 +87,7 @@ namespace FalconDatabase.Objects.Components
             DataRow row = table.NewRow();
 
             row["Num"] = ID;
+            row["Name"] = Name;
             row["DetectionRange"] = Range;
             row["FOV"] = FOV;
             row["GimbalLimit"] = GimbalLimit;
@@ -123,6 +123,7 @@ namespace FalconDatabase.Objects.Components
 
                 // Create Object
                 ID = (int)row["Num"];
+                Name = (string)row["Name"];
                 Range = (float)row["DetectionRange"];
                 FOV = (float)row["FOV"];
                 GimbalLimit = (float)row["GimbalLimit"];
