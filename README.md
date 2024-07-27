@@ -12,8 +12,7 @@ some minor tweaks to it.
 
 ***** Read Carefully *****
 
-TODO: Initial Refactor complete and all files read correctly. Save Testing is still in progress (See above, unit testing tough without the original XSD documents). DO NOT use your real files.
-Update: Save functions appear to be working correctly for all file types. Further testing being conducted to verify output is 100% valid for use in the game.
+TODO: Save Functions are passing unit tests for accurate input/output matching. Functional tests in the game under way.
 
 TODO: Read/Write functions for binary and text proto are WIP (~70%)
 	
