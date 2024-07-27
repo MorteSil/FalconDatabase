@@ -35,7 +35,7 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Feature Name.
         /// </summary>
-        public string Name { get => string.IsNullOrWhiteSpace(name) ? " " : name; set => name = value; }
+        public string Name { get => string.IsNullOrEmpty(name) ? "" : name; set => name = value; }
         /// <summary>
         /// How much damage the Feature can sustain before being destroyed.
         /// </summary>
@@ -131,14 +131,14 @@ namespace FalconDatabase.Objects.Components
             row["RampAngle"] = RampAngle.ToString("0.000");
             row["RadarIdx"] = RadarType;
             {
-                row["Det_NoMove"] = Detection.NoMovement.ToString("0.000");
-                row["Det_Foot"] = Detection.Foot.ToString("0.000");
-                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.000");
-                row["Det_Tracked"] = Detection.Tracked.ToString("0.000");
-                row["Det_LowAir"] = Detection.LowAir.ToString("0.000");
-                row["Det_Air"] = Detection.Air.ToString("0.000");
-                row["Det_Naval"] = Detection.Naval.ToString("0.000");
-                row["Det_Rail"] = Detection.Rail.ToString("0.000");
+                row["Det_NoMove"] = Detection.NoMovement.ToString("0.0");
+                row["Det_Foot"] = Detection.Foot.ToString("0.0");
+                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.0");
+                row["Det_Tracked"] = Detection.Tracked.ToString("0.0");
+                row["Det_LowAir"] = Detection.LowAir.ToString("0.0");
+                row["Det_Air"] = Detection.Air.ToString("0.0");
+                row["Det_Naval"] = Detection.Naval.ToString("0.0");
+                row["Det_Rail"] = Detection.Rail.ToString("0.0");
             }
 
             {

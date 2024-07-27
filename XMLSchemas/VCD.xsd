@@ -32,6 +32,7 @@
 							<xs:element name="VisibleFlags" type="xs:unsignedShort" />
 							<xs:element name="CallsignIdx" type="xs:unsignedByte" />
 							<xs:element name="CallsignSlots" type="xs:unsignedByte" />
+							
 							<xs:element name="Hit_NoMove" type="xs:unsignedByte" />
 							<xs:element name="Hit_Foot" type="xs:unsignedByte" />
 							<xs:element name="Hit_Wheeled" type="xs:unsignedByte" />
@@ -40,6 +41,7 @@
 							<xs:element name="Hit_Air" type="xs:unsignedByte" />
 							<xs:element name="Hit_Naval" type="xs:unsignedByte" />
 							<xs:element name="Hit_Rail" type="xs:unsignedByte" />
+							
 							<xs:element name="Str_NoMove" type="xs:unsignedByte" />
 							<xs:element name="Str_Foot" type="xs:unsignedByte" />
 							<xs:element name="Str_Wheeled" type="xs:unsignedByte" />
@@ -48,6 +50,7 @@
 							<xs:element name="Str_Air" type="xs:unsignedByte" />
 							<xs:element name="Str_Naval" type="xs:unsignedByte" />
 							<xs:element name="Str_Rail" type="xs:unsignedByte" />
+							
 							<xs:element name="Rng_NoMove" type="xs:unsignedByte" />
 							<xs:element name="Rng_Foot" type="xs:unsignedByte" />
 							<xs:element name="Rng_Wheeled" type="xs:unsignedByte" />
@@ -56,6 +59,7 @@
 							<xs:element name="Rng_Air" type="xs:unsignedByte" />
 							<xs:element name="Rng_Naval" type="xs:unsignedByte" />
 							<xs:element name="Rng_Rail" type="xs:unsignedByte" />
+							
 							<xs:element name="Det_NoMove" type="floatThreePrec" />
 							<xs:element name="Det_Foot" type="floatThreePrec" />
 							<xs:element name="Det_Wheeled" type="floatThreePrec" />
@@ -63,18 +67,8 @@
 							<xs:element name="Det_LowAir" type="floatThreePrec" />
 							<xs:element name="Det_Air" type="floatThreePrec" />
 							<xs:element name="Det_Naval" type="floatThreePrec" />
-							<xs:element name="Det_Rail" type="floatThreePrec" />							
-							<xs:element name="Dam_None" type="xs:unsignedByte" />
-							<xs:element name="Dam_Penetration" type="xs:unsignedByte" />
-							<xs:element name="Dam_HighExplosive" type="xs:unsignedByte" />
-							<xs:element name="Dam_Heave" type="xs:unsignedByte" />
-							<xs:element name="Dam_Incendairy" type="xs:unsignedByte" />
-							<xs:element name="Dam_Proximity" type="xs:unsignedByte" />
-							<xs:element name="Dam_Kinetic" type="xs:unsignedByte" />
-							<xs:element name="Dam_Hydrostatic" type="xs:unsignedByte" />
-							<xs:element name="Dam_Chemical" type="xs:unsignedByte" />
-							<xs:element name="Dam_Nuclear" type="xs:unsignedByte" />
-							<xs:element name="Dam_Other" type="xs:unsignedByte" />
+							<xs:element name="Det_Rail" type="floatThreePrec" />
+
 							<xs:element minOccurs="0" name="WpnOrHpIdx_0" type="xs:short" />
 							<xs:element minOccurs="0" name="WpnOrHpIdx_1" type="xs:short" />
 							<xs:element minOccurs="0" name="WpnOrHpIdx_2" type="xs:short" />
@@ -107,6 +101,19 @@
 							<xs:element minOccurs="0" name="WpnCount_13" type="xs:unsignedByte" />
 							<xs:element minOccurs="0" name="WpnCount_14" type="xs:unsignedByte" />
 							<xs:element minOccurs="0" name="WpnCount_15" type="xs:unsignedByte" />
+							
+							<xs:element name="Dam_None" type="xs:unsignedByte" />
+							<xs:element name="Dam_Penetration" type="xs:unsignedByte" />
+							<xs:element name="Dam_HighExplosive" type="xs:unsignedByte" />
+							<xs:element name="Dam_Heave" type="xs:unsignedByte" />
+							<xs:element name="Dam_Incendairy" type="xs:unsignedByte" />
+							<xs:element name="Dam_Proximity" type="xs:unsignedByte" />
+							<xs:element name="Dam_Kinetic" type="xs:unsignedByte" />
+							<xs:element name="Dam_Hydrostatic" type="xs:unsignedByte" />
+							<xs:element name="Dam_Chemical" type="xs:unsignedByte" />
+							<xs:element name="Dam_Nuclear" type="xs:unsignedByte" />
+							<xs:element name="Dam_Other" type="xs:unsignedByte" />
+							
 						</xs:sequence>
 						<xs:attribute name="Num" type="xs:int" use="required" />
 					</xs:complexType>

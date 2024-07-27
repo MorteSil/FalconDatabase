@@ -13,7 +13,146 @@
 						<xs:sequence>
 							<xs:choice maxOccurs="unbounded">
 								<xs:element name="CtIdx" type="xs:short" />
-								<xs:element name="MainRole" type="xs:unsignedByte" />
+
+								<xs:element name="ElementName_0" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_1" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_2" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_3" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_4" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_5" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_6" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_7" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_8" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_9" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_10" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_11" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_12" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_13" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_14" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementName_15" type="xs:string" minOccurs="0" />
+
+								<xs:element name="ElementNamePrefix_0" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_1" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_2" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_3" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_4" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_5" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_6" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_7" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_8" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_9" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_10" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_11" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_12" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_13" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_14" type="xs:string" minOccurs="0" />
+								<xs:element name="ElementNamePrefix_15" type="xs:string" minOccurs="0" />
+								
+								<xs:element name="ElementCount_0" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_1" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_2" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_3" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_4" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_5" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_6" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_7" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_8" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_9" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_10" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_11" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_12" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_13" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_14" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="ElementCount_15" type="xs:unsignedByte" minOccurs="0" />
+
+								<xs:element name="VehicleCtIdx_0" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_1" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_2" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_3" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_4" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_5" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_6" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_7" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_8" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_9" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_10" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_11" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_12" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_13" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_14" type="xs:int" minOccurs="0" />
+								<xs:element name="VehicleCtIdx_15" type="xs:int" minOccurs="0" />
+
+								<xs:element name="ElementFlags_0" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_1" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_2" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_3" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_4" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_5" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_6" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_7" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_8" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_9" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_10" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_11" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_12" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_13" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_14" type="xs:int" minOccurs="0" />
+								<xs:element name="ElementFlags_15" type="xs:int" minOccurs="0" />
+
+								<xs:element name="ElementTexSetIdx_0" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_1" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_2" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_3" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_4" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_5" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_6" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_7" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_8" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_9" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_10" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_11" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_12" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_13" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_14" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementTexSetIdx_15" type="xs:short" minOccurs="0" />
+
+								<xs:element name="ElementDecalIdx_0" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_1" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_2" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_3" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_4" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_5" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_6" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_7" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_8" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_9" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_10" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_11" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_12" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_13" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_14" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementDecalIdx_15" type="xs:short" minOccurs="0" />
+
+								<xs:element name="ElementHullNumber_0" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_1" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_2" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_3" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_4" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_5" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_6" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_7" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_8" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_9" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_10" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_11" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_12" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_13" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_14" type="xs:short" minOccurs="0" />
+								<xs:element name="ElementHullNumber_15" type="xs:short" minOccurs="0" />
+								
+								<xs:element name="Description" type="xs:string" default=" " minOccurs="0" />
+								
+								<xs:element name="Flags" type="xs:unsignedShort" minOccurs="0" />
 								<xs:element name="Name" type="xs:string" default=" " />	
 								<xs:element name="MoveType" type="xs:unsignedByte" />
 								<xs:element name="MoveSpeed" type="xs:short" />
@@ -21,11 +160,23 @@
 								<xs:element name="Fuel" type="xs:int" />
 								<xs:element name="FuelRate" type="xs:short" />
 								<xs:element name="PtDataIdx" type="xs:short" />
-								<xs:element name="RadarVehicle" type="xs:short" />
-								<xs:element name="SquadronStoresIdx" type="xs:short" />
-								<xs:element name="UnitIcon" type="xs:short" />
-								<xs:element name="Flags" type="xs:unsignedShort" minOccurs="0" default="0" />
-								<xs:element name="Description" type="xs:string" default=" " minOccurs="0" />
+								<xs:element name="RoleScore_0" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_1" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_2" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_3" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_4" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_5" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_6" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_7" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_8" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_9" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_10" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_11" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_12" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_13" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_14" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="RoleScore_15" type="xs:unsignedByte" minOccurs="0" />
+								<xs:element name="MainRole" type="xs:unsignedByte" />
 
 								<xs:element name="Hit_NoMove" type="xs:unsignedByte" />
 								<xs:element name="Hit_Foot" type="xs:unsignedByte" />
@@ -75,159 +226,21 @@
 								<xs:element name="Dam_Nuclear" type="xs:unsignedByte" />
 								<xs:element name="Dam_Other" type="xs:unsignedByte" />
 
-								<xs:element name="RoleScore_0" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_1" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_2" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_3" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_4" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_5" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_6" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_7" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_8" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_9" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_10" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_11" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_12" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_13" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_14" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="RoleScore_15" type="xs:unsignedByte" minOccurs="0" default ="0" />
 								
-								<xs:element name="ElementCount_0" type="xs:unsignedByte" default ="0" />
-								<xs:element name="ElementCount_1" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_2" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_3" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_4" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_5" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_6" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_7" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_8" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_9" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_10" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_11" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_12" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_13" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_14" type="xs:unsignedByte" minOccurs="0" default ="0" />
-								<xs:element name="ElementCount_15" type="xs:unsignedByte" minOccurs="0" default ="0" />
 								
-								<xs:element name="VehicleCtIdx_0" type="xs:int" default ="0" />
-								<xs:element name="VehicleCtIdx_1" type="xs:int" minOccurs="0" default ="0" />								
-								<xs:element name="VehicleCtIdx_2" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_3" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_4" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_5" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_6" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_7" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_8" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_9" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_10" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_11" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_12" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_13" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_14" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="VehicleCtIdx_15" type="xs:int" minOccurs="0" default ="0" />
 								
-								<xs:element name="ElementFlags_0" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_1" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_2" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_3" type="xs:int" minOccurs="0" default ="0" />								
-								<xs:element name="ElementFlags_4" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_5" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_6" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_7" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_8" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_9" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_10" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_11" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_12" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_13" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_14" type="xs:int" minOccurs="0" default ="0" />
-								<xs:element name="ElementFlags_15" type="xs:int" minOccurs="0" default ="0" />
+								
+								
 																
-								<xs:element name="ElementName_0" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_1" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_2" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_3" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_4" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_5" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_6" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_7" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_8" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_9" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_10" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_11" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_12" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_13" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_14" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementName_15" type="xs:string" minOccurs="0" default =" " />
 								
-								<xs:element name="ElementNamePrefix_0" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_1" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_2" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_3" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_4" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_5" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_6" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_7" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_8" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_9" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_10" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_11" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_12" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_13" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_14" type="xs:string" minOccurs="0" default =" " />
-								<xs:element name="ElementNamePrefix_15" type="xs:string" minOccurs="0" default =" " />
 								
-								<xs:element name="ElementDecalIdx_0" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_1" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_2" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_3" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_4" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_5" type="xs:short" minOccurs="0" default ="-1" />	
-								<xs:element name="ElementDecalIdx_6" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_7" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_8" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_9" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_10" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_11" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_12" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_13" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_14" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementDecalIdx_15" type="xs:short" minOccurs="0" default ="-1" />
 								
-								<xs:element name="ElementHullNumber_0" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_1" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_2" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_3" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_4" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_5" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_6" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_7" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_8" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_9" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_10" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_11" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_12" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_13" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_14" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementHullNumber_15" type="xs:short" minOccurs="0" default ="-1" />
 
-								<xs:element name="ElementTexSetIdx_0" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_1" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_2" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_3" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_4" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_5" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_6" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_7" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_8" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_9" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_10" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_11" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_12" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_13" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_14" type="xs:short" minOccurs="0" default ="-1" />
-								<xs:element name="ElementTexSetIdx_15" type="xs:short" minOccurs="0" default ="-1" />
 								
+
+								<xs:element name="RadarVehicle" type="xs:short" />
+								<xs:element name="SquadronStoresIdx" type="xs:short" />
+								<xs:element name="UnitIcon" type="xs:short" />
 								
 							</xs:choice>
 						</xs:sequence>

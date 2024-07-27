@@ -88,11 +88,11 @@ namespace FalconDatabase.Objects.Components
 
             row["Num"] = ID;
             row["Name"] = Name;
-            row["DetectionRange"] = Range.ToString("0.000");
-            row["FOV"] = FOV.ToString("0.000");
-            row["GimbalLimit"] = GimbalLimit.ToString("0.000");
+            row["DetectionRange"] = Range.ToString("0.0");
+            row["FOV"] = FOV.ToString("0.0");
+            row["GimbalLimit"] = GimbalLimit.ToString("0.0");
             row["GroundFactor"] = GroundFactor.ToString("0.000");
-            row["FlareChance"] = FlareChance.ToString("0.000");
+            row["FlareChance"] = FlareChance.ToString("0.0");
 
             return row;
         }

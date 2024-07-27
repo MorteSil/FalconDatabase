@@ -97,11 +97,11 @@ namespace FalconDatabase.Objects.Components
 
             row["Num"] = ID;
             row["Name"] = Name;
-            row["DetectionRange"] = Range.ToString("0.000");
-            row["ScanAngleTop"] = TopAngle.ToString("0.000");
-            row["ScanAngleBottom"] = BottomAngle.ToString("0.000");
-            row["ScanAngleLeft"] = LeftAngle.ToString("0.000");
-            row["ScanAngleRight"] = RightAngle.ToString("0.000");
+            row["DetectionRange"] = Range.ToString("0.0");
+            row["ScanAngleTop"] = TopAngle.ToString("0.0");
+            row["ScanAngleBottom"] = BottomAngle.ToString("0.0");
+            row["ScanAngleLeft"] = LeftAngle.ToString("0.0");
+            row["ScanAngleRight"] = RightAngle.ToString("0.0");
             row["Flags"] = Flags;
 
 

@@ -12,6 +12,7 @@
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="FeatureCtIdx" type="xs:short" />
+							<xs:element minOccurs="0" name ="Flags" type ="xs:short" />
 							<xs:element minOccurs="0" name="Value" type="xs:unsignedByte" />
 							<xs:element name="OffsetX" type="floatThreePrec" />
 							<xs:element name="OffsetY" type="floatThreePrec" />

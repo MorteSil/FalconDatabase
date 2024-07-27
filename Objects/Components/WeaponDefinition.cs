@@ -196,7 +196,7 @@ namespace FalconDatabase.Objects.Components
             row["CtIdx"] = ClassID;
             row["Strength"] = Strength;
             row["DamageType"] = (byte)DamageType;
-            row["Range"] = Range.ToString("0.000");
+            row["Range"] = Range.ToString("0.0");
             row["Flags"] = Flags;
             row["Name"] = Name;
 

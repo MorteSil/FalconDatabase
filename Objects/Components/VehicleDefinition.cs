@@ -31,11 +31,11 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Vehicle Name.
         /// </summary>
-        public string Name { get => string.IsNullOrEmpty(name) ? " " : name; set => name = value; }
+        public string Name { get => string.IsNullOrEmpty(name) ? "" : name; set => name = value; }
         /// <summary>
         /// Value displayed in the FCR when NCTR is evaluated.
         /// </summary>
-        public string NCTR { get => string.IsNullOrEmpty(nctr) ? " " : name; set => nctr = value; }
+        public string NCTR { get => string.IsNullOrEmpty(nctr) ? "" : nctr; set => nctr = value; }
         /// <summary>
         /// Radar Cross Section calculated as log2( 1 + RCS relative to an F16 ).
         /// </summary>
@@ -250,7 +250,7 @@ namespace FalconDatabase.Objects.Components
             row["Flags"] = Flags;
             row["Name"] = Name;
             row["NCTR"] = NCTR;
-            row["RadarCs"] = RCSFactor.ToString("0.000");
+            row["RadarCs"] = RCSFactor.ToString("0.000000");
             row["MaxWeight"] = MaxWeight;
             row["EmptyWeight"] = EmptyWeightt;
             row["FuelWeight"] = FuelWeight;
@@ -301,14 +301,14 @@ namespace FalconDatabase.Objects.Components
             }
 
             {
-                row["Det_NoMove"] = Detection.NoMovement.ToString("0.000");
-                row["Det_Foot"] = Detection.Foot.ToString("0.000");
-                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.000");
-                row["Det_Tracked"] = Detection.Tracked.ToString("0.000");
-                row["Det_LowAir"] = Detection.LowAir.ToString("0.000");
-                row["Det_Air"] = Detection.Air.ToString("0.000");
-                row["Det_Naval"] = Detection.Naval.ToString("0.000");
-                row["Det_Rail"] = Detection.Rail.ToString("0.000");
+                row["Det_NoMove"] = Detection.NoMovement.ToString("0.0");
+                row["Det_Foot"] = Detection.Foot.ToString("0.0");
+                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.0");
+                row["Det_Tracked"] = Detection.Tracked.ToString("0.0");
+                row["Det_LowAir"] = Detection.LowAir.ToString("0.0");
+                row["Det_Air"] = Detection.Air.ToString("0.0");
+                row["Det_Naval"] = Detection.Naval.ToString("0.0");
+                row["Det_Rail"] = Detection.Rail.ToString("0.0");
             }
 
             {

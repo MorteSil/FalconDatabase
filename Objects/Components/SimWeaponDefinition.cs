@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Numerics;
 using System.Reflection;
 using System.Text;
 
@@ -33,15 +34,15 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// X Component of the Ejection Velocity when the weapon is released.
         /// </summary>
-        public float XEjection { get => xEjection; set => xEjection = value; }
+        public float XEjection { get => ejectionVector.X; set => ejectionVector.X = value; }
         /// <summary>
         /// Y Component of the Ejection Velocity when the weapon is released.
         /// </summary>
-        public float YEjection { get => yEjection; set => yEjection = value; }
+        public float YEjection { get => ejectionVector.Y; set => ejectionVector.Y = value; }
         /// <summary>
         /// Z Component of the Ejection Velocity when the weapon is released.
         /// </summary>
-        public float ZEjection { get => zEjection; set => zEjection = value; }
+        public float ZEjection { get => ejectionVector.Z; set => ejectionVector.Z = value; }
         /// <summary>
         /// Mnemonic displayed in the SMS Display.
         /// </summary>
@@ -62,6 +63,10 @@ namespace FalconDatabase.Objects.Components
         /// Weapon ID.
         /// </summary>
         public int WeaponID { get => dataIdx; set => dataIdx = value; }
+        /// <summary>
+        /// 3D Vector that represents the initial direction and speed of a deployed weapon.
+        /// </summary>
+        public Vector3 EjectionVector { get => ejectionVector; set => ejectionVector = value; }
 
         #endregion Properties
 
@@ -70,10 +75,8 @@ namespace FalconDatabase.Objects.Components
         private int flags = 0;                            // Flags for the SMS
         private float cd = 0;                              // Drag coefficient
         private float weight = 0;                          // Weight
-        private float area = 0;                            // sirface area for drag calc
-        private float xEjection = 0;                       // Body X axis ejection velocity
-        private float yEjection = 0;                       // Body Y axis ejection velocity
-        private float zEjection = 0;                       // Body Z axis ejection velocity
+        private float area = 0;                            // sirface area for drag calc        
+        private Vector3 ejectionVector = new(0,0,0);
         private string mnemonic = "";         // SMS Mnemonic
         private int weaponClass = 0;                       // SMS Weapon Class
         private int domain = 0;                            // SMS Weapon Domain
@@ -170,7 +173,7 @@ namespace FalconDatabase.Objects.Components
                 DragCoefficient = Convert.ToSingle((decimal)row["Drag"]);
                 Weight = Convert.ToSingle((decimal)row["Weight"]);
                 Area = Convert.ToSingle((decimal)row["Area"]);
-                XEjection = Convert.ToSingle((decimal)row["EjectX"]); // TODO: Convert this to Vector3
+                XEjection = Convert.ToSingle((decimal)row["EjectX"]);
                 YEjection = Convert.ToSingle((decimal)row["EjectY"]);
                 ZEjection = Convert.ToSingle((decimal)row["EjectZ"]);
                 SMSMnemonic = (string)row["WpnName"];

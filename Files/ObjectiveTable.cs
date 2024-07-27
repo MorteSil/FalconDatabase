@@ -86,48 +86,33 @@ namespace FalconDatabase.Files
 
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-
+                        
                         ObjectiveDefinition obj = new(row);
-
-                        Thread fed = new(() =>
-                        {
-                            using StringReader fReader = new(File.ReadAllText(fedFile.FullName));
-                            DataSet fds = new();
-                            fds.ReadXmlSchema(schemaFile.Replace("OCD", "FED"));
-                            fds.ReadXml(fReader, XmlReadMode.ReadSchema);
-                            foreach (DataRow row2 in fds.Tables[0].Rows)
-                                obj.Features.Add(new(row2));
-                            fReader.Close();
-                        });
-                        fed.Start();
-
-                        Thread pdx = new(() =>
-                        {
-                            using StringReader pReader = new(File.ReadAllText(pdxFile.FullName));
-                            DataSet pxds = new();
-                            pxds.ReadXmlSchema(schemaFile.Replace("OCD", "PDX"));
-                            pxds.ReadXml(pReader, XmlReadMode.ReadSchema);
-                            foreach (DataRow row2 in pxds.Tables[0].Rows)
-                                obj.Points.Add(new(row2));
-                            pReader.Close();
-                        });
-                        pdx.Start();
-
-                        Thread phd = new(() =>
-                        {
-                            using StringReader hReader = new(File.ReadAllText(phdFile.FullName));
-                            DataSet hds = new();
-                            hds.ReadXmlSchema(schemaFile.Replace("OCD", "PHD"));
-                            hds.ReadXml(hReader, XmlReadMode.ReadSchema);
-                            foreach (DataRow row2 in hds.Tables[0].Rows)
-                                obj.HeaderData.Add(new(row2));
-                            hReader.Close();
-                        });
-                        phd.Start();
-
-                        fed.Join();
-                        pdx.Join();
-                        phd.Join();
+                        
+                        using StringReader fReader = new(File.ReadAllText(fedFile.FullName));
+                        DataSet fds = new();
+                        fds.ReadXmlSchema(schemaFile.Replace("OCD", "FED"));
+                        fds.ReadXml(fReader, XmlReadMode.ReadSchema);
+                        foreach (DataRow row2 in fds.Tables[0].Rows)
+                            obj.Features.Add(new(row2));
+                        fReader.Close();
+                        
+                        using StringReader pReader = new(File.ReadAllText(pdxFile.FullName));
+                        DataSet pxds = new();
+                        pxds.ReadXmlSchema(schemaFile.Replace("OCD", "PDX"));
+                        pxds.ReadXml(pReader, XmlReadMode.ReadSchema);
+                        foreach (DataRow row2 in pxds.Tables[0].Rows)
+                            obj.Points.Add(new(row2));
+                        pReader.Close();
+                                                                        
+                        using StringReader hReader = new(File.ReadAllText(phdFile.FullName));
+                        DataSet hds = new();
+                        hds.ReadXmlSchema(schemaFile.Replace("OCD", "PHD"));
+                        hds.ReadXml(hReader, XmlReadMode.ReadSchema);
+                        foreach (DataRow row2 in hds.Tables[0].Rows)
+                            obj.HeaderData.Add(new(row2));
+                        hReader.Close();
+                                                
                         dbObjects.Add(obj);
 
                     }
@@ -159,49 +144,30 @@ namespace FalconDatabase.Files
                 {
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
-                    Thread obj = new(() =>
-                    {
-                        DataSet ds = new();
-                        ds.ReadXmlSchema(schemaFile);
-                        ds.Tables[0].Rows.Add(Objectives[i].ToDataRow().ItemArray);
-                        ds.WriteXml(path + "\\OCD_" + i.ToString("D5") + ".xml");
-                    });
-                    obj.Start();
-
-                    Thread dsf = new(() =>
-                    {
-                        DataSet dsf = new();
-                        dsf.ReadXmlSchema(schemaFile.Replace("OCD", "FED"));
-                        foreach (var feature in Objectives[i].Features)
-                            dsf.Tables[0].Rows.Add(feature.ToDataRow().ItemArray);
-                        dsf.WriteXml(path + "\\FED_" + i.ToString("D5") + ".xml");
-                    });
-                    dsf.Start();
-
-                    Thread dspx = new(() =>
-                    {
-                        DataSet dspx = new();
-                        dspx.ReadXmlSchema(schemaFile.Replace("OCD", "PDX"));
-                        foreach (var point in Objectives[i].Points)
-                            dspx.Tables[0].Rows.Add(point.ToDataRow().ItemArray);
-                        dspx.WriteXml(path + "\\PDX_" + i.ToString("D5") + ".xml");
-                    });
-                    dspx.Start();
-
-                    Thread dsh = new(() =>
-                    {
-                        DataSet dsph = new();
-                        dsph.ReadXmlSchema(schemaFile.Replace("OCD", "PHD"));
-                        foreach (var point in Objectives[i].HeaderData)
-                            dsph.Tables[0].Rows.Add(point.ToDataRow().ItemArray);
-                        dsph.WriteXml(path + "\\PHD_" + i.ToString("D5") + ".xml");
-                    });
-                    dsh.Start();
-
-                    obj.Join();
-                    dsf.Join();
-                    dspx.Join();
-                    dsh.Join();
+                    
+                    DataSet ds = new();
+                    ds.ReadXmlSchema(schemaFile);
+                    ds.Tables[0].Rows.Add(Objectives[i].ToDataRow().ItemArray);
+                    ds.WriteXml(path + "\\OCD_" + i.ToString("D5") + ".xml");
+                   
+                    DataSet dsf = new();
+                    dsf.ReadXmlSchema(schemaFile.Replace("OCD", "FED"));
+                    foreach (var feature in Objectives[i].Features)
+                        dsf.Tables[0].Rows.Add(feature.ToDataRow().ItemArray);
+                    dsf.WriteXml(path + "\\FED_" + i.ToString("D5") + ".xml");
+                                       
+                    DataSet dspx = new();
+                    dspx.ReadXmlSchema(schemaFile.Replace("OCD", "PDX"));
+                    foreach (var point in Objectives[i].Points)
+                        dspx.Tables[0].Rows.Add(point.ToDataRow().ItemArray);
+                    dspx.WriteXml(path + "\\PDX_" + i.ToString("D5") + ".xml");
+                    
+                    DataSet dsph = new();
+                    dsph.ReadXmlSchema(schemaFile.Replace("OCD", "PHD"));
+                    foreach (var point in Objectives[i].HeaderData)
+                        dsph.Tables[0].Rows.Add(point.ToDataRow().ItemArray);
+                    dsph.WriteXml(path + "\\PHD_" + i.ToString("D5") + ".xml");
+                   
                 }
                 catch (Exception ex)
                 {

@@ -14,19 +14,19 @@
 							<xs:choice maxOccurs="unbounded">
 								<xs:element name="OffsetX" type="floatThreePrec" />
 								<xs:element name="OffsetY" type="floatThreePrec" />
-								<xs:element name="OffsetZ" type="floatThreePrec" />
+								<xs:element name="OffsetZ" type="floatThreePrec" />		
+								<xs:element minOccurs="0" name="MaxHeight" type="floatThreePrec" />
+								<xs:element minOccurs="0" name="MaxWidth" type="floatThreePrec" />
+								<xs:element minOccurs="0" name="MaxLength" type="floatThreePrec" />
 								<xs:element minOccurs="0" name="Type" type="xs:unsignedByte" />
-								<xs:element minOccurs="0" name="ParkingPointGroup" type="xs:int" />
+								<xs:element minOccurs="0" name="Flags" type="xs:int" />
+								<xs:element minOccurs="0" name="Heading" type="floatThreePrec" />								
 								<xs:element minOccurs="0" name="RootIdx" type="xs:short" />
 								<xs:element minOccurs="0" name="BranchIdx" type="xs:short" />
 								<xs:element minOccurs="0" name="TaxiwayLetter" type="xs:unsignedByte" />
 								<xs:element minOccurs="0" name="RunwayNumber" type="xs:int" />
 								<xs:element minOccurs="0" name="RunwaySide" type="xs:unsignedByte" />
-								<xs:element minOccurs="0" name="Flags" type="xs:int" />
-								<xs:element minOccurs="0" name="MaxHeight" type="floatThreePrec" />
-								<xs:element minOccurs="0" name="MaxWidth" type="floatThreePrec" />
-								<xs:element minOccurs="0" name="MaxLength" type="floatThreePrec" />
-								<xs:element minOccurs="0" name="Heading" type="floatThreePrec" />
+								<xs:element minOccurs="0" name="ParkingPointGroup" type="xs:int" />
 								<xs:element minOccurs="0" name="CrossingPoint" type="xs:string" />
 							</xs:choice>
 						</xs:sequence>

@@ -157,18 +157,18 @@ namespace FalconDatabase.Objects.Components
             row["RwrSound"] = RWRSound;
             row["RwrSymbol"] = RWRSymbol;
             row["RadarDatIdx"] = RadarDataID;
-            row["HighAltLethality"] = HighAltitudeLethality.ToString("0.000");
-            row["LowAltLethality"] = LowAltitudeLethality.ToString("0.000");
-            row["DetectionRange"] = Range.ToString("0.000");
-            row["BeamWidth"] = BeamWidth.ToString("0.000");
-            row["ScanWidth"] = ScanWidth.ToString("0.000");
-            row["SweepRate"] = SweepRate.ToString("0.000");
-            row["CoastTime"] = CoastTime.ToString("0.000");
+            row["HighAltLethality"] = HighAltitudeLethality.ToString("0.00");
+            row["LowAltLethality"] = LowAltitudeLethality.ToString("0.00");
+            row["DetectionRange"] = Range.ToString("0.0");
+            row["BeamWidth"] = BeamWidth.ToString("0.0");
+            row["ScanWidth"] = ScanWidth.ToString("0.0");
+            row["SweepRate"] = SweepRate.ToString("0.0");
+            row["CoastTime"] = CoastTime.ToString("0.0");
             row["LookDownPenalty"] = LookDownPenalty.ToString("0.000");
             row["JammingPenalty"] = JammingPenalty.ToString("0.000");
             row["NotchPenalty"] = NotchPenalty.ToString("0.000");
-            row["NotchSpeed"] = NotchSpeed.ToString("0.000");
-            row["ChaffChance"] = ChaffChance.ToString("0.000");
+            row["NotchSpeed"] = NotchSpeed.ToString("0.0");
+            row["ChaffChance"] = ChaffChance.ToString("0.0");
             row["Flags"] = Flags;
 
             return row;

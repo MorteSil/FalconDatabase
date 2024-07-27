@@ -15,7 +15,7 @@
 							<xs:element name="RepairTime" type="xs:short" />
 							<xs:element name="DisplayPriority" type="xs:unsignedByte" />
 							<xs:element name="Flags" type="xs:unsignedShort" />
-							<xs:element name="Name" type="xs:string" />
+							<xs:element name="Name" type="xs:string" default =" " />
 							<xs:element name="HitPoints" type="xs:short" />
 							<xs:element name="RampHeight" type="xs:short" />
 							<xs:element name="RampAngle" type="floatThreePrec" />

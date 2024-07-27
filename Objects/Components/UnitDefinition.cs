@@ -28,7 +28,7 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Unit Name.
         /// </summary>
-        public string Name { get => string.IsNullOrWhiteSpace(name) ? " " : name; set => name = value; }
+        public string Name { get => string.IsNullOrEmpty(name) ? "" : name; set => name = value; }
         /// <summary>
         /// Unit Description
         /// </summary>
@@ -96,7 +96,7 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Mission Type Score Value.
         /// </summary>
-        public Collection<(int RoleType, byte RoleScore)> Scores
+        public Collection<byte> Scores
         {
             get => scores;
             set
@@ -179,7 +179,7 @@ namespace FalconDatabase.Objects.Components
         private MovementTypes detection = new();
         private DamageTypes damageMod = new();
 
-        private Collection<(int RoleType, byte RoleScore)> scores = [];
+        private Collection<byte> scores = [];
         private Collection<(byte VehicleCount, int VehicleID, int ElementFlags)> elements = [];
         private Collection<string> elementNames = [];
         private Collection<string> elementNamePrefixes = [];
@@ -298,14 +298,14 @@ namespace FalconDatabase.Objects.Components
             }
 
             {
-                row["Det_NoMove"] = Detection.NoMovement.ToString("0.000");
-                row["Det_Foot"] = Detection.Foot.ToString("0.000");
-                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.000");
-                row["Det_Tracked"] = Detection.Tracked.ToString("0.000");
-                row["Det_LowAir"] = Detection.LowAir.ToString("0.000");
-                row["Det_Air"] = Detection.Air.ToString("0.000");
-                row["Det_Naval"] = Detection.Naval.ToString("0.000");
-                row["Det_Rail"] = Detection.Rail.ToString("0.000");
+                row["Det_NoMove"] = Detection.NoMovement.ToString("0.0");
+                row["Det_Foot"] = Detection.Foot.ToString("0.0");
+                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.0");
+                row["Det_Tracked"] = Detection.Tracked.ToString("0.0");
+                row["Det_LowAir"] = Detection.LowAir.ToString("0.0");
+                row["Det_Air"] = Detection.Air.ToString("0.0");
+                row["Det_Naval"] = Detection.Naval.ToString("0.0");
+                row["Det_Rail"] = Detection.Rail.ToString("0.0");
             }
 
             {
@@ -324,28 +324,16 @@ namespace FalconDatabase.Objects.Components
 
             for (int i = 0; i < 16; i++)
             {
-                row["RoleScore_" + i] = scores[i].RoleScore;
-                if (elements[i].VehicleCount != 0)
-                    row["ElementCount_" + i] = elements[i].VehicleCount;
-                if (elements[i].VehicleID != 0)
-                    row["VehicleCtIdx_" + i] = elements[i].VehicleID;
-                if (elements[i].ElementFlags != 0)
-                    row["ElementFlags_" + i] = (int)elements[i].ElementFlags;
-                if (elementNames[i] != " ")
-                    row["ElementName_" + i] = elementNames[i];
-                else row["ElementName_" + i] = DBNull.Value;
-                if (elementNamePrefixes[i] != " ")
-                    row["ElementNamePrefix_" + i] = elementNamePrefixes[i];
-                else row["ElementNamePrefix_" + i] = DBNull.Value;
-                if (elementHullNumbers[i] != -1)
-                    row["ElementHullNumber_" + i] = elementHullNumbers[i];
-                else row["ElementHullNumber_" + i] = DBNull.Value;
-                if (elementDecals[i] != -1)
-                    row["ElementDecalIdx_" + i] = elementDecals[i];
-                else row["ElementDecalIdx_" + i] = DBNull.Value;
-                if (elementTextureSets[i] != -1)
-                    row["ElementTexSetIdx_" + i] = elementTextureSets[i];
-                else row["ElementTexSetIdx_" + i] = DBNull.Value;
+
+                row["RoleScore_" + i] = scores[i] == 0 ? DBNull.Value : scores[i];
+                row["ElementCount_" + i] = elements[i].VehicleCount == 0 ? DBNull.Value : elements[i].VehicleCount;
+                row["VehicleCtIdx_" + i] = elements[i].VehicleID == 0 ? DBNull.Value : elements[i].VehicleID;
+                row["ElementFlags_" + i] = (int)elements[i].ElementFlags == 0 ? DBNull.Value : (int)elements[i].ElementFlags;
+                row["ElementName_" + i] = string.IsNullOrWhiteSpace(elementNames[i]) ? DBNull.Value : elementNames[i];
+                row["ElementNamePrefix_" + i] = string.IsNullOrWhiteSpace(ElementNamePrefixes[i]) ? DBNull.Value : ElementNamePrefixes[i];
+                row["ElementHullNumber_" + i] = elementHullNumbers[i] == -1 ? DBNull.Value : elementHullNumbers[i];
+                row["ElementDecalIdx_" + i] = elementDecals[i] == -1 ? DBNull.Value : elementDecals[i];
+                row["ElementTexSetIdx_" + i] = elementTextureSets[i] == -1 ? DBNull.Value: elementTextureSets[i];
             }
 
             return row;
@@ -361,7 +349,7 @@ namespace FalconDatabase.Objects.Components
         {
             for (int i = 0; i < 16; i++)
             {
-                scores.Add((i, 0));
+                scores.Add(0);
                 elements.Add((0, 0, 0));
                 elementNames.Add(" ");
                 elementNamePrefixes.Add(" ");
@@ -466,7 +454,7 @@ namespace FalconDatabase.Objects.Components
                 for (int i = 0; i < 16; i++)
                 {
                     if (row["RoleScore_" + i] != DBNull.Value)
-                        scores[i] = (i, (byte)row["RoleScore_" + i]);
+                        scores[i] = (byte)row["RoleScore_" + i];
                     if (row["ElementCount_" + i] != DBNull.Value)
                         elements[i] = ((byte)row["ElementCount_" + i], elements[i].VehicleID, elements[i].ElementFlags);
                     if (row["VehicleCtIdx_" + i] != DBNull.Value)
