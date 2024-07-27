@@ -7,12 +7,13 @@ Additional testing required to see how the Game reacts to files formatted slight
 
 NOTE: I use the same base class for Application files across several projects so I moved the AppFile Class into the Utilities Project, as well as Logging functionas.
 In order for this to compile, you will need to pull the Utilities project and add it as a reference to your project, or at least grab the dll from the /bin folder.
-Whenn this is ready for release, I will make sure the Utilities dll is included in the output for the build, but for now it needs to be manually included because I'm still making
+When this is ready for release, I will make sure the Utilities dll is included in the output for the build, but for now it needs to be manually included because I'm still making
 some minor tweaks to it.
 
 ***** Read Carefully *****
 
 TODO: Initial Refactor complete and all files read correctly. Save Testing is still in progress (See above, unit testing tough without the original XSD documents). DO NOT use your real files.
+Update: Save functions appear to be working correctly for all file types. Further testing being conducted to verify output is 100% valid for use in the game.
 
 TODO: Read/Write functions for binary and text proto are WIP (~70%)
 	
