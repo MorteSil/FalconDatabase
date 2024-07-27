@@ -18,10 +18,10 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Weapon Stores for a Squadron. Key = WeaponID, Value = Count.
         /// </summary>
-        public Collection<byte> Stores 
-        { 
+        public Collection<byte> Stores
+        {
             get => stores;
-            set 
+            set
             {
                 while (value.Count > 1000) value.RemoveAt(1000);
                 stores = value;
@@ -39,7 +39,7 @@ namespace FalconDatabase.Objects.Components
         /// A Gun Weapon ID that never runs out.
         /// </summary>
         public short InfiniteGun { get => infiniteGun; set => infiniteGun = value; }
-        
+
         #endregion Properties
 
         #region Fields
@@ -61,7 +61,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             for (int i = 0; i < stores.Count; i++)
                 if (stores[i] > 0)
                     sb.AppendLine("Weapon ID: " + i + ": " + stores[i]);
@@ -104,7 +104,7 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Default Constructor for the <see cref="SquadronStoresDefinition"/> object.
         /// </summary>
-        public SquadronStoresDefinition() 
+        public SquadronStoresDefinition()
         {
             for (int i = 0; i < 1000; i++)
                 stores.Add(0);
@@ -116,11 +116,11 @@ namespace FalconDatabase.Objects.Components
         public SquadronStoresDefinition(DataRow row)
             : this()
         {
-            
+
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\SSD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try

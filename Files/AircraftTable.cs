@@ -20,11 +20,11 @@ namespace FalconDatabase.Files
         /// <summary>
         /// Aircraft Component of the Database in Raw Data Format.
         /// </summary>
-        public DataTable AircraftDataTable 
-        { 
+        public DataTable AircraftDataTable
+        {
             get
             {
-                DataSet dataSet = new ();
+                DataSet dataSet = new();
                 dataSet.ReadXmlSchema(schemaFile);
                 DataTable table = dataSet.Tables[0];
                 foreach (var entry in dbObjects)
@@ -38,12 +38,12 @@ namespace FalconDatabase.Files
         /// <para>When <see langword="true"/>, indicates this <see cref="AppFile"/> was successfully loaded from the file.</para>
         /// <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="AppFile"/> object and empty or default values were loaded instead.</para>
         /// </summary>
-        public override bool IsDefaultInitialization { get => dbObjects.Count > 0; }
+        public override bool IsDefaultInitialization { get => dbObjects.Count == 0; }
         #endregion Properties
 
         #region Fields
         private Collection<AircraftDefinition> dbObjects = [];
-        private string schemaFile = 
+        private readonly string schemaFile =
             Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\ACD.xsd");
         #endregion Fields
 
@@ -56,7 +56,7 @@ namespace FalconDatabase.Files
         /// <exception cref="ArgumentNullException"></exception>
         protected override bool Read(string data)
         {
-            ArgumentException.ThrowIfNullOrEmpty(data);            
+            ArgumentException.ThrowIfNullOrEmpty(data);
             using StringReader reader = new(data);
             try
             {
@@ -67,12 +67,12 @@ namespace FalconDatabase.Files
             }
             catch (Exception ex)
             {
-                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading the ACD Table.");                
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading the ACD Table.");
                 reader.Close();
                 throw;
             }
 
-            return IsDefaultInitialization;
+            return true;
         }
         /// <summary>
         /// Formats the File Contents into bytes for writing to disk.
@@ -80,8 +80,8 @@ namespace FalconDatabase.Files
         /// <returns><see cref="byte"/> array suitable for writing to a file.</returns>
         protected override byte[] Write()
         {
-            DataSet ds = new ();
-            ds.ReadXmlSchema(schemaFile);            
+            DataSet ds = new();
+            ds.ReadXmlSchema(schemaFile);
 
             using MemoryStream stream = new();
             using XmlWriter writer = XmlWriter.Create(stream);
@@ -128,8 +128,7 @@ namespace FalconDatabase.Files
             if (other == null)
                 return false;
 
-            AircraftTable? comparator = other as AircraftTable;
-            if (comparator is null)
+            if (other is not AircraftTable comparator)
                 return false;
             else
                 return Equals(comparator);
@@ -141,7 +140,7 @@ namespace FalconDatabase.Files
             {
                 int hash = 2539;
                 for (int i = 0; i < dbObjects.Count; i++)
-                    hash = hash * 5483 +dbObjects.GetHashCode();
+                    hash = hash * 5483 + dbObjects.GetHashCode();
                 return hash;
             }
 

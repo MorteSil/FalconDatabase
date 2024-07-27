@@ -42,7 +42,7 @@ namespace FalconDatabase.Objects.Components
         /// Sensor Flags.
         /// </summary>
         public short Flags { get => flag; set => flag = value; }
-        
+
         #endregion Properties
 
         #region Fields
@@ -59,7 +59,7 @@ namespace FalconDatabase.Objects.Components
 											  0x08 = can only detect group of radar types */
 
         #endregion Fields
-             
+
         #region Functional Methods
         /// <summary>
         /// <para>Formats the data contained within this object into Readable Text.</para>
@@ -69,7 +69,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine("ID: " + ID);
             sb.AppendLine("Name: " + Name);
             sb.AppendLine("Range: " + nominalRange);
@@ -97,11 +97,11 @@ namespace FalconDatabase.Objects.Components
 
             row["Num"] = ID;
             row["Name"] = Name;
-            row["DetectionRange"] = Range;
-            row["ScanAngleTop"] = TopAngle;
-            row["ScanAngleBottom"] = BottomAngle;
-            row["ScanAngleLeft"] = LeftAngle;
-            row["ScanAngleRight"] = RightAngle;
+            row["DetectionRange"] = Range.ToString("0.000");
+            row["ScanAngleTop"] = TopAngle.ToString("0.000");
+            row["ScanAngleBottom"] = BottomAngle.ToString("0.000");
+            row["ScanAngleLeft"] = LeftAngle.ToString("0.000");
+            row["ScanAngleRight"] = RightAngle.ToString("0.000");
             row["Flags"] = Flags;
 
 
@@ -124,7 +124,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\RWD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -135,11 +135,11 @@ namespace FalconDatabase.Objects.Components
                 // Create Object
                 ID = (int)row["Num"];
                 Name = (string)row["Name"];
-                Range = (float)row["DetectionRange"];
-                TopAngle = (float)row["ScanAngleTop"];
-                BottomAngle = (float)row["ScanAngleBottom"];
-                LeftAngle = (float)row["ScanAngleLeft"];
-                RightAngle = (float)row["ScanAngleRight"];
+                Range = Convert.ToSingle((decimal)row["DetectionRange"]);
+                TopAngle = Convert.ToSingle((decimal)row["ScanAngleTop"]);
+                BottomAngle = Convert.ToSingle((decimal)row["ScanAngleBottom"]);
+                LeftAngle = Convert.ToSingle((decimal)row["ScanAngleLeft"]);
+                RightAngle = Convert.ToSingle((decimal)row["ScanAngleRight"]);
                 Flags = (short)row["Flags"];
             }
             catch (Exception ex)

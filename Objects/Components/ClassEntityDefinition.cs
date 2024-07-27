@@ -14,7 +14,7 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// ID of this Class Table Entry.
         /// </summary>        
-        public int ID { get => iD; set => iD = value; }        
+        public int ID { get => iD; set => iD = value; }
         /// <summary>
         /// Contains Hierarchy Data for the Class Definition.
         /// </summary>
@@ -39,8 +39,8 @@ namespace FalconDatabase.Objects.Components
 
         #region Fields
         private int iD = 0;
-        private int graphicsID = 60395;
-        private ClassCollisionData collisionData = new(); // Unusued, do not expose with Property
+        private readonly int graphicsID = 60395;
+        private readonly ClassCollisionData collisionData = new(); // Unusued, do not expose with Property
         private ClassDataDefinition classData = new();
         private ClassGraphicsUpdateDefinition updateData = new();
         private ClassVisualEntityDefinition entityData = new();
@@ -57,7 +57,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new ();
+            StringBuilder sb = new();
             sb.AppendLine("***** Class Data *****");
             sb.Append(this.ClassData.ToString());
             sb.AppendLine("***** Graphics Update Data *****");
@@ -80,7 +80,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\CT.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new();            
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             DataRow row = table.NewRow();
@@ -88,7 +88,7 @@ namespace FalconDatabase.Objects.Components
             row["Num"] = ID;
             row["Id"] = graphicsID;
             row["CollisionType"] = collisionData.CollisionType;
-            row["CollisionRadius"] = collisionData.CollisionRadius;
+            row["CollisionRadius"] = collisionData.CollisionRadius.ToString("0.000");
             row["Domain"] = classData.Domain;
             row["Class"] = classData.Class;
             row["Type"] = classData.Type;
@@ -99,9 +99,9 @@ namespace FalconDatabase.Objects.Components
             row["Class_7"] = classData.Class_7;
             row["UpdateRate"] = updateData.UpdateRate;
             row["UpdateTolerance"] = updateData.UpdateTolerance;
-            row["FineUpdateRange"] = updateData.FineUpdateRange;
-            row["FineUpdateForceRange"] = updateData.FineUpdateForceRange;
-            row["FineUpdateMultiplier"] = updateData.FineUpdateMultiplier;
+            row["FineUpdateRange"] = updateData.FineUpdateRange.ToString("0.000");
+            row["FineUpdateForceRange"] = updateData.FineUpdateForceRange.ToString("0.000");
+            row["FineUpdateMultiplier"] = updateData.FineUpdateMultiplier.ToString("0.000");
             row["DamageSeed"] = EntityData.DamageSeed;
             row["HitPoints"] = entityData.Hitpoints;
             row["MajorRev"] = entityData.MajorRevisionNumber;
@@ -143,7 +143,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\CT.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new ();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -153,20 +153,20 @@ namespace FalconDatabase.Objects.Components
 
                 ID = (int)row["Num"];
                 collisionData.CollisionType = (ushort)row["CollisionType"];
-                collisionData.CollisionRadius = (float)row["CollisionRadius"];
+                collisionData.CollisionRadius = Convert.ToSingle((decimal)row["CollisionRadius"]);
                 classData.Domain = (ClasstableDomain)row["Domain"];
                 classData.Class = (ClasstableClass)row["Class"];
                 classData.Type = (int)row["Type"];
                 classData.SubType = (int)row["SubType"];
-                classData.SpecificType =(int)row["Specific"];
+                classData.SpecificType = (int)row["Specific"];
                 ClassData.Owner = (ModeType)(int)row["Owner"];
                 classData.Class_6 = (int)row["Class_6"];
                 classData.Class_7 = (int)row["Class_7"];
                 updateData.UpdateRate = (int)row["UpdateRate"];
                 updateData.UpdateTolerance = (int)row["UpdateTolerance"];
-                updateData.FineUpdateRange = (float)row["FineUpdateRange"];
-                updateData.FineUpdateForceRange = (float)row["FineUpdateForceRange"];
-                updateData.FineUpdateMultiplier = (float)row["FineUpdateMultiplier"];
+                updateData.FineUpdateRange = Convert.ToDouble((decimal)row["FineUpdateRange"]);
+                updateData.FineUpdateForceRange = Convert.ToDouble((decimal)row["FineUpdateForceRange"]);
+                updateData.FineUpdateMultiplier = Convert.ToDouble((decimal)row["FineUpdateMultiplier"]);
                 EntityData.DamageSeed = (uint)row["DamageSeed"];
                 entityData.Hitpoints = (int)row["HitPoints"];
                 entityData.MajorRevisionNumber = (ushort)row["MajorRev"];
@@ -286,7 +286,7 @@ namespace FalconDatabase.Objects.Components
                 return sb.ToString();
             }
 
-            
+
             #endregion Functional Methods
 
             #region Constructors
@@ -365,7 +365,7 @@ namespace FalconDatabase.Objects.Components
                 return sb.ToString();
             }
 
-            
+
             #endregion Functional Methods
 
             #region Constructors
@@ -435,7 +435,7 @@ namespace FalconDatabase.Objects.Components
                 return sb.ToString();
             }
 
-            
+
             #endregion Functional Methods
 
             #region Constructors
@@ -463,9 +463,9 @@ namespace FalconDatabase.Objects.Components
             /// <summary>
             /// Contains a reference to an external file that holds Vehicle Physics and Movement Data, such as Flight Models or Ground Vehicle movement profiles.
             /// </summary>
-            public string? VehicleProfileReferenceFile 
-            { 
-                get => vehicleProfileReferenceFile?.Name; 
+            public string? VehicleProfileReferenceFile
+            {
+                get => vehicleProfileReferenceFile?.Name;
                 set
                 {
                     if (File.Exists(value))
@@ -487,7 +487,7 @@ namespace FalconDatabase.Objects.Components
 
 
             #endregion Fields
-                        
+
             #region Functional Methods
             /// <summary>
             /// <para>Formats the data contained within this object into Readable Text.</para>
@@ -504,7 +504,7 @@ namespace FalconDatabase.Objects.Components
                 return sb.ToString();
             }
 
-            
+
             #endregion Functional Methods
 
             #region Constructors
@@ -548,11 +548,11 @@ namespace FalconDatabase.Objects.Components
             /// <summary>
             /// Indicates if this Entity can be transferred between Objects or Domains.
             /// </summary>
-            public bool Transferable { get => transferable > 0 ? true : false; set => transferable = value == true ? (byte)1 : (byte)0; }
+            public bool Transferable { get => transferable > 0; set => transferable = value == true ? (byte)1 : (byte)0; }
             /// <summary>
             /// Indicates if this Entity is Private.
             /// </summary>
-            public bool Private { get => @private > 0 ? true : false; set => @private = value == true ? (byte)1 : (byte)0; }
+            public bool Private { get => @private > 0; set => @private = value == true ? (byte)1 : (byte)0; }
             /// <summary>
             /// Indicates if this Entity is Tangible.
             /// </summary>
@@ -560,15 +560,15 @@ namespace FalconDatabase.Objects.Components
             /// <summary>
             /// Indicates if this Entity causes Collisions.
             /// </summary>
-            public bool Collidable { get => collidable > 0 ? true : false; set => collidable = value == true ? (byte)1 : (byte)0; } // Not Used
+            public bool Collidable { get => collidable > 0; set => collidable = value == true ? (byte)1 : (byte)0; } // Not Used
             /// <summary>
             /// Indicates if this is a Global Object.
             /// </summary>
-            public bool Global { get => global > 0 ? true : false; set => global = value == true ? (byte)1 : (byte)0; }
+            public bool Global { get => global > 0; set => global = value == true ? (byte)1 : (byte)0; }
             /// <summary>
             /// Indicates if this is a Persistent Object.
             /// </summary>
-            public bool Persistent { get => persistent > 0 ? true : false; set => persistent = value == true ? (byte)1 : (byte)0; }
+            public bool Persistent { get => persistent > 0; set => persistent = value == true ? (byte)1 : (byte)0; }
 
 
             #endregion Properties
@@ -614,7 +614,7 @@ namespace FalconDatabase.Objects.Components
                 return sb.ToString();
             }
 
-            
+
             #endregion Functional Methods
 
             #region Constructors

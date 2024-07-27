@@ -27,27 +27,27 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Index into the Signature Table.
         /// </summary>
-        public int IRSignatureID { get => signatureIdx; set => signatureIdx = value; }       
+        public int IRSignatureID { get => signatureIdx; set => signatureIdx = value; }
         /// <summary>
         /// Collection of Sensor Type and Specific Sensors on this aircraft.
         /// Item1 = SensorType Enum Sensor Type,. Item2 = ID of Sensor in the Corresponding Sensor Table
         /// </summary>
-        public Collection<(SensorType SensorType, int SensorID)> Sensors 
-        { 
+        public Collection<(SensorType SensorType, int SensorID)> Sensors
+        {
             get => sensors;
             set
             {
                 while (value.Count > 5) value.RemoveAt(5);
                 sensors = value;
-            } 
+            }
         }
-       
+
         #endregion Properties
 
         #region Fields
         private int iD = 0;
-        private CombatClass combatClass = CombatClass.LegacyFighterBomber;                    
-        private int airframeIdx = 0;                     
+        private CombatClass combatClass = CombatClass.LegacyFighterBomber;
+        private int airframeIdx = 0;
         private int signatureIdx = 0;
         private Collection<(SensorType SensorType, int SensorID)> sensors = [];
         #endregion Fields
@@ -64,7 +64,7 @@ namespace FalconDatabase.Objects.Components
             StringBuilder sb = new();
             sb.AppendLine("ID: " + ID);
             sb.AppendLine("Combat Class: " + CombatClass);
-            sb.AppendLine("Aircraft ID: " + AircraftID);            
+            sb.AppendLine("Aircraft ID: " + AircraftID);
             sb.AppendLine("Signature ID: " + signatureIdx);
             sb.AppendLine("Sensors: ");
             for (int i = 0; i < Sensors.Count; i++)
@@ -85,7 +85,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\ACD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new ();            
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             DataRow row = table.NewRow();
@@ -96,19 +96,10 @@ namespace FalconDatabase.Objects.Components
             row["IrSignatureIdx"] = signatureIdx;
             for (int i = 0; i < 5; i++)
             {
-                if (sensors[i].SensorID != -1)
-                {
-                    row["SensorType_" + i] = (int)Sensors[i].SensorType;
-                    row["SensorIdx_" + i] = (int)Sensors[i].SensorID;
-                }
-                else
-                {
-                    row["SensorType_" + i] = DBNull.Value;
-                    row["SensorIdx_" + i] = DBNull.Value;
-                }
-                
+                row["SensorType_" + i] = (int)Sensors[i].SensorType;
+                row["SensorIdx_" + i] = Sensors[i].SensorID;
             }
-            
+
             return row;
         }
         #endregion Funcitnoal Methods
@@ -117,17 +108,22 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Default Constructor for the <see cref="AircraftDefinition"/> object.
         /// </summary>
-        public AircraftDefinition() { }
+        public AircraftDefinition() 
+        {
+            for (int i = 0; i < 5; i++)
+                sensors.Add((SensorType.None, -1));
+        }
         /// <summary>
         /// Initializes an instance of the <see cref="AircraftDefinition"/> object with a <see cref="DataRow"/> that conforms to the ACD.xsd Schema File.
         /// </summary>
         /// <param name="row"></param>
         public AircraftDefinition(DataRow row)
+            :this()
         {
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\ACD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new ();            
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -140,7 +136,7 @@ namespace FalconDatabase.Objects.Components
                 CombatClass = (CombatClass)row["CombatClass"];
                 AircraftID = (int)row["AirframeDatIdx"];
                 for (int i = 0; i < 5; i++)
-                    sensors.Add(((SensorType)row["SensorType_" + i], (int)row["SensorIdx_" + i]));
+                    sensors[i] = new((SensorType)row["SensorType_" + i], (int)row["SensorIdx_" + i]);
 
             }
             catch (Exception ex)
@@ -148,7 +144,7 @@ namespace FalconDatabase.Objects.Components
                 Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading an ACD Entry.");
                 throw;
             }
-            
+
         }
         #endregion Constructors     
 

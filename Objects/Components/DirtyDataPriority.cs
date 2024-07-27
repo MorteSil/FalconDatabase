@@ -18,7 +18,7 @@ namespace FalconDatabase.Objects.Components
         /// Priority Value.
         /// </summary>
         public int Priority { get => priority; set => priority = value; }
-        
+
         #endregion Properties
 
         #region Fields
@@ -35,7 +35,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine("ID: " + ID);
             sb.AppendLine("Priority: " + priority);
 
@@ -50,13 +50,13 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\DDP.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new ();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             DataRow row = table.NewRow();
 
             row["Num"] = ID;
-            row["Priority"] = Priority;   
+            row["Priority"] = Priority;
             return row;
         }
 
@@ -76,7 +76,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\DDP.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try

@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="floatThreePrec">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="3" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:element name="RCDRecords">
 		<xs:complexType>
 			<xs:sequence>
@@ -10,18 +15,18 @@
 							<xs:element name="RwrSound" type="xs:int" />
 							<xs:element name="RwrSymbol" type="xs:short" />
 							<xs:element name="RadarDatIdx" type="xs:short" />
-							<xs:element name="HighAltLethality" type="xs:float" />
-							<xs:element name="LowAltLethality" type="xs:float" />
-							<xs:element name="DetectionRange" type="xs:float" />
-							<xs:element name="BeamWidth" type="xs:float" />
-							<xs:element name="ScanWidth" type="xs:float" />
-							<xs:element name="SweepRate" type="xs:float" />
-							<xs:element name="CoastTime" type="xs:float" />
-							<xs:element name="LookDownPenalty" type="xs:float" />
-							<xs:element name="JammingPenalty" type="xs:float" />
-							<xs:element name="NotchPenalty" type="xs:float" />
-							<xs:element name="NotchSpeed" type="xs:float" />
-							<xs:element name="ChaffChance" type="xs:float" />
+							<xs:element name="HighAltLethality" type="floatThreePrec" />
+							<xs:element name="LowAltLethality" type="floatThreePrec" />
+							<xs:element name="DetectionRange" type="floatThreePrec" />
+							<xs:element name="BeamWidth" type="floatThreePrec" />
+							<xs:element name="ScanWidth" type="floatThreePrec" />
+							<xs:element name="SweepRate" type="floatThreePrec" />
+							<xs:element name="CoastTime" type="floatThreePrec" />
+							<xs:element name="LookDownPenalty" type="floatThreePrec" />
+							<xs:element name="JammingPenalty" type="floatThreePrec" />
+							<xs:element name="NotchPenalty" type="floatThreePrec" />
+							<xs:element name="NotchSpeed" type="floatThreePrec" />
+							<xs:element name="ChaffChance" type="floatThreePrec" />
 							<xs:element name="Flags" type="xs:short" />
 						</xs:sequence>
 						<xs:attribute name="Num" type="xs:int" use="required" />

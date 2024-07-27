@@ -62,7 +62,7 @@ namespace FalconDatabase.Objects.Components
         /// Weapon ID.
         /// </summary>
         public int WeaponID { get => dataIdx; set => dataIdx = value; }
-        
+
         #endregion Properties
 
         #region Fields
@@ -92,7 +92,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new ();
+            StringBuilder sb = new();
             sb.AppendLine("ID: " + ID);
             sb.AppendLine("Flags: " + Flags);
             sb.AppendLine("Drag Coefficient: " + DragCoefficient);
@@ -115,7 +115,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns><see cref="DataRow"/> object conforming to the ACD.xsd Schema in the XMLSchemas Directory.</returns>
         public DataRow ToDataRow()
         {
-            string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\ACD.xsd");
+            string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\SWD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
             DataSet dataSet = new();
@@ -125,12 +125,12 @@ namespace FalconDatabase.Objects.Components
 
             row["Num"] = ID;
             row["Flags"] = Flags;
-            row["Drag"] = DragCoefficient;
-            row["Weight"] = Weight;
-            row["Area"] = Area;
-            row["EjectX"] = XEjection;
-            row["EjectY"] = YEjection;
-            row["EjectZ"] = ZEjection;
+            row["Drag"] = DragCoefficient.ToString("0.000");
+            row["Weight"] = Weight.ToString("0.000");
+            row["Area"] = Area.ToString("0.000");
+            row["EjectX"] = XEjection.ToString("0.000");
+            row["EjectY"] = YEjection.ToString("0.000");
+            row["EjectZ"] = ZEjection.ToString("0.000");
             row["WpnName"] = SMSMnemonic;
             row["WpnClass"] = WeaponClass;
             row["Domain"] = Domain;
@@ -156,7 +156,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\SWD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -167,12 +167,12 @@ namespace FalconDatabase.Objects.Components
                 // Create Object
                 ID = (int)row["Num"];
                 Flags = (int)row["Flags"];
-                DragCoefficient = (float)row["Drag"];
-                Weight = (float)row["Weight"];
-                Area = (float)row["Area"];
-                XEjection = (float)row["EjectX"];
-                YEjection = (float)row["EjectY"];
-                ZEjection = (float)row["EjectZ"];
+                DragCoefficient = Convert.ToSingle((decimal)row["Drag"]);
+                Weight = Convert.ToSingle((decimal)row["Weight"]);
+                Area = Convert.ToSingle((decimal)row["Area"]);
+                XEjection = Convert.ToSingle((decimal)row["EjectX"]); // TODO: Convert this to Vector3
+                YEjection = Convert.ToSingle((decimal)row["EjectY"]);
+                ZEjection = Convert.ToSingle((decimal)row["EjectZ"]);
                 SMSMnemonic = (string)row["WpnName"];
                 WeaponClass = (int)row["WpnClass"];
                 Domain = (int)row["Domain"];

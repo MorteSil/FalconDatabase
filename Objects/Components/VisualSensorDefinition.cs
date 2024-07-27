@@ -38,7 +38,7 @@ namespace FalconDatabase.Objects.Components
         /// Right View Angle from Center.
         /// </summary>
         public float Right { get => right; set => right = value; }
-        
+
 
         #endregion Properties
 
@@ -63,7 +63,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine("ID: " + ID);
             sb.AppendLine("Range: " + Range);
             sb.AppendLine("Top Angle: " + Top);
@@ -88,11 +88,11 @@ namespace FalconDatabase.Objects.Components
 
             row["Num"] = ID;
             row["Name"] = Name;
-            row["DetectionRange"] = Range;
-            row["ScanAngleTop"] = Top;
-            row["ScanAngleBottom"] = Bottom;
-            row["ScanAngleLeft"] = Left;
-            row["ScanAngleRight"] = Right;
+            row["DetectionRange"] = Range.ToString("0.000");
+            row["ScanAngleTop"] = Top.ToString("0.000");
+            row["ScanAngleBottom"] = Bottom.ToString("0.000");
+            row["ScanAngleLeft"] = Left.ToString("0.000");
+            row["ScanAngleRight"] = Right.ToString("0.000");
 
             return row;
         }
@@ -113,7 +113,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\VSD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -124,11 +124,11 @@ namespace FalconDatabase.Objects.Components
                 // Create Object
                 ID = (int)row["Num"];
                 Name = (string)row["Name"];
-                Range = (float)row["DetectionRange"];
-                Top = (float)row["ScanAngleTop"];
-                Bottom = (float)row["ScanAngleBottom"];
-                Left = (float)row["ScanAngleLeft"];
-                Right = (float)row["ScanAngleRight"];
+                Range = Convert.ToSingle((decimal)row["DetectionRange"]);
+                Top = Convert.ToSingle((decimal)row["ScanAngleTop"]);
+                Bottom = Convert.ToSingle((decimal)row["ScanAngleBottom"]);
+                Left = Convert.ToSingle((decimal)row["ScanAngleLeft"]);
+                Right = Convert.ToSingle((decimal)row["ScanAngleRight"]);
             }
             catch (Exception ex)
             {

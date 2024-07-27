@@ -82,7 +82,7 @@ namespace FalconDatabase.Objects.Components
         /// Radar Flags.
         /// </summary>
         public short Flags { get => flag; set => flag = value; }
-        
+
         #endregion Properties
 
         #region Fields
@@ -106,7 +106,7 @@ namespace FalconDatabase.Objects.Components
         private short flag = 0;                          // 0x01 = NCTR capable
 
         #endregion Fields
-             
+
         #region Functional Methods
         /// <summary>
         /// <para>Formats the data contained within this object into Readable Text.</para>
@@ -116,7 +116,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine("ID: " + iD);
             sb.AppendLine("Name: " + name);
             sb.AppendLine("RWR Sound ID: " + rwrsound);
@@ -157,23 +157,23 @@ namespace FalconDatabase.Objects.Components
             row["RwrSound"] = RWRSound;
             row["RwrSymbol"] = RWRSymbol;
             row["RadarDatIdx"] = RadarDataID;
-            row["HighAltLethality"] = HighAltitudeLethality;
-            row["LowAltLethality"] = LowAltitudeLethality;
-            row["DetectionRange"] = Range;
-            row["BeamWidth"] = BeamWidth;
-            row["ScanWidth"] = ScanWidth;
-            row["SweepRate"] = SweepRate;
-            row["CoastTime"] = CoastTime;
-            row["LookDownPenalty"] = LookDownPenalty;
-            row["JammingPenalty"] = JammingPenalty;
-            row["NotchPenalty"] = NotchPenalty;
-            row["NotchSpeed"] = NotchSpeed;
-            row["ChaffChance"] = ChaffChance;
+            row["HighAltLethality"] = HighAltitudeLethality.ToString("0.000");
+            row["LowAltLethality"] = LowAltitudeLethality.ToString("0.000");
+            row["DetectionRange"] = Range.ToString("0.000");
+            row["BeamWidth"] = BeamWidth.ToString("0.000");
+            row["ScanWidth"] = ScanWidth.ToString("0.000");
+            row["SweepRate"] = SweepRate.ToString("0.000");
+            row["CoastTime"] = CoastTime.ToString("0.000");
+            row["LookDownPenalty"] = LookDownPenalty.ToString("0.000");
+            row["JammingPenalty"] = JammingPenalty.ToString("0.000");
+            row["NotchPenalty"] = NotchPenalty.ToString("0.000");
+            row["NotchSpeed"] = NotchSpeed.ToString("0.000");
+            row["ChaffChance"] = ChaffChance.ToString("0.000");
             row["Flags"] = Flags;
 
             return row;
         }
-        
+
         #endregion Funcitnoal Methods
 
         #region Constructors
@@ -190,7 +190,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\RCD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -204,18 +204,18 @@ namespace FalconDatabase.Objects.Components
                 RWRSound = (int)row["RwrSound"];
                 RWRSymbol = (short)row["RwrSymbol"];
                 RadarDataID = (short)row["RadarDatIdx"];
-                HighAltitudeLethality = (float)row["HighAltLethality"];
-                LowAltitudeLethality = (float)row["LowAltLethality"];
-                Range = (float)row["DetectionRange"];
-                BeamWidth = (float)row["BeamWidth"];
-                ScanWidth = (float)row["ScanWidth"];
-                SweepRate = (float)row["SweepRate"];
-                CoastTime = (float)row["CoastTime"];
-                LookDownPenalty = (float)row["LookDownPenalty"];
-                JammingPenalty = (float)row["JammingPenalty"];
-                NotchPenalty = (float)row["NotchPenalty"];
-                NotchSpeed = (float)row["NotchSpeed"];
-                ChaffChance = (float)row["ChaffChance"];
+                HighAltitudeLethality = Convert.ToSingle((decimal)row["HighAltLethality"]);
+                LowAltitudeLethality = Convert.ToSingle((decimal)row["LowAltLethality"]);
+                Range = Convert.ToSingle((decimal)row["DetectionRange"]);
+                BeamWidth = Convert.ToSingle((decimal)row["BeamWidth"]);
+                ScanWidth = Convert.ToSingle((decimal)row["ScanWidth"]);
+                SweepRate = Convert.ToSingle((decimal)row["SweepRate"]);
+                CoastTime = Convert.ToSingle((decimal)row["CoastTime"]);
+                LookDownPenalty = Convert.ToSingle((decimal)row["LookDownPenalty"]);
+                JammingPenalty = Convert.ToSingle((decimal)row["JammingPenalty"]);
+                NotchPenalty = Convert.ToSingle((decimal)row["NotchPenalty"]);
+                NotchSpeed = Convert.ToSingle((decimal)row["NotchSpeed"]);
+                ChaffChance = Convert.ToSingle((decimal)row["ChaffChance"]);
                 Flags = (short)row["Flags"];
             }
             catch (Exception ex)

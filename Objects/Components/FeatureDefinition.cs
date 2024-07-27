@@ -86,9 +86,9 @@ namespace FalconDatabase.Objects.Components
         /// <para>Instead, use Write() to format all text or binary data for writing to a file.</para>
         /// </summary>
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
-        public override string ToString()        
+        public override string ToString()
         {
-            StringBuilder sb = new ();
+            StringBuilder sb = new();
             sb.AppendLine("ID: " + iD);
             sb.AppendLine("Feature ID: " + ClassID);
             sb.AppendLine("Repair Time (hours): " + repairTime);
@@ -115,7 +115,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\FCD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new ();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             DataRow row = table.NewRow();
@@ -128,17 +128,17 @@ namespace FalconDatabase.Objects.Components
             row["Name"] = Name;
             row["HitPoints"] = HitPoints;
             row["RampHeight"] = RampHeight;
-            row["RampAngle"] = RampAngle;
+            row["RampAngle"] = RampAngle.ToString("0.000");
             row["RadarIdx"] = RadarType;
             {
-                row["Det_NoMove"] = Detection.NoMovement;
-                row["Det_Foot"] = Detection.Foot;
-                row["Det_Wheeled"] = Detection.Wheeled;
-                row["Det_Tracked"] = Detection.Tracked;
-                row["Det_LowAir"] = Detection.LowAir;
-                row["Det_Air"] = Detection.Air;
-                row["Det_Naval"] = Detection.Naval;
-                row["Det_Rail"] = Detection.Rail;
+                row["Det_NoMove"] = Detection.NoMovement.ToString("0.000");
+                row["Det_Foot"] = Detection.Foot.ToString("0.000");
+                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.000");
+                row["Det_Tracked"] = Detection.Tracked.ToString("0.000");
+                row["Det_LowAir"] = Detection.LowAir.ToString("0.000");
+                row["Det_Air"] = Detection.Air.ToString("0.000");
+                row["Det_Naval"] = Detection.Naval.ToString("0.000");
+                row["Det_Rail"] = Detection.Rail.ToString("0.000");
             }
 
             {
@@ -154,8 +154,8 @@ namespace FalconDatabase.Objects.Components
                 row["Dam_Nuclear"] = damageMod.Nuclear;
                 row["Dam_Other"] = damageMod.Other;
             }
-            
-            
+
+
             return row;
         }
 
@@ -175,7 +175,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\FCD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new ();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -193,17 +193,17 @@ namespace FalconDatabase.Objects.Components
                 Name = (string)row["Name"];
                 HitPoints = (short)row["HitPoints"];
                 RampHeight = (short)row["RampHeight"];
-                RampAngle = (float)row["RampAngle"];
+                RampAngle = Convert.ToSingle((decimal)row["RampAngle"]);
                 RadarType = (RadarType)((short)row["RadarIdx"]);
                 {
-                    Detection.NoMovement = (float)row["Det_NoMove"];
-                    Detection.Foot = (float)row["Det_Foot"];
-                    Detection.Wheeled = (float)row["Det_Wheeled"];
-                    Detection.Tracked = (float)row["Det_Tracked"];
-                    Detection.LowAir = (float)row["Det_LowAir"];
-                    Detection.Air = (float)row["Det_Air"];
-                    Detection.Naval = (float)row["Det_Naval"];
-                    Detection.Rail = (float)row["Det_Rail"];
+                    Detection.NoMovement = Convert.ToDouble((decimal)row["Det_NoMove"]);
+                    Detection.Foot = Convert.ToDouble((decimal)row["Det_Foot"]);
+                    Detection.Wheeled = Convert.ToDouble((decimal)row["Det_Wheeled"]);
+                    Detection.Tracked = Convert.ToDouble((decimal)row["Det_Tracked"]);
+                    Detection.LowAir = Convert.ToDouble((decimal)row["Det_LowAir"]);
+                    Detection.Air = Convert.ToDouble((decimal)row["Det_Air"]);
+                    Detection.Naval = Convert.ToDouble((decimal)row["Det_Naval"]);
+                    Detection.Rail = Convert.ToDouble((decimal)row["Det_Rail"]);
                 }
 
                 {
@@ -219,7 +219,7 @@ namespace FalconDatabase.Objects.Components
                     damageMod.Nuclear = (byte)row["Dam_Nuclear"];
                     damageMod.Other = (byte)row["Dam_Other"];
                 }
-                
+
             }
             catch (Exception ex)
             {

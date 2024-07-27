@@ -20,7 +20,7 @@ namespace FalconDatabase.Files
         /// <summary>
         /// Class Table Element of the Database in Raw Data Format.
         /// </summary>
-        public DataTable ClassDataTable 
+        public DataTable ClassDataTable
         {
             get
             {
@@ -38,7 +38,7 @@ namespace FalconDatabase.Files
         /// <para>When <see langword="true"/>, indicates this <see cref="AppFile"/> was successfully loaded from the file.</para>
         /// <para><see langword="false"/> indicates there were no values in the initialization data used for this <see cref="AppFile"/> object and empty or default values were loaded instead.</para>
         /// </summary>
-        public override bool IsDefaultInitialization { get => dbObjects.Count > 0; }
+        public override bool IsDefaultInitialization { get => dbObjects.Count == 0; }
         #endregion Properties
 
         #region Fields
@@ -72,7 +72,7 @@ namespace FalconDatabase.Files
                 throw;
             }
 
-            return IsDefaultInitialization;
+            return true;
         }
         /// <summary>
         /// Formats the File Contents into bytes for writing to disk.
@@ -128,8 +128,7 @@ namespace FalconDatabase.Files
             if (other == null)
                 return false;
 
-            ClassTable? comparator = other as ClassTable;
-            if (comparator is null)
+            if (other is not ClassTable comparator)
                 return false;
             else
                 return Equals(comparator);
@@ -181,5 +180,5 @@ namespace FalconDatabase.Files
         #endregion Constructors
 
     }
-   
+
 }

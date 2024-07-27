@@ -46,7 +46,7 @@ namespace FalconDatabase.Objects
         /// <summary>
         /// Squadron Stores Table.
         /// </summary>
-        internal SquadronStoresTable SquadronStoresTable { get => squadronStoresTable; set => squadronStoresTable = value; }
+        public SquadronStoresTable SquadronStoresTable { get => squadronStoresTable; set => squadronStoresTable = value; }
         /// <summary>
         /// Unit Table.
         /// </summary>
@@ -54,7 +54,7 @@ namespace FalconDatabase.Objects
         /// <summary>
         /// Sim Weapons Table.
         /// </summary>
-        internal SimWeaponTable WeaponTable { get => simWeaponTable; set => simWeaponTable = value; }
+        public SimWeaponTable SimWeaponTable { get => simWeaponTable; set => simWeaponTable = value; }
         /// <summary>
         /// Vehicle Table.
         /// </summary>
@@ -66,7 +66,7 @@ namespace FalconDatabase.Objects
         /// <summary>
         /// Weapon Table
         /// </summary>
-        public WeaponTable WeaponTable1 { get => weaponTable; set => weaponTable = value; }
+        public WeaponTable WeaponTable { get => weaponTable; set => weaponTable = value; }
         /// <summary>
         /// Rack and Hardpoint Table.
         /// </summary>
@@ -116,51 +116,70 @@ namespace FalconDatabase.Objects
             {
                 Collection<Thread> DBThreads = [];
 
-                DBThreads.Add(new(() => { 
-                    result &= classTable.Save(saveDirectory + "\\Falcon4_CT.xml");
-                }));
-                DBThreads.Add(new(() => {
-                    result &= ddpTable.Save(saveDirectory + "\\Falcon4_DDP.xml");
-                }));
-                DBThreads.Add(new(() => {
+                DBThreads.Add(new(() =>
+                {
                     result &= aircraftTable.Save(saveDirectory + "\\Falcon4_ACD.xml");
                 }));
-                DBThreads.Add(new(() => {
+                DBThreads.Add(new(() =>
+                {
+                    result &= classTable.Save(saveDirectory + "\\Falcon4_CT.xml");
+                }));
+                DBThreads.Add(new(() =>
+                {
+                    result &= ddpTable.Save(saveDirectory + "\\Falcon4_DDP.xml");
+                }));                
+                DBThreads.Add(new(() =>
+                {
                     result &= featureTable.Save(saveDirectory + "\\Falcon4_FCD.xml");
                 }));
-                DBThreads.Add(new(() => {
+                DBThreads.Add(new(() =>
+                {
                     result &= irSensorTable.Save(saveDirectory + "\\Falcon4_ICD.xml");
                 }));
-                DBThreads.Add(new(() => {
-                    result &= radarTable.Save(saveDirectory + "\\Falcon4_RCD.xml");
-                }));
-                DBThreads.Add(new(() => {
-                    result &= radarReceiverTable.Save(saveDirectory + "\\Falcon4_RWD.xml");
-                }));
-                DBThreads.Add(new(() => {
-                    result &= rocketTable.Save(saveDirectory + "\\Falcon4_RKT.xml");
-                }));
-                DBThreads.Add(new(() => {
-                    result &= squadronStoresTable.Save(saveDirectory + "\\Falcon4_SSD.xml");
-                }));
-                DBThreads.Add(new(() => {
-                    result &= unitTable.Save(saveDirectory + "\\Falcon4_UCD.xml");
-                }));
-                DBThreads.Add(new(() => {
-                    result &= weaponTable.Save(saveDirectory + "\\Falcon4_WCD.xml");
-                }));
-                DBThreads.Add(new(() => {
-                    result &= vehicleTable.Save(saveDirectory + "\\Falcon4_VCD.xml");
-                }));
-                DBThreads.Add(new(() => {
-                    result &= visualSensorTable.Save(saveDirectory + "\\Falcon4_VSD.xml");
-                }));
-                DBThreads.Add(new(() => {
-                    result &= weaponLoadTable.Save(saveDirectory + "\\Falcon4_WLD.xml");
-                }));
-                DBThreads.Add(new(() => {
+                DBThreads.Add(new(() =>
+                {
                     result &= objectiveTable.Save(saveDirectory + "\\ObjectiveRelatedData");
                 }));
+                DBThreads.Add(new(() =>
+                {
+                    result &= radarTable.Save(saveDirectory + "\\Falcon4_RCD.xml");
+                }));
+                DBThreads.Add(new(() =>
+                {
+                    result &= radarReceiverTable.Save(saveDirectory + "\\Falcon4_RWD.xml");
+                }));
+                DBThreads.Add(new(() =>
+                {
+                    result &= rocketTable.Save(saveDirectory + "\\Falcon4_RKT.xml");
+                }));
+                DBThreads.Add(new(() =>
+                {
+                    result &= simWeaponTable.Save(saveDirectory + "\\Falcon4_SWD.xml");
+                }));
+                DBThreads.Add(new(() =>
+                {
+                    result &= squadronStoresTable.Save(saveDirectory + "\\Falcon4_SSD.xml");
+                }));
+                DBThreads.Add(new(() =>
+                {
+                    result &= unitTable.Save(saveDirectory + "\\Falcon4_UCD.xml");
+                }));                
+                DBThreads.Add(new(() =>
+                {
+                    result &= vehicleTable.Save(saveDirectory + "\\Falcon4_VCD.xml");
+                }));
+                DBThreads.Add(new(() =>
+                {
+                    result &= visualSensorTable.Save(saveDirectory + "\\Falcon4_VSD.xml");
+                }));
+                DBThreads.Add(new(() =>
+                {
+                    result &= weaponLoadTable.Save(saveDirectory + "\\Falcon4_WLD.xml");
+                }));
+                DBThreads.Add(new(() =>
+                {
+                    result &= weaponTable.Save(saveDirectory + "\\Falcon4_WCD.xml");
+                }));                
 
                 foreach (Thread t in DBThreads)
                     t.Start();
@@ -233,8 +252,13 @@ namespace FalconDatabase.Objects
 #if DEBUG
                     Trace.WriteLine("Reading: " + dbFile.FullName);
 #endif
-                    
-                    if (dbFile.Name.Contains("_CT"))
+                    if (dbFile.Name.Contains("_ACD"))
+                    {
+                        Thread acd = new(() => { aircraftTable.Load(dbFile.FullName); });
+                        DBThreads.Add(acd);
+                        acd.Start();
+                    }
+                    else if (dbFile.Name.Contains("_CT"))
                     {
                         Thread ct = new(() => { classTable.Load(dbFile.FullName); });
                         DBThreads.Add(ct);
@@ -245,13 +269,7 @@ namespace FalconDatabase.Objects
                         Thread ddp = new(() => { ddpTable.Load(dbFile.FullName); });
                         DBThreads.Add(ddp);
                         ddp.Start();
-                    }
-                    else if (dbFile.Name.Contains("_ACD"))
-                    {
-                        Thread acd = new(() => { aircraftTable.Load(dbFile.FullName); });
-                        DBThreads.Add(acd);
-                        acd.Start();
-                    }
+                    }                   
                     else if (dbFile.Name.Contains("_FCD"))
                     {
                         Thread fcd = new(() => { featureTable.Load(dbFile.FullName); });
@@ -264,23 +282,29 @@ namespace FalconDatabase.Objects
                         DBThreads.Add(icd);
                         icd.Start();
                     }
-                    else if (dbFile.Name.Contains("_RCD"))
-                    {
-                        Thread rcd = new(() => { radarTable.Load(dbFile.FullName); });
-                        DBThreads.Add(rcd);
-                        rcd.Start();
-                    }
                     else if (dbFile.Name.Contains("_RWD"))
                     {
                         Thread rwd = new(() => { radarReceiverTable.Load(dbFile.FullName); });
                         DBThreads.Add(rwd);
                         rwd.Start();
                     }
+                    else if (dbFile.Name.Contains("_RCD"))
+                    {
+                        Thread rcd = new(() => { radarTable.Load(dbFile.FullName); });
+                        DBThreads.Add(rcd);
+                        rcd.Start();
+                    }                    
                     else if (dbFile.Name.Contains("_RKT"))
                     {
                         Thread rkt = new(() => { rocketTable.Load(dbFile.FullName); });
                         DBThreads.Add(rkt);
                         rkt.Start();
+                    }
+                    else if (dbFile.Name.Contains("_SWD"))
+                    {
+                        Thread swd = new(() => { simWeaponTable.Load(dbFile.FullName); });
+                        DBThreads.Add(swd);
+                        swd.Start();
                     }
                     else if (dbFile.Name.Contains("_SSD"))
                     {
@@ -295,12 +319,7 @@ namespace FalconDatabase.Objects
                         DBThreads.Add(ucd);
                         ucd.Start();
                     }
-                    else if (dbFile.Name.Contains("_SWD"))
-                    {
-                        Thread swd = new(() => { simWeaponTable.Load(dbFile.FullName); });
-                        DBThreads.Add(swd);
-                        swd.Start();
-                    }
+                    
                     else if (dbFile.Name.Contains("_VCD"))
                     {
                         Thread vcd = new(() => { vehicleTable.Load(dbFile.FullName); });
@@ -313,20 +332,21 @@ namespace FalconDatabase.Objects
                         DBThreads.Add(vsd);
                         vsd.Start();
                     }
-                    else if (dbFile.Name.Contains("_WCD"))
-                    {
-                        Thread wcd = new(() => { weaponTable.Load(dbFile.FullName); });
-                        DBThreads.Add(wcd);
-                        wcd.Start();
-                    }
                     else if (dbFile.Name.Contains("_WLD"))
                     {
                         Thread wld = new(() => { weaponLoadTable.Load(dbFile.FullName); });
                         DBThreads.Add(wld);
                         wld.Start();
                     }
+                    else if (dbFile.Name.Contains("_WCD"))
+                    {
+                        Thread wcd = new(() => { weaponTable.Load(dbFile.FullName); });
+                        DBThreads.Add(wcd);
+                        wcd.Start();
+                    }
+                    
                 }
-                
+
 
                 DirectoryInfo[] objectives = [];
                 if (databaseDir is not null)
@@ -338,7 +358,7 @@ namespace FalconDatabase.Objects
                 DBThreads.Add(obj);
                 obj.Start();
 
-                foreach (Thread t in  DBThreads) {t.Join();}
+                foreach (Thread t in DBThreads) { t.Join(); }
 
             }
             catch (Exception ex)
@@ -350,7 +370,7 @@ namespace FalconDatabase.Objects
         }
 
 
-#endregion Constructors
+        #endregion Constructors
 
 
     }

@@ -36,7 +36,7 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Unit Flags.
         /// </summary>
-        public ushort Flags { get => flags; set => flags = value; }             
+        public ushort Flags { get => flags; set => flags = value; }
         /// <summary>
         /// Movement Type of this Unit.
         /// </summary>
@@ -96,8 +96,8 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Mission Type Score Value.
         /// </summary>
-        public Collection<(int RoleType, byte RoleScore)> Scores 
-        { 
+        public Collection<(int RoleType, byte RoleScore)> Scores
+        {
             get => scores;
             set
             {
@@ -120,24 +120,24 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Element Names.
         /// </summary>
-        public Collection<string> ElementNames 
-        { 
+        public Collection<string> ElementNames
+        {
             get => elementNames;
             set
             {
                 while (value.Count > 16) value.RemoveAt(16);
                 elementNames = value;
-            } 
+            }
         }
         /// <summary>
         /// Element Name Prefixes.
         /// </summary>
-        public Collection<string> ElementNamePrefixes 
-        { 
-            get => elementNamePrefixes; 
+        public Collection<string> ElementNamePrefixes
+        {
+            get => elementNamePrefixes;
             set
             {
-                while (value.Count > 16) value.RemoveAt (16);
+                while (value.Count > 16) value.RemoveAt(16);
                 elementNamePrefixes = value;
             }
         }
@@ -207,7 +207,7 @@ namespace FalconDatabase.Objects.Components
                 sb.AppendLine("Element " + i + ": ");
                 sb.AppendLine("   Vehicle Type: " + Elements[i].VehicleID);
                 sb.AppendLine("   Vehicle Count: " + Elements[i].VehicleCount);
-                sb.AppendLine("   Element Flags: " + Elements[i].ElementFlags);                
+                sb.AppendLine("   Element Flags: " + Elements[i].ElementFlags);
             }
             sb.AppendLine("Unit Flags: " + Flags);
             sb.AppendLine("Name: " + Name);
@@ -298,14 +298,14 @@ namespace FalconDatabase.Objects.Components
             }
 
             {
-                row["Det_NoMove"] = (float)Detection.NoMovement;
-                row["Det_Foot"] = (float)Detection.Foot;
-                row["Det_Wheeled"] = (float)Detection.Wheeled;
-                row["Det_Tracked"] = (float)Detection.Tracked;
-                row["Det_LowAir"] = (float)Detection.LowAir;
-                row["Det_Air"] = (float)Detection.Air;
-                row["Det_Naval"] = (float)Detection.Naval;
-                row["Det_Rail"] = (float)Detection.Rail;
+                row["Det_NoMove"] = Detection.NoMovement.ToString("0.000");
+                row["Det_Foot"] = Detection.Foot.ToString("0.000");
+                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.000");
+                row["Det_Tracked"] = Detection.Tracked.ToString("0.000");
+                row["Det_LowAir"] = Detection.LowAir.ToString("0.000");
+                row["Det_Air"] = Detection.Air.ToString("0.000");
+                row["Det_Naval"] = Detection.Naval.ToString("0.000");
+                row["Det_Rail"] = Detection.Rail.ToString("0.000");
             }
 
             {
@@ -322,14 +322,14 @@ namespace FalconDatabase.Objects.Components
                 row["Dam_Other"] = damageMod.Other;
             }
 
-            for (int i=0;i<16;i++)
+            for (int i = 0; i < 16; i++)
             {
                 row["RoleScore_" + i] = scores[i].RoleScore;
-                if (elements[i].VehicleCount !=0)
-                    row["ElementCount_" +i] = elements[i].VehicleCount;
-                if (elements[i].VehicleID !=0)
+                if (elements[i].VehicleCount != 0)
+                    row["ElementCount_" + i] = elements[i].VehicleCount;
+                if (elements[i].VehicleID != 0)
                     row["VehicleCtIdx_" + i] = elements[i].VehicleID;
-                if (elements[i].ElementFlags !=0)
+                if (elements[i].ElementFlags != 0)
                     row["ElementFlags_" + i] = (int)elements[i].ElementFlags;
                 if (elementNames[i] != " ")
                     row["ElementName_" + i] = elementNames[i];
@@ -358,8 +358,8 @@ namespace FalconDatabase.Objects.Components
         /// Default Constructor for the <see cref="UnitDefinition"/> object.
         /// </summary>
         public UnitDefinition()
-        { 
-            for (int i = 0;i<16;i++)
+        {
+            for (int i = 0; i < 16; i++)
             {
                 scores.Add((i, 0));
                 elements.Add((0, 0, 0));
@@ -375,7 +375,7 @@ namespace FalconDatabase.Objects.Components
         /// </summary>
         /// <param name="row"></param>
         public UnitDefinition(DataRow row)
-            :this()
+            : this()
         {
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\UCD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
@@ -439,14 +439,14 @@ namespace FalconDatabase.Objects.Components
                 }
 
                 {
-                    Detection.NoMovement = (float)row["Det_NoMove"];
-                    Detection.Foot = (float)row["Det_Foot"];
-                    Detection.Wheeled = (float)row["Det_Wheeled"];
-                    Detection.Tracked = (float)row["Det_Tracked"];
-                    Detection.LowAir = (float)row["Det_LowAir"];
-                    Detection.Air = (float)row["Det_Air"];
-                    Detection.Naval = (float)row["Det_Naval"];
-                    Detection.Rail = (float)row["Det_Rail"];
+                    Detection.NoMovement = Convert.ToSingle((decimal)row["Det_NoMove"]);
+                    Detection.Foot = Convert.ToSingle((decimal)row["Det_Foot"]);
+                    Detection.Wheeled = Convert.ToSingle((decimal)row["Det_Wheeled"]);
+                    Detection.Tracked = Convert.ToSingle((decimal)row["Det_Tracked"]);
+                    Detection.LowAir = Convert.ToSingle((decimal)row["Det_LowAir"]);
+                    Detection.Air = Convert.ToSingle((decimal)row["Det_Air"]);
+                    Detection.Naval = Convert.ToSingle((decimal)row["Det_Naval"]);
+                    Detection.Rail = Convert.ToSingle((decimal)row["Det_Rail"]);
                 }
 
                 {
@@ -461,12 +461,12 @@ namespace FalconDatabase.Objects.Components
                     damageMod.Chemical = (byte)row["Dam_Chemical"];
                     damageMod.Nuclear = (byte)row["Dam_Nuclear"];
                     damageMod.Other = (byte)row["Dam_Other"];
-                }                
+                }
 
                 for (int i = 0; i < 16; i++)
                 {
                     if (row["RoleScore_" + i] != DBNull.Value)
-                        scores[i] = (i,(byte)row["RoleScore_" + i]);
+                        scores[i] = (i, (byte)row["RoleScore_" + i]);
                     if (row["ElementCount_" + i] != DBNull.Value)
                         elements[i] = ((byte)row["ElementCount_" + i], elements[i].VehicleID, elements[i].ElementFlags);
                     if (row["VehicleCtIdx_" + i] != DBNull.Value)

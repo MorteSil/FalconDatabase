@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="floatThreePrec">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="3" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:element name="WCDRecords">
 		<xs:complexType>
 			<xs:sequence>
@@ -9,7 +14,7 @@
 							<xs:element name="CtIdx" type="xs:short" />
 							<xs:element name="Strength" type="xs:unsignedShort" />
 							<xs:element name="DamageType" type="xs:unsignedByte" />
-							<xs:element name="Range" type="xs:float" />
+							<xs:element name="Range" type="floatThreePrec" />
 							<xs:element name="Flags" type="xs:unsignedShort" />
 							<xs:element name="Name" type="xs:string" />
 							<xs:element name="Hit_NoMove" type="xs:unsignedByte" />

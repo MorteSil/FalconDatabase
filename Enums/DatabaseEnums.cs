@@ -15,13 +15,13 @@ namespace FalconDatabase.Enums
         /// </summary>
         [StringValue("Nothing")]
         NOTHING = 1,
-                
+
         /// <summary>
         /// An Air Tasking Manager.
         /// </summary>
         [StringValue("Air Tasking Manager")]
         ATM = 1,
-                
+
         /// <summary>
         /// A Ground Tasking Manager used by the Campaign Engine to manage ground units.
         /// </summary>
@@ -33,13 +33,13 @@ namespace FalconDatabase.Enums
         /// </summary>
         [StringValue("Naval Tasking Manager")]
         NTM = 1,
-       
+
         /// <summary>
         /// A logical collection of assets and political groups collectively attempting to accomplish a single shared goal.
         /// </summary>
         [StringValue("Team")]
         TEAM = 1,
-       
+
         /// <summary>
         /// Collection of highly reflective metal shards designed to confuse Radar Signals.
         /// </summary>
@@ -422,7 +422,7 @@ namespace FalconDatabase.Enums
         /// </summary>
         [StringValue("Country 7")]
         COUNTRY_7,
-    };    
+    };
 
     /// <summary>
     /// Type of Objects contained in the Database.
@@ -467,7 +467,7 @@ namespace FalconDatabase.Enums
         /// Max Data Value
         /// </summary>
         DMAX = 7
-    };   
+    };
 
     /// <summary>
     /// Modes used by the Game to determine Configurations for the Game and Environment.
@@ -499,7 +499,7 @@ namespace FalconDatabase.Enums
         /// </summary>
         [StringValue("Tiger")]
         MODE_TIGER = 4,
-        
+
     };
 
     /// <summary>
@@ -1570,7 +1570,7 @@ namespace FalconDatabase.Enums
         /// No Sensor in this Slot.
         /// </summary>
         [StringValue("No Sensor")]
-        None,
+        None = -1,
         /// <summary>
         /// Infrared Sensor
         /// </summary>

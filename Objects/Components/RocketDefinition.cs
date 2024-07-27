@@ -26,7 +26,7 @@ namespace FalconDatabase.Objects.Components
         /// Number of Rockets in the Pod.
         /// </summary>
         public short WeaponCount { get => weaponCount; set => weaponCount = value; }
-        
+
         #endregion Properties
 
         #region Fields
@@ -47,7 +47,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine("ID: " + ID);
             sb.AppendLine("Pod ID: " + podIndex);
             sb.AppendLine("Weapon ID: " + weaponIndex);
@@ -72,7 +72,7 @@ namespace FalconDatabase.Objects.Components
             row["RocketPodIdx"] = PodIndex;
             row["RocketWpnIdx"] = WeaponIndex;
             row["RocketCount"] = WeaponCount;
-            
+
 
             return row;
         }
@@ -93,7 +93,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\RKT.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try

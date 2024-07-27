@@ -23,7 +23,7 @@ namespace FalconDatabase.Objects.Components
         /// Type and Number of each Weapon that can be loaded on this Rack or Hardpoint.
         /// </summary>
         public Collection<(short WeaponID, byte WeaponCount)> WeaponList { get => weaponList; set => weaponList = value; }
-        
+
 
         #endregion Properties
 
@@ -43,9 +43,9 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             for (int i = 0; i < weaponList.Count; i++)
-                sb.AppendLine("Weapon ID: " + weaponList[i].Item1 + " - Count: " + weaponList[i].Item2);
+                sb.AppendLine("Weapon ID: " + weaponList[i].WeaponID + " - Count: " + weaponList[i].WeaponCount);
             return sb.ToString();
         }
         /// <summary>
@@ -63,7 +63,7 @@ namespace FalconDatabase.Objects.Components
             DataRow row = table.NewRow();
 
             row["Num"] = ID;
-            row["Name"] = Name;            
+            row["Name"] = Name;
             for (int i = 0; i < 64; i++)
             {
                 if (WeaponList[i].WeaponID != -1)
@@ -87,10 +87,10 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Default Constructor for the <see cref="WeaponLoadDefinition"/> object.
         /// </summary>
-        public WeaponLoadDefinition() 
+        public WeaponLoadDefinition()
         {
             for (int i = 0; i < 64; i++)
-                weaponList.Add((-1,0));
+                weaponList.Add((-1, 0));
 
         }
         /// <summary>
@@ -98,12 +98,12 @@ namespace FalconDatabase.Objects.Components
         /// </summary>
         /// <param name="row"></param>
         public WeaponLoadDefinition(DataRow row)
-            :this()
+            : this()
         {
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\WLD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -118,7 +118,7 @@ namespace FalconDatabase.Objects.Components
                 {
                     if (row["WpnIdx_" + i] != DBNull.Value)
                     {
-                        weaponList[i] = ((short)row["WpnIdx_" +i], (byte)row["WpnCount_" +i]);
+                        weaponList[i] = ((short)row["WpnIdx_" + i], (byte)row["WpnCount_" + i]);
                     }
                 }
             }

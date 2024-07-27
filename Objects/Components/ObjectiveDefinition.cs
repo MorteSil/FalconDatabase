@@ -45,7 +45,7 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Icon used for this Objective.
         /// </summary>
-        public short IconIndex { get => iconIndex; set => iconIndex = value; }       
+        public short IconIndex { get => iconIndex; set => iconIndex = value; }
         /// <summary>
         /// Feature ID that provides Radar for this Objective.
         /// </summary>
@@ -73,8 +73,8 @@ namespace FalconDatabase.Objects.Components
         private short dataRate = 0;
         private short deagDistance = 0;
         private MovementTypes detection = new();
-        private DamageTypes damageMod = new ();		
-        private short iconIndex = 0;    
+        private DamageTypes damageMod = new();
+        private short iconIndex = 0;
         private byte radarFeature = 0;
 
         private Collection<FeatureEntry> features = [];
@@ -89,7 +89,7 @@ namespace FalconDatabase.Objects.Components
         private void UpdatePHDOffsets()
         {
             ushort offset = 0;
-            for (int i = 0;i<headerData.Count;i++)
+            for (int i = 0; i < headerData.Count; i++)
             {
                 headerData[i].FirstPoint = offset;
                 offset += headerData[i].PointCount;
@@ -106,7 +106,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new ();
+            StringBuilder sb = new();
             sb.AppendLine("ID: " + ID);
             sb.AppendLine("Objective ID: " + ClassID);
             sb.AppendLine("Name: " + Name);
@@ -126,7 +126,7 @@ namespace FalconDatabase.Objects.Components
             foreach (PointHeaderData h in HeaderData)
                 sb.Append(h.ToString());
 
-            return sb.ToString(); 
+            return sb.ToString();
         }
         /// <summary>
         /// Formats the <see cref="ObjectiveDefinition"/> as a <see cref="DataRow"/>.
@@ -151,14 +151,14 @@ namespace FalconDatabase.Objects.Components
             row["ObjectiveIcon"] = IconIndex;
             row["RadarFeature"] = RadarFeature;
             {
-                row["Det_NoMove"] = (float)Detection.NoMovement;
-                row["Det_Foot"] = (float)Detection.Foot;
-                row["Det_Wheeled"] = (float)Detection.Wheeled;
-                row["Det_Tracked"] = (float)Detection.Tracked;
-                row["Det_LowAir"] = (float)Detection.LowAir;
-                row["Det_Air"] = (float)Detection.Air;
-                row["Det_Naval"] = (float)Detection.Naval;
-                row["Det_Rail"] = (float)Detection.Rail;
+                row["Det_NoMove"] = Detection.NoMovement.ToString("0.000");
+                row["Det_Foot"] = Detection.Foot.ToString("0.000");
+                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.000");
+                row["Det_Tracked"] = Detection.Tracked.ToString("0.000");
+                row["Det_LowAir"] = Detection.LowAir.ToString("0.000");
+                row["Det_Air"] = Detection.Air.ToString("0.000");
+                row["Det_Naval"] = Detection.Naval.ToString("0.000");
+                row["Det_Rail"] = Detection.Rail.ToString("0.000");
             }
 
             {
@@ -187,7 +187,7 @@ namespace FalconDatabase.Objects.Components
         /// </summary>
         public ObjectiveDefinition()
         {
-           
+
         }
         /// <summary>
         /// Initializes an instance of the <see cref="ObjectiveDefinition"/> object with a <see cref="DataRow"/> that conforms to the ACD.xsd Schema File.
@@ -215,14 +215,14 @@ namespace FalconDatabase.Objects.Components
                 IconIndex = (short)row["ObjectiveIcon"];
                 RadarFeature = (byte)row["RadarFeature"];
                 {
-                    Detection.NoMovement = (float)row["Det_NoMove"];
-                    Detection.Foot = (float)row["Det_Foot"];
-                    Detection.Wheeled = (float)row["Det_Wheeled"];
-                    Detection.Tracked = (float)row["Det_Tracked"];
-                    Detection.LowAir = (float)row["Det_LowAir"];
-                    Detection.Air = (float)row["Det_Air"];
-                    Detection.Naval = (float)row["Det_Naval"];
-                    Detection.Rail = (float)row["Det_Rail"];
+                    Detection.NoMovement = Convert.ToDouble((decimal)row["Det_NoMove"]);
+                    Detection.Foot = Convert.ToDouble((decimal)row["Det_Foot"]);
+                    Detection.Wheeled = Convert.ToDouble((decimal)row["Det_Wheeled"]);
+                    Detection.Tracked = Convert.ToDouble((decimal)row["Det_Tracked"]);
+                    Detection.LowAir = Convert.ToDouble((decimal)row["Det_LowAir"]);
+                    Detection.Air = Convert.ToDouble((decimal)row["Det_Air"]);
+                    Detection.Naval = Convert.ToDouble((decimal)row["Det_Naval"]);
+                    Detection.Rail = Convert.ToDouble((decimal)row["Det_Rail"]);
                 }
 
                 {
@@ -319,12 +319,12 @@ namespace FalconDatabase.Objects.Components
                 DataRow row = table.NewRow();
 
                 row["Num"] = ID;
-                row["FeatureCtIdx"] = FeatureID;                
-                row["OffsetX"] = Offset.X;
-                row["OffsetY"] = Offset.Y;
-                row["OffsetZ"] = Offset.Z;
-                row["Heading"] = facing;
-                if (value >0)
+                row["FeatureCtIdx"] = FeatureID;
+                row["OffsetX"] = Offset.X.ToString("0.000");
+                row["OffsetY"] = Offset.Y.ToString("0.000");
+                row["OffsetZ"] = Offset.Z.ToString("0.000");
+                row["Heading"] = facing.ToString("0.000");
+                if (value > 0)
                     row["Value"] = Value;
                 else
                     row["Value"] = DBNull.Value;
@@ -360,8 +360,8 @@ namespace FalconDatabase.Objects.Components
                     // Create Object
                     ID = (int)row["Num"];
                     FeatureID = (short)row["FeatureCtIdx"];
-                    Offset = new Vector3((float)row["OffsetX"], (float)row["OffsetY"], (float)row["OffsetZ"]);
-                    facing = (float)row["Heading"];
+                    Offset = new Vector3(Convert.ToSingle((decimal)row["OffsetX"]), Convert.ToSingle((decimal)row["OffsetY"]), Convert.ToSingle((decimal)row["OffsetZ"]));
+                    facing = Convert.ToDouble((decimal)row["Heading"]);
                     if (row["Value"] != DBNull.Value)
                         Value = (byte)row["Value"];
                 }
@@ -504,21 +504,21 @@ namespace FalconDatabase.Objects.Components
                 DataRow row = table.NewRow();
 
                 row["Num"] = ID;
-                row["OffsetX"] = Offset.X;
-                row["OffsetY"] = Offset.Y;
-                row["OffsetZ"] = offset.Z;
+                row["OffsetX"] = Offset.X.ToString("0.000");
+                row["OffsetY"] = Offset.Y.ToString("0.000");
+                row["OffsetZ"] = offset.Z.ToString("0.000");
                 row["Type"] = PointType;
                 row["ParkingPointGroup"] = ParkingPointGroup;
                 row["RootIdx"] = RootIdx;
                 row["BranchIdx"] = BranchIdx;
                 row["TaxiwayLetter"] = TaxiwayLetter;
                 row["RunwayNumber"] = RunwayNumber;
-                row["RunwaySide"] = runwaySide;
+                row["RunwaySide"] = RunwaySide;
                 row["Flags"] = Flags;
-                row["MaxHeight"] = MaxHeight;
-                row["MaxWidth"] = MaxWidth;
-                row["MaxLength"] = MaxLength;
-                row["Heading"] = Heading;
+                row["MaxHeight"] = MaxHeight.ToString("0.000");
+                row["MaxWidth"] = MaxWidth.ToString("0.000");
+                row["MaxLength"] = MaxLength.ToString("0.000");
+                row["Heading"] = Heading.ToString("0.000");
                 row["CrossingPoint"] = CrossingPoint.ToString().ToLower();
 
                 return row;
@@ -550,7 +550,7 @@ namespace FalconDatabase.Objects.Components
 
                     // Create Object
                     ID = (int)row["Num"];
-                    Offset = new Vector3((float)row["OffsetX"], (float)row["OffsetY"], (float)row["OffsetZ"]);
+                    Offset = new Vector3(Convert.ToSingle((decimal)row["OffsetX"]), Convert.ToSingle((decimal)row["OffsetY"]), Convert.ToSingle((decimal)row["OffsetZ"]));
                     if (row["Type"] != DBNull.Value)
                         PointType = (byte)row["Type"];
                     if (row["ParkingPointGroup"] != DBNull.Value)
@@ -568,13 +568,13 @@ namespace FalconDatabase.Objects.Components
                     if (row["Flags"] != DBNull.Value)
                         Flags = (int)row["Flags"];
                     if (row["MaxHeight"] != DBNull.Value)
-                        MaxHeight = (float)row["MaxHeight"];
+                        MaxHeight = Convert.ToDouble((decimal)row["MaxHeight"]);
                     if (row["MaxWidth"] != DBNull.Value)
-                        MaxWidth = (float)row["MaxWidth"];
+                        MaxWidth = Convert.ToDouble((decimal)row["MaxWidth"]);
                     if (row["MaxLength"] != DBNull.Value)
-                        MaxLength = (float)row["MaxLength"];
+                        MaxLength = Convert.ToDouble((decimal)row["MaxLength"]);
                     if (row["Heading"] != DBNull.Value)
-                        Heading = (float)row["Heading"];
+                        Heading = Convert.ToDouble((decimal)row["Heading"]);
                     if (row["CrossingPoint"] != DBNull.Value)
                         CrossingPoint = bool.Parse((string)row["CrossingPoint"]);
                 }
@@ -632,16 +632,16 @@ namespace FalconDatabase.Objects.Components
             /// <summary>
             /// External Features required to be loaded for this Point.
             /// </summary>
-            public Collection<byte> Dependencies 
-            { 
-                get => dependencies; 
-                set 
+            public Collection<byte> Dependencies
+            {
+                get => dependencies;
+                set
                 {
                     while (value.Count > 16) value.RemoveAt(16);
                     dependencies = value;
                 }
             }
-            
+
             #endregion Properties
 
             #region Fields
@@ -676,7 +676,7 @@ namespace FalconDatabase.Objects.Components
                 sb.AppendLine("   Runway Texture: " + RunwayTexture);
                 sb.AppendLine("   Runway Number: " + RunwayNumber);
                 sb.AppendLine("   Landing Pattern: " + LandingPattern);
-                for (int i=0;i<Dependencies.Count;i++)
+                for (int i = 0; i < Dependencies.Count; i++)
                     sb.AppendLine("   Dependency " + i + ": " + dependencies[i]);
 
                 return sb.ToString();
@@ -698,8 +698,8 @@ namespace FalconDatabase.Objects.Components
                 row["Num"] = ID;
                 row["ObjIdx"] = ObjectiveID;
                 row["Type"] = PointType;
-                row["PointCount"] = PointCount;                
-                row["Data"] = DataValue;
+                row["PointCount"] = PointCount;
+                row["Data"] = DataValue.ToString("0.000");
                 row["FirstPtIdx"] = FirstPoint;
                 if (RunwayTexture != -1)
                     row["RunwayTexture"] = RunwayTexture;
@@ -709,18 +709,18 @@ namespace FalconDatabase.Objects.Components
                     row["RunwayNumber"] = RunwayNumber;
                 else
                     row["RunwayNumber"] = DBNull.Value;
-                if (landingPattern!= LandingPattern.None)
+                if (landingPattern != LandingPattern.None)
                     row["LandingPattern"] = (short)LandingPattern;
                 else
                     row["LandingPattern"] = DBNull.Value;
 
-                for (int i = 0;i<Dependencies.Count; i++)
+                for (int i = 0; i < Dependencies.Count; i++)
                 {
                     if (Dependencies[i] != 255)
                         row["FeatureDependencyIdx_" + i] = dependencies[i];
                     else
                         row["FeatureDependencyIdx_" + i] = DBNull.Value;
-                }      
+                }
                 return row;
             }
 
@@ -740,7 +740,7 @@ namespace FalconDatabase.Objects.Components
             /// </summary>
             /// <param name="row"></param>
             public PointHeaderData(DataRow row)
-                :this()
+                : this()
             {
                 string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\PHD.xsd");
                 if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
@@ -759,7 +759,7 @@ namespace FalconDatabase.Objects.Components
                     PointType = (byte)row["Type"];
                     PointCount = (ushort)row["PointCount"];
                     if (row["Data"] != DBNull.Value)
-                        DataValue = (float)row["Data"];                    
+                        DataValue = Convert.ToDouble((decimal)row["Data"]);
                     FirstPoint = (ushort)row["FirstPtIdx"];
                     if (row["RunwayTexture"] != DBNull.Value)
                         RunwayTexture = (short)row["RunwayTexture"];
@@ -771,7 +771,7 @@ namespace FalconDatabase.Objects.Components
                     for (int i = 0; i < Dependencies.Count; i++)
                     {
                         if (row["FeatureDependencyIdx_" + i] != DBNull.Value)
-                            dependencies[i] = (byte)row["FeatureDependencyIdx_" + i];                        
+                            dependencies[i] = (byte)row["FeatureDependencyIdx_" + i];
                     }
                 }
                 catch (Exception ex)

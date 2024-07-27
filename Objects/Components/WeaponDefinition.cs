@@ -108,7 +108,7 @@ namespace FalconDatabase.Objects.Components
         /// How fast the weapon fires when multiple projectiles are fired in a single burst.
         /// </summary>
         public byte BulletRoundsPerSec { get => bulletRoundsPerSec; set => bulletRoundsPerSec = value; }
-        
+
 
         #endregion Properties
 
@@ -149,7 +149,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new ();
+            StringBuilder sb = new();
             sb.AppendLine("ID: " + ID);
             sb.AppendLine("Weapon ID: " + index);
             sb.AppendLine("Strength: " + strength);
@@ -196,7 +196,7 @@ namespace FalconDatabase.Objects.Components
             row["CtIdx"] = ClassID;
             row["Strength"] = Strength;
             row["DamageType"] = (byte)DamageType;
-            row["Range"] = Range;
+            row["Range"] = Range.ToString("0.000");
             row["Flags"] = Flags;
             row["Name"] = Name;
 
@@ -231,7 +231,7 @@ namespace FalconDatabase.Objects.Components
 
             return row;
         }
-        
+
         #endregion Funcitnoal Methods
 
         #region Constructors
@@ -248,7 +248,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\WCD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -261,7 +261,7 @@ namespace FalconDatabase.Objects.Components
                 ClassID = (short)row["CtIdx"];
                 Strength = (ushort)row["Strength"];
                 DamageType = (DamageDataType)(byte)row["DamageType"];
-                Range = (float)row["Range"];
+                Range = Convert.ToSingle((decimal)row["Range"]);
                 Flags = (ushort)row["Flags"];
                 Name = (string)row["Name"];
 

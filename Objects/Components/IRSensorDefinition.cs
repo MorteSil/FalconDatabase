@@ -38,7 +38,7 @@ namespace FalconDatabase.Objects.Components
         /// Base Probability a Flare will work.
         /// </summary>
         public float FlareChance { get => flareChance; set => flareChance = value; }
-        
+
         #endregion Properties
 
         #region Fields
@@ -61,7 +61,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine("ID: " + ID);
             sb.AppendLine("Name: " + Name);
             sb.AppendLine("Range: " + Range);
@@ -88,11 +88,11 @@ namespace FalconDatabase.Objects.Components
 
             row["Num"] = ID;
             row["Name"] = Name;
-            row["DetectionRange"] = Range;
-            row["FOV"] = FOV;
-            row["GimbalLimit"] = GimbalLimit;
-            row["GroundFactor"] = GroundFactor;
-            row["FlareChance"] = FlareChance;
+            row["DetectionRange"] = Range.ToString("0.000");
+            row["FOV"] = FOV.ToString("0.000");
+            row["GimbalLimit"] = GimbalLimit.ToString("0.000");
+            row["GroundFactor"] = GroundFactor.ToString("0.000");
+            row["FlareChance"] = FlareChance.ToString("0.000");
 
             return row;
         }
@@ -113,7 +113,7 @@ namespace FalconDatabase.Objects.Components
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\ICD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new ();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -124,11 +124,11 @@ namespace FalconDatabase.Objects.Components
                 // Create Object
                 ID = (int)row["Num"];
                 Name = (string)row["Name"];
-                Range = (float)row["DetectionRange"];
-                FOV = (float)row["FOV"];
-                GimbalLimit = (float)row["GimbalLimit"];
-                GroundFactor = (float)row["GroundFactor"];
-                FlareChance = (float)row["FlareChance"];
+                Range = Convert.ToSingle((decimal)row["DetectionRange"]);
+                FOV = Convert.ToSingle((decimal)row["FOV"]);
+                GimbalLimit = Convert.ToSingle((decimal)row["GimbalLimit"]);
+                GroundFactor = Convert.ToSingle((decimal)row["GroundFactor"]);
+                FlareChance = Convert.ToSingle((decimal)row["FlareChance"]);
             }
             catch (Exception ex)
             {

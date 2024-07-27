@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="floatThreePrec">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="3" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:element name="FEDRecords">
 		<xs:complexType>
 			<xs:sequence>
@@ -8,10 +13,10 @@
 						<xs:sequence>
 							<xs:element name="FeatureCtIdx" type="xs:short" />
 							<xs:element minOccurs="0" name="Value" type="xs:unsignedByte" />
-							<xs:element name="OffsetX" type="xs:float" />
-							<xs:element name="OffsetY" type="xs:float" />
-							<xs:element name="OffsetZ" type="xs:float" />
-							<xs:element name="Heading" type="xs:float" />
+							<xs:element name="OffsetX" type="floatThreePrec" />
+							<xs:element name="OffsetY" type="floatThreePrec" />
+							<xs:element name="OffsetZ" type="floatThreePrec" />
+							<xs:element name="Heading" type="floatThreePrec" />
 						</xs:sequence>
 						<xs:attribute name="Num" type="xs:int" use="required" />
 					</xs:complexType>

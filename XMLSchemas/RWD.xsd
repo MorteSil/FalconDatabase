@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="floatThreePrec">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="3" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:element name="RWDRecords">
 		<xs:complexType>
 			<xs:sequence>
@@ -7,11 +12,11 @@
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="Name" type="xs:string" />
-							<xs:element name="DetectionRange" type="xs:float" />
-							<xs:element name="ScanAngleTop" type="xs:float" />
-							<xs:element name="ScanAngleBottom" type="xs:float" />
-							<xs:element name="ScanAngleLeft" type="xs:float" />
-							<xs:element name="ScanAngleRight" type="xs:float" />
+							<xs:element name="DetectionRange" type="floatThreePrec" />
+							<xs:element name="ScanAngleTop" type="floatThreePrec" />
+							<xs:element name="ScanAngleBottom" type="floatThreePrec" />
+							<xs:element name="ScanAngleLeft" type="floatThreePrec" />
+							<xs:element name="ScanAngleRight" type="floatThreePrec" />
 							<xs:element name="Flags" type="xs:short" />
 						</xs:sequence>
 						<xs:attribute name="Num" type="xs:int" use="required" />

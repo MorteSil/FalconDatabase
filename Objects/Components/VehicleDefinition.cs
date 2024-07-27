@@ -120,20 +120,20 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Weapons attached to the Vehicle Hardpoints
         /// </summary>
-        public Collection<(short WpnID, byte WpnCount)> Weapons 
-        { 
-            get => weapons; 
+        public Collection<(short WpnID, byte WpnCount)> Weapons
+        {
+            get => weapons;
             set
             {
                 while (value.Count > 16) value.RemoveAt(16);
                 weapons = value;
             }
-        }        
+        }
         /// <summary>
         /// <para>Determines which Hardpoints require Racks on the Vehicle.</para>
         /// <para>//0x01 means hardpoint 0 needs a rack, 0x02 -> hdpt 1, etc</para>
         /// </summary>
-        public ushort RackFlags { get => rackFalgs; set => rackFalgs = value; }       
+        public ushort RackFlags { get => rackFalgs; set => rackFalgs = value; }
         /// <summary>
         /// Objective ID of Carrier Target Objectives.
         /// </summary>
@@ -142,7 +142,7 @@ namespace FalconDatabase.Objects.Components
         /// If the Vehicle is a Vertical Launch System (VLS).
         /// </summary>
         public ushort IsVerticalLaunchingSystem { get => rackFalgs; set => rackFalgs = value; }  //0x01 means this slot is a VLS type
-        
+
         #endregion Properties
 
         #region Fields
@@ -185,7 +185,7 @@ namespace FalconDatabase.Objects.Components
         /// <returns>A formatted <see cref="string"/> with the Data contained within the object.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new ();
+            StringBuilder sb = new();
             sb.AppendLine("Vehicle ID:" + index);
             sb.AppendLine("Vehicle Hit Points: " + hitPoints);
             sb.AppendLine("Vehicle Flags: " + flags);
@@ -214,16 +214,16 @@ namespace FalconDatabase.Objects.Components
             sb.AppendLine("***** Range vs *****");
             sb.Append(range.ToString());
             sb.AppendLine("***** Detection vs *****");
-            sb.Append(detection.ToString());            
+            sb.Append(detection.ToString());
             sb.AppendLine("***** Damage Modifiers by Damage Type *****");
             sb.Append(DamageModifier.ToString());
             sb.AppendLine("Weapon List:");
-            for (int i =0;i<Weapons.Count;i++)
+            for (int i = 0; i < Weapons.Count; i++)
             {
                 if (Weapons[i].WpnCount != 0)
                     sb.AppendLine("Weapon " + Weapons[i].WpnID + ": x" + Weapons[i].WpnCount);
-            }            
-            sb.AppendLine("Rack Flags: " +RackFlags);
+            }
+            sb.AppendLine("Rack Flags: " + RackFlags);
             sb.AppendLine("Carrier Objective ID:" + CarrierObjectiveID);
             sb.AppendLine("Is Vertical Launch System: " + IsVerticalLaunchingSystem);
 
@@ -250,7 +250,7 @@ namespace FalconDatabase.Objects.Components
             row["Flags"] = Flags;
             row["Name"] = Name;
             row["NCTR"] = NCTR;
-            row["RadarCs"] = RCSFactor;
+            row["RadarCs"] = RCSFactor.ToString("0.000");
             row["MaxWeight"] = MaxWeight;
             row["EmptyWeight"] = EmptyWeightt;
             row["FuelWeight"] = FuelWeight;
@@ -301,14 +301,14 @@ namespace FalconDatabase.Objects.Components
             }
 
             {
-                row["Det_NoMove"] = (float)Detection.NoMovement;
-                row["Det_Foot"] = (float)Detection.Foot;
-                row["Det_Wheeled"] = (float)Detection.Wheeled;
-                row["Det_Tracked"] = (float)Detection.Tracked;
-                row["Det_LowAir"] = (float)Detection.LowAir;
-                row["Det_Air"] = (float)Detection.Air;
-                row["Det_Naval"] = (float)Detection.Naval;
-                row["Det_Rail"] = (float)Detection.Rail;
+                row["Det_NoMove"] = Detection.NoMovement.ToString("0.000");
+                row["Det_Foot"] = Detection.Foot.ToString("0.000");
+                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.000");
+                row["Det_Tracked"] = Detection.Tracked.ToString("0.000");
+                row["Det_LowAir"] = Detection.LowAir.ToString("0.000");
+                row["Det_Air"] = Detection.Air.ToString("0.000");
+                row["Det_Naval"] = Detection.Naval.ToString("0.000");
+                row["Det_Rail"] = Detection.Rail.ToString("0.000");
             }
 
             {
@@ -325,7 +325,7 @@ namespace FalconDatabase.Objects.Components
                 row["Dam_Other"] = damageMod.Other;
             }
 
-            for (int i=0; i<16;i++)
+            for (int i = 0; i < 16; i++)
             {
                 if (weapons[i].WpnID != -1)
                 {
@@ -348,7 +348,7 @@ namespace FalconDatabase.Objects.Components
         /// <summary>
         /// Default Constructor the <see cref="VehicleDefinition"/> object.
         /// </summary>
-        public VehicleDefinition() 
+        public VehicleDefinition()
         {
             for (int i = 0; i < 16; i++)
                 weapons.Add((-1, 0));
@@ -358,12 +358,12 @@ namespace FalconDatabase.Objects.Components
         /// </summary>
         /// <param name="row"></param>
         public VehicleDefinition(DataRow row)
-            :this()
+            : this()
         {
             string schemaFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas\VCD.xsd");
             if (!File.Exists(schemaFile)) throw new FileNotFoundException("Missing Schema Definition: " + schemaFile);
 
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new();
             dataSet.ReadXmlSchema(schemaFile);
             DataTable table = dataSet.Tables[0];
             try
@@ -378,7 +378,7 @@ namespace FalconDatabase.Objects.Components
                 Flags = (uint)row["Flags"];
                 Name = (string)row["Name"];
                 NCTR = (string)row["NCTR"];
-                RCSFactor = (float)row["RadarCs"];
+                RCSFactor = Convert.ToSingle((decimal)row["RadarCs"]);
                 MaxWeight = (int)row["MaxWeight"];
                 EmptyWeightt = (int)row["EmptyWeight"];
                 FuelWeight = (int)row["FuelWeight"];
@@ -429,14 +429,14 @@ namespace FalconDatabase.Objects.Components
                 }
 
                 {
-                    Detection.NoMovement = (float)row["Det_NoMove"];
-                    Detection.Foot = (float)row["Det_Foot"];
-                    Detection.Wheeled = (float)row["Det_Wheeled"];
-                    Detection.Tracked = (float)row["Det_Tracked"];
-                    Detection.LowAir = (float)row["Det_LowAir"];
-                    Detection.Air = (float)row["Det_Air"];
-                    Detection.Naval = (float)row["Det_Naval"];
-                    Detection.Rail = (float)row["Det_Rail"];
+                    Detection.NoMovement = Convert.ToDouble((decimal)row["Det_NoMove"]);
+                    Detection.Foot = Convert.ToDouble((decimal)row["Det_Foot"]);
+                    Detection.Wheeled = Convert.ToDouble((decimal)row["Det_Wheeled"]);
+                    Detection.Tracked = Convert.ToDouble((decimal)row["Det_Tracked"]);
+                    Detection.LowAir = Convert.ToDouble((decimal)row["Det_LowAir"]);
+                    Detection.Air = Convert.ToDouble((decimal)row["Det_Air"]);
+                    Detection.Naval = Convert.ToDouble((decimal)row["Det_Naval"]);
+                    Detection.Rail = Convert.ToDouble((decimal)row["Det_Rail"]);
                 }
 
                 {
