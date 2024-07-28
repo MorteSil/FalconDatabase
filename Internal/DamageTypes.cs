@@ -5,7 +5,7 @@ namespace FalconDatabase.Internal
 {
     /// <summary>
     /// Collection of Values that pertain to each Damage Type.
-    /// This is used often in the database to evaulate how much weak a
+    /// This is used often in the database to evaulate how weak a
     /// building or vehicle is against a specific type of damage.
     /// </summary>
     public class DamageTypes
@@ -101,22 +101,6 @@ namespace FalconDatabase.Internal
             sb.AppendLine("   Nuclear: " + Nuclear);
             sb.AppendLine("   Other: " + Other);
             return sb.ToString();
-        }
-
-        internal void Write(Stream stream)
-        {
-            using XmlWriter xmlWriter = XmlWriter.Create(stream);
-            xmlWriter.WriteElementString("Dam_None", noDamage.ToString());
-            xmlWriter.WriteElementString("Dam_Penetration", penetration.ToString());
-            xmlWriter.WriteElementString("Dam_HighExplosive", highExplosive.ToString());
-            xmlWriter.WriteElementString("Dam_Heave", heave.ToString());
-            xmlWriter.WriteElementString("Dam_Incendiary", incendiary.ToString());
-            xmlWriter.WriteElementString("Dam_Proximity", proximity.ToString());
-            xmlWriter.WriteElementString("Dam_Kinetic", kinetic.ToString());
-            xmlWriter.WriteElementString("Dam_Hydrostatic", hydrostatic.ToString());
-            xmlWriter.WriteElementString("Dam_Chemical", chemical.ToString());
-            xmlWriter.WriteElementString("Dam_Nuclear", nuclear.ToString());
-            xmlWriter.WriteElementString("Dam_Other", other.ToString());
         }
         #endregion Functional Methods
 
