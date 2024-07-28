@@ -1,6 +1,7 @@
 ﻿using FalconDatabase.Objects.Components;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Xml;
@@ -90,14 +91,13 @@ namespace FalconDatabase.Files
                 foreach (var entry in dbObjects)
                     ds.Tables[0].Rows.Add(entry.ToDataRow().ItemArray);
 
-                ds.WriteXml(writer, XmlWriteMode.IgnoreSchema);
-                stream.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
+                ds.WriteXml(writer);
                 stream.Position = 0;
                 return Encoding.UTF8.GetBytes(new StreamReader(stream).ReadToEnd());
             }
             catch (Exception ex)
             {
-                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading the DDP Table.");
+                Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while writing the ACD Table.");
                 stream.Close();
                 throw;
             }
@@ -123,6 +123,11 @@ namespace FalconDatabase.Files
         }
 
         #region Equality Functions
+        /// <summary>
+        /// Evaluates if the <paramref name="other"/> has the same data as this <see cref="object"/> using content and hash comparisons.
+        /// </summary>
+        /// <param name="other">An object to compare values to.</param>
+        /// <returns><see langword="true"/> if the objects match, otherwise <see langword="false"/>.</returns>
         public override bool Equals(object? other)
         {
             if (other == null)
@@ -133,6 +138,10 @@ namespace FalconDatabase.Files
             else
                 return Equals(comparator);
         }
+        /// <summary>
+        /// Generates a Hash Code for this object.
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
 
@@ -140,11 +149,16 @@ namespace FalconDatabase.Files
             {
                 int hash = 2539;
                 for (int i = 0; i < dbObjects.Count; i++)
-                    hash = hash * 5483 + dbObjects.GetHashCode();
+                    hash = hash * 5483 + dbObjects[i].GetHashCode();
                 return hash;
             }
 
         }
+        /// <summary>
+        /// Evaluates if the <paramref name="other"/> has the same data as this <see cref="object"/> using content and hash comparisons.
+        /// </summary>
+        /// <param name="other">An object to compare values to.</param>
+        /// <returns><see langword="true"/> if the objects match, otherwise <see langword="false"/>.</returns>
         public bool Equals(AircraftTable? other)
         {
             if (other is null) return false;
@@ -174,8 +188,11 @@ namespace FalconDatabase.Files
         public AircraftTable(string filePath)
             : this()
         {
-            if (File.Exists(filePath))
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(filePath);
+
+            if (Directory.Exists(filePath))
                 Load(filePath);
+            else throw new FileNotFoundException(filePath);
         }
         #endregion Constructors
 

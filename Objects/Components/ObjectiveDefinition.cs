@@ -151,14 +151,14 @@ namespace FalconDatabase.Objects.Components
             row["ObjectiveIcon"] = IconIndex;
             row["RadarFeature"] = RadarFeature;
             {
-                row["Det_NoMove"] = Detection.NoMovement.ToString("0.0");
-                row["Det_Foot"] = Detection.Foot.ToString("0.0");
-                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.0");
-                row["Det_Tracked"] = Detection.Tracked.ToString("0.0");
-                row["Det_LowAir"] = Detection.LowAir.ToString("0.0");
-                row["Det_Air"] = Detection.Air.ToString("0.0");
-                row["Det_Naval"] = Detection.Naval.ToString("0.0");
-                row["Det_Rail"] = Detection.Rail.ToString("0.0");
+                row["Det_NoMove"] = Detection.NoMovement;
+                row["Det_Foot"] = Detection.Foot;
+                row["Det_Wheeled"] = Detection.Wheeled;
+                row["Det_Tracked"] = Detection.Tracked;
+                row["Det_LowAir"] = Detection.LowAir;
+                row["Det_Air"] = Detection.Air;
+                row["Det_Naval"] = Detection.Naval;
+                row["Det_Rail"] = Detection.Rail;
             }
 
             {
@@ -177,6 +177,23 @@ namespace FalconDatabase.Objects.Components
 
 
             return row;
+        }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(index);
+            hash.Add(name);
+            hash.Add(DataRate);
+            hash.Add(deagDistance);
+            hash.Add(detection);
+            hash.Add(damageMod);
+            hash.Add(iconIndex);
+            hash.Add(radarFeature);
+            return hash.ToHashCode();
         }
 
         #endregion Functional Methods
@@ -215,14 +232,14 @@ namespace FalconDatabase.Objects.Components
                 IconIndex = (short)row["ObjectiveIcon"];
                 RadarFeature = (byte)row["RadarFeature"];
                 {
-                    Detection.NoMovement = Convert.ToDouble((decimal)row["Det_NoMove"]);
-                    Detection.Foot = Convert.ToDouble((decimal)row["Det_Foot"]);
-                    Detection.Wheeled = Convert.ToDouble((decimal)row["Det_Wheeled"]);
-                    Detection.Tracked = Convert.ToDouble((decimal)row["Det_Tracked"]);
-                    Detection.LowAir = Convert.ToDouble((decimal)row["Det_LowAir"]);
-                    Detection.Air = Convert.ToDouble((decimal)row["Det_Air"]);
-                    Detection.Naval = Convert.ToDouble((decimal)row["Det_Naval"]);
-                    Detection.Rail = Convert.ToDouble((decimal)row["Det_Rail"]);
+                    Detection.NoMovement = (float)row["Det_NoMove"];
+                    Detection.Foot = (float)row["Det_Foot"];
+                    Detection.Wheeled = (float)row["Det_Wheeled"];
+                    Detection.Tracked = (float)row["Det_Tracked"];
+                    Detection.LowAir = (float)row["Det_LowAir"];
+                    Detection.Air = (float)row["Det_Air"];
+                    Detection.Naval = (float)row["Det_Naval"];
+                    Detection.Rail = (float)row["Det_Rail"];
                 }
 
                 {
@@ -270,7 +287,7 @@ namespace FalconDatabase.Objects.Components
             /// <summary>
             /// Offset of Component from the Feature Coordinates.
             /// </summary>
-            public (double X, double Y, double Z) Offset { get => offsetDouble; set => offsetDouble = value; }
+            public Vector3 Offset { get => offset; set => offset = value; }
             /// <summary>
             /// The Direction the Component is facing.
             /// </summary>
@@ -287,7 +304,6 @@ namespace FalconDatabase.Objects.Components
             private short featureID = 0;
             private byte value = 0;
             private Vector3 offset = new(0, 0, 0);
-            private (double X, double Y, double Z) offsetDouble = (0,0,0);
             private double facing = 0;
             private short flags = 0;
             #endregion Fields
@@ -338,6 +354,20 @@ namespace FalconDatabase.Objects.Components
 
                 return row;
             }
+            /// <summary>
+            /// Generates a Hash Code for the Object.
+            /// </summary>
+            /// <returns></returns>
+            public override int GetHashCode()
+            {
+                HashCode hash = new();
+                hash.Add(featureID);
+                hash.Add(value);
+                hash.Add(offset);
+                hash.Add(flags);
+                hash.Add(facing);
+                return hash.ToHashCode();
+            }
 
             #endregion Funcitnoal Methods
 
@@ -368,8 +398,8 @@ namespace FalconDatabase.Objects.Components
                     FeatureID = (short)row["FeatureCtIdx"];
                     if (row["Value"] != DBNull.Value)
                         Value = (byte)row["Value"];
-                    Offset = new(Convert.ToDouble((decimal)row["OffsetX"]), Convert.ToDouble((decimal)row["OffsetY"]), Convert.ToDouble((decimal)row["OffsetZ"]));
-                    facing = Convert.ToDouble((decimal)row["Heading"]);
+                    Offset = new((float)row["OffsetX"], (float)row["OffsetY"],(float)row["OffsetZ"]);
+                    facing = (float)row["Heading"];
                     if (row["Flags"] != DBNull.Value)
                         Flags = (short)row["Flags"];
                     
@@ -404,7 +434,7 @@ namespace FalconDatabase.Objects.Components
             /// <summary>
             /// Offset of Component from the Feature Coordinates.
             /// </summary>
-            public (double X, double Y, double Z) Offset { get => offsetDouble; set => offsetDouble = value; }
+            public Vector3 Offset { get => offset; set => offset = value; }
             /// <summary>
             /// Max Height of the Point.
             /// </summary>
@@ -457,7 +487,6 @@ namespace FalconDatabase.Objects.Components
             private short pointType = -1;
             private int flags = 0;
             private Vector3 offset = new(0, 0, 0);
-            private (double X, double Y, double Z) offsetDouble = (0,0,0);
             private double maxHeight = -1;
             private double maxWidth = -1;
             private double maxLength = -1;
@@ -514,9 +543,9 @@ namespace FalconDatabase.Objects.Components
                 DataRow row = table.NewRow();
 
                 row["Num"] = ID;
-                row["OffsetX"] = Offset.X.ToString("0.000");
-                row["OffsetY"] = Offset.Y.ToString("0.000");
-                row["OffsetZ"] = Offset.Z.ToString("0.000");
+                row["OffsetX"] = Offset.X;
+                row["OffsetY"] = Offset.Y;
+                row["OffsetZ"] = Offset.Z;
                 if (pointType != -1)
                     row["Type"] = PointType;
                 if (parkingPointGroup !=-10)
@@ -534,19 +563,41 @@ namespace FalconDatabase.Objects.Components
                 if (flags != 0)
                     row["Flags"] = Flags;
                 if (maxHeight != -1)
-                    row["MaxHeight"] = MaxHeight.ToString("0.000");
+                    row["MaxHeight"] = MaxHeight;
                 if (MaxWidth != -1)
-                    row["MaxWidth"] = MaxWidth.ToString("0.000");
+                    row["MaxWidth"] = MaxWidth;
                 if (maxLength != -1)
-                    row["MaxLength"] = MaxLength.ToString("0.000");
+                    row["MaxLength"] = MaxLength;
                 if (heading != -1)
-                    row["Heading"] = Heading.ToString("0.000");
+                    row["Heading"] = Heading;
                 if (crossingPoint)
                     row["CrossingPoint"] = CrossingPoint.ToString().ToLower();
 
                 return row;
             }
-
+            /// <summary>
+            /// Generates a Hash Code for the Object.
+            /// </summary>
+            /// <returns></returns>
+            public override int GetHashCode()
+            {
+                HashCode hash = new();
+                hash.Add(pointType);
+                hash.Add(flags);
+                hash.Add(offset);
+                hash.Add(maxHeight);
+                hash.Add(maxWidth);
+                hash.Add(maxLength);
+                hash.Add(taxiwayLetter);
+                hash.Add(parkingPointGroup);
+                hash.Add(runwaySide);
+                hash.Add(heading);
+                hash.Add(branchIdx);
+                hash.Add(crossingPoint);
+                hash.Add(rootIdx);
+                hash.Add(runwayNumber);
+                return hash.ToHashCode();
+            }
             #endregion Funcitnoal Methods
 
             #region Constructors
@@ -573,7 +624,7 @@ namespace FalconDatabase.Objects.Components
 
                     // Create Object
                     ID = (int)row["Num"];
-                    Offset = (Convert.ToDouble((decimal)row["OffsetX"]), Convert.ToDouble((decimal)row["OffsetY"]), Convert.ToDouble((decimal)row["OffsetZ"]));
+                    Offset = new((float)row["OffsetX"], (float)row["OffsetY"], (float)row["OffsetZ"]);
                     if (row["Type"] != DBNull.Value)
                         PointType = (byte)row["Type"];
                     if (row["ParkingPointGroup"] != DBNull.Value)
@@ -591,13 +642,13 @@ namespace FalconDatabase.Objects.Components
                     if (row["Flags"] != DBNull.Value)
                         Flags = (int)row["Flags"];
                     if (row["MaxHeight"] != DBNull.Value)
-                        MaxHeight = Convert.ToDouble((decimal)row["MaxHeight"]);
+                        MaxHeight = (float)row["MaxHeight"];
                     if (row["MaxWidth"] != DBNull.Value)
-                        MaxWidth = Convert.ToDouble((decimal)row["MaxWidth"]);
+                        MaxWidth = (float)row["MaxWidth"];
                     if (row["MaxLength"] != DBNull.Value)
-                        MaxLength = Convert.ToDouble((decimal)row["MaxLength"]);
+                        MaxLength = (float)row["MaxLength"];
                     if (row["Heading"] != DBNull.Value)
-                        Heading = Convert.ToDouble((decimal)row["Heading"]);
+                        Heading = (float)row["Heading"];
                     if (row["CrossingPoint"] != DBNull.Value)
                         CrossingPoint = bool.Parse((string)row["CrossingPoint"]);
                 }
@@ -722,7 +773,7 @@ namespace FalconDatabase.Objects.Components
                 row["ObjIdx"] = ObjectiveID;
                 row["Type"] = PointType;
                 row["PointCount"] = PointCount;
-                row["Data"] = DataValue.ToString("0.000");
+                row["Data"] = DataValue;
                 row["FirstPtIdx"] = FirstPoint;
                 row["RunwayTexture"] = RunwayTexture;
                 row["RunwayNumber"] = RunwayNumber;
@@ -737,6 +788,24 @@ namespace FalconDatabase.Objects.Components
                         row["FeatureDependencyIdx_" + i] = DBNull.Value;
                 }
                 return row;
+            }
+            /// <summary>
+            /// Generates a Hash Code for the Object.
+            /// </summary>
+            /// <returns></returns>
+            public override int GetHashCode()
+            {
+                HashCode hash = new();
+                hash.Add(objectiveID);
+                hash.Add(pointType);
+                hash.Add(pointCount);
+                hash.Add(originalFirstPoint);
+                hash.Add(dataValue);
+                hash.Add(dependencies);
+                hash.Add(runwayTexture);
+                hash.Add(runwayNumber);
+                hash.Add(landingPattern);
+                return hash.ToHashCode();
             }
 
             #endregion Funcitnoal Methods
@@ -774,7 +843,7 @@ namespace FalconDatabase.Objects.Components
                     PointType = (byte)row["Type"];
                     PointCount = (ushort)row["PointCount"];
                     if (row["Data"] != DBNull.Value)
-                        DataValue = Convert.ToDouble((decimal)row["Data"]);
+                        DataValue = (float)row["Data"];
                     FirstPoint = (ushort)row["FirstPtIdx"];
                     if (row["RunwayTexture"] != DBNull.Value)
                         RunwayTexture = (short)row["RunwayTexture"];

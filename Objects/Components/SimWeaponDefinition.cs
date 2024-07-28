@@ -128,12 +128,12 @@ namespace FalconDatabase.Objects.Components
 
             row["Num"] = ID;
             row["Flags"] = Flags;
-            row["Drag"] = DragCoefficient.ToString("0.000");
-            row["Weight"] = Weight.ToString("0.000");
-            row["Area"] = Area.ToString("0.000");
-            row["EjectX"] = XEjection.ToString("0.000");
-            row["EjectY"] = YEjection.ToString("0.000");
-            row["EjectZ"] = ZEjection.ToString("0.000");
+            row["Drag"] = DragCoefficient;
+            row["Weight"] = Weight;
+            row["Area"] = Area;
+            row["EjectX"] = XEjection;
+            row["EjectY"] = YEjection;
+            row["EjectZ"] = ZEjection;
             row["WpnName"] = SMSMnemonic;
             row["WpnClass"] = WeaponClass;
             row["Domain"] = Domain;
@@ -141,6 +141,25 @@ namespace FalconDatabase.Objects.Components
             row["WpnDatIdx"] = WeaponID;
 
             return row;
+        }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(flags);
+            hash.Add(cd);
+            hash.Add(weight);
+            hash.Add(area);
+            hash.Add(ejectionVector);
+            hash.Add(mnemonic);
+            hash.Add(weaponClass);
+            hash.Add(domain);
+            hash.Add(weaponType);
+            hash.Add(dataIdx);
+            return hash.ToHashCode();
         }
 
         #endregion Funcitnoal Methods
@@ -170,12 +189,12 @@ namespace FalconDatabase.Objects.Components
                 // Create Object
                 ID = (int)row["Num"];
                 Flags = (int)row["Flags"];
-                DragCoefficient = Convert.ToSingle((decimal)row["Drag"]);
-                Weight = Convert.ToSingle((decimal)row["Weight"]);
-                Area = Convert.ToSingle((decimal)row["Area"]);
-                XEjection = Convert.ToSingle((decimal)row["EjectX"]);
-                YEjection = Convert.ToSingle((decimal)row["EjectY"]);
-                ZEjection = Convert.ToSingle((decimal)row["EjectZ"]);
+                DragCoefficient = (float)row["Drag"];
+                Weight = (float)row["Weight"];
+                Area = (float)row["Area"];
+                XEjection = (float)row["EjectX"];
+                YEjection = (float)row["EjectY"];
+                ZEjection = (float)row["EjectZ"];
                 SMSMnemonic = (string)row["WpnName"];
                 WeaponClass = (int)row["WpnClass"];
                 Domain = (int)row["Domain"];

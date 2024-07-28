@@ -7,7 +7,7 @@ using System.Text;
 namespace FalconDatabase.Files
 {
     /// <summary>
-    /// An Objective in the Database.
+    /// The Falcon4 Objective Database.
     /// </summary>
     public class ObjectiveTable : AppFile, IEquatable<ObjectiveTable>
     {
@@ -58,14 +58,14 @@ namespace FalconDatabase.Files
 
         #region Helper Methods       
         /// <summary>
-        /// Walks the Directory structure at <paramref name="path"/> and attempts to create a <see cref="DataTable"/> that represents an <see cref="ObjectiveTable"/> from the files in the directory structure
+        /// Walks the Directory structure at <paramref name="path"/> and attempts to create a <see cref="DataSet"/> that represents an <see cref="ObjectiveTable"/> from the files in the directory structure
         /// </summary>
         /// <param name="path">Path to the Objective Directory: ..\TerrData\Objects\ObjectiveRelatedData\</param>
         /// <returns><see langword="true"/> if the Files are successfully read and parsed. Otherwise, <see langword="false"/>.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         protected override bool Read(string path)
         {
-            ArgumentException.ThrowIfNullOrEmpty(path);
+            ArgumentNullException.ThrowIfNullOrEmpty(path);
 
             dbLocation = new(path);
             // ObjectiveRelatedData/           
@@ -77,12 +77,14 @@ namespace FalconDatabase.Files
                 FileInfo fedFile = dir.GetFiles("*FED*")[0];
                 FileInfo pdxFile = dir.GetFiles("*PDX*")[0];
                 FileInfo phdFile = dir.GetFiles("*PHD*")[0];
+                bool readFail = false;
                 using StringReader reader = new(File.ReadAllText(objFile.FullName));
                 try
                 {
                     DataSet ds = new();
                     ds.ReadXmlSchema(schemaFile);
-                    ds.ReadXml(reader, XmlReadMode.ReadSchema);
+                    ds.ReadXml(reader);
+                    
 
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
@@ -92,7 +94,7 @@ namespace FalconDatabase.Files
                         using StringReader fReader = new(File.ReadAllText(fedFile.FullName));
                         DataSet fds = new();
                         fds.ReadXmlSchema(schemaFile.Replace("OCD", "FED"));
-                        fds.ReadXml(fReader, XmlReadMode.ReadSchema);
+                        fds.ReadXml(fReader);
                         foreach (DataRow row2 in fds.Tables[0].Rows)
                             obj.Features.Add(new(row2));
                         fReader.Close();
@@ -100,7 +102,7 @@ namespace FalconDatabase.Files
                         using StringReader pReader = new(File.ReadAllText(pdxFile.FullName));
                         DataSet pxds = new();
                         pxds.ReadXmlSchema(schemaFile.Replace("OCD", "PDX"));
-                        pxds.ReadXml(pReader, XmlReadMode.ReadSchema);
+                        pxds.ReadXml(pReader);
                         foreach (DataRow row2 in pxds.Tables[0].Rows)
                             obj.Points.Add(new(row2));
                         pReader.Close();
@@ -108,7 +110,7 @@ namespace FalconDatabase.Files
                         using StringReader hReader = new(File.ReadAllText(phdFile.FullName));
                         DataSet hds = new();
                         hds.ReadXmlSchema(schemaFile.Replace("OCD", "PHD"));
-                        hds.ReadXml(hReader, XmlReadMode.ReadSchema);
+                        hds.ReadXml(hReader);
                         foreach (DataRow row2 in hds.Tables[0].Rows)
                             obj.HeaderData.Add(new(row2));
                         hReader.Close();
@@ -120,7 +122,22 @@ namespace FalconDatabase.Files
                 }
                 catch (Exception ex)
                 {
+                    
                     Utilities.Logging.ErrorLog.CreateLogFile(ex, "This Error occurred while reading an OCD Table.");
+                    if (ex is FileNotFoundException || ex is IndexOutOfRangeException)
+                    {
+                        if (dir.Name == "OCD_00000")
+                        {
+                            // Something bad happened if it can't read the first directory
+                            throw;
+                        }
+                        if (readFail)
+                            throw;
+                        else
+                            readFail = true;
+                        reader.Close();
+                        continue;
+                    }
                     reader.Close();
                     throw;
                 }
@@ -219,7 +236,12 @@ namespace FalconDatabase.Files
             return result[0] == 1;
         }
 
-        #region Equality Functions        
+        #region Equality Functions   
+        /// <summary>
+        /// Evaluates if the <paramref name="other"/> has the same data as this <see cref="object"/> using content and hash comparisons.
+        /// </summary>
+        /// <param name="other">An object to compare values to.</param>
+        /// <returns><see langword="true"/> if the objects match, otherwise <see langword="false"/>.</returns>
         public override bool Equals(object? other)
         {
             if (other == null)
@@ -230,18 +252,27 @@ namespace FalconDatabase.Files
             else
                 return Equals(comparator);
         }
+        /// <summary>
+        /// Generates a Hash Code for the object.
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
 
             unchecked
             {
                 int hash = 2539;
-                //for (int i = 0; i < dbTable.Rows.Count; i++)
-                //  hash = hash * 5483 + dbTable.Rows[i].GetHashCode();
+                for (int i = 0; i < Objectives.Count; i++)
+                  hash = hash * 5483 + Objectives[i].GetHashCode();
                 return hash;
             }
 
         }
+        /// <summary>
+        /// Evaluates if the <paramref name="other"/> has the same data as this <see cref="object"/> using content and hash comparisons.
+        /// </summary>
+        /// <param name="other">An object to compare values to.</param>
+        /// <returns><see langword="true"/> if the objects match, otherwise <see langword="false"/>.</returns>
         public bool Equals(ObjectiveTable? other)
         {
             if (other is null) return false;
@@ -265,14 +296,17 @@ namespace FalconDatabase.Files
         }
 
         /// <summary>
-        /// Initializes an instance of the <see cref="ObjectiveTable"/> component of the Database with the data contained in the file at <paramref name="filePath"/>.
+        /// Initializes an instance of the <see cref="ObjectiveTable"/> component of the Database with the data contained in the file at <paramref name="path"/>.
         /// </summary>
-        /// <param name="filePath">Path to read the data from.</param>
-        public ObjectiveTable(string filePath)
+        /// <param name="path">Path to read the data from.</param>
+        public ObjectiveTable(string path)
             : this()
         {
-            if (Directory.Exists(filePath))
-                Load(filePath);
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(path);
+
+            if (Directory.Exists(path))
+                Load(path);
+            else throw new DirectoryNotFoundException(path);
         }
         #endregion Constructors
     }

@@ -196,7 +196,7 @@ namespace FalconDatabase.Objects.Components
             row["CtIdx"] = ClassID;
             row["Strength"] = Strength;
             row["DamageType"] = (byte)DamageType;
-            row["Range"] = Range.ToString("0.0");
+            row["Range"] = Range;
             row["Flags"] = Flags;
             row["Name"] = Name;
 
@@ -231,6 +231,39 @@ namespace FalconDatabase.Objects.Components
 
             return row;
         }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(index);
+            hash.Add(strength);
+            hash.Add(damageType);
+            hash.Add(range);
+            hash.Add(flags);
+            hash.Add(name);
+            hash.Add(hitChance);
+            hash.Add(fireRate);
+            hash.Add(rariety);
+            hash.Add(guidanceFlags);
+            hash.Add(Collective);
+            hash.Add(RackGroup);
+            hash.Add(weight);
+            hash.Add(dragIndex);
+            hash.Add(blastRadius);
+            hash.Add(radarType);
+            hash.Add(simDataIdx);
+            hash.Add(maxAlt);
+            hash.Add(minAlt);
+            hash.Add(bulletTTL);
+            hash.Add(bulletVelocity);
+            hash.Add(bulletDispersion);
+            hash.Add(bulletRoundsPerSec);
+
+            return hash.ToHashCode();
+        }
 
         #endregion Funcitnoal Methods
 
@@ -261,7 +294,7 @@ namespace FalconDatabase.Objects.Components
                 ClassID = (short)row["CtIdx"];
                 Strength = (ushort)row["Strength"];
                 DamageType = (DamageDataType)(byte)row["DamageType"];
-                Range = Convert.ToSingle((decimal)row["Range"]);
+                Range = (float)row["Range"];
                 Flags = (ushort)row["Flags"];
                 Name = (string)row["Name"];
 

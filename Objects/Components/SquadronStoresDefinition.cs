@@ -97,6 +97,20 @@ namespace FalconDatabase.Objects.Components
 
             return row;
         }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(InfiniteAA);
+            hash.Add(infiniteAG);
+            hash.Add(infiniteGun);
+            for (int i = 0;i<stores.Count;i++)
+                hash.Add(stores[i]);
+            return hash.ToHashCode();
+        }
 
         #endregion Funcitnoal Methods
 

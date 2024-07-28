@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:simpleType name="floatThreePrec">
-		<xs:restriction base="xs:decimal">
-			<xs:fractionDigits value="3" />
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:element name="VCDRecords">
 		<xs:complexType>
 			<xs:sequence>
@@ -16,7 +11,7 @@
 							<xs:element name="Flags" type="xs:unsignedInt" />
 							<xs:element name="Name" type="xs:string" />
 							<xs:element name="NCTR" type="xs:string" />
-							<xs:element name="RadarCs" type="floatThreePrec" />
+							<xs:element name="RadarCs" type="xs:float" />
 							<xs:element name="MaxWeight" type="xs:int" />
 							<xs:element name="EmptyWeight" type="xs:int" />
 							<xs:element name="FuelWeight" type="xs:int" />
@@ -60,14 +55,14 @@
 							<xs:element name="Rng_Naval" type="xs:unsignedByte" />
 							<xs:element name="Rng_Rail" type="xs:unsignedByte" />
 							
-							<xs:element name="Det_NoMove" type="floatThreePrec" />
-							<xs:element name="Det_Foot" type="floatThreePrec" />
-							<xs:element name="Det_Wheeled" type="floatThreePrec" />
-							<xs:element name="Det_Tracked" type="floatThreePrec" />
-							<xs:element name="Det_LowAir" type="floatThreePrec" />
-							<xs:element name="Det_Air" type="floatThreePrec" />
-							<xs:element name="Det_Naval" type="floatThreePrec" />
-							<xs:element name="Det_Rail" type="floatThreePrec" />
+							<xs:element name="Det_NoMove" type="xs:float" />
+							<xs:element name="Det_Foot" type="xs:float" />
+							<xs:element name="Det_Wheeled" type="xs:float" />
+							<xs:element name="Det_Tracked" type="xs:float" />
+							<xs:element name="Det_LowAir" type="xs:float" />
+							<xs:element name="Det_Air" type="xs:float" />
+							<xs:element name="Det_Naval" type="xs:float" />
+							<xs:element name="Det_Rail" type="xs:float" />
 
 							<xs:element minOccurs="0" name="WpnOrHpIdx_0" type="xs:short" />
 							<xs:element minOccurs="0" name="WpnOrHpIdx_1" type="xs:short" />
