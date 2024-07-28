@@ -77,32 +77,6 @@ namespace FalconDatabase.Internal
             return sb.ToString();
         }
 
-        internal void Write(Stream stream, string prefix)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream);
-            if (prefix == "Det")
-            {
-                writer.WriteElementString(prefix + "_NoMove", NoMovement.ToString());
-                writer.WriteElementString(prefix + "_Foot", Foot.ToString());
-                writer.WriteElementString(prefix + "_Wheeled", Wheeled.ToString());
-                writer.WriteElementString(prefix + "_Tracked", Tracked.ToString());
-                writer.WriteElementString(prefix + "_LowAir", LowAir.ToString());
-                writer.WriteElementString(prefix + "_Air", Air.ToString());
-                writer.WriteElementString(prefix + "_Naval", Naval.ToString());
-                writer.WriteElementString(prefix + "_Rail", Rail.ToString());
-            }
-            else
-            {
-                writer.WriteElementString(prefix + "_NoMove", ((int)NoMovement).ToString());
-                writer.WriteElementString(prefix + "_Foot", ((int)Foot).ToString());
-                writer.WriteElementString(prefix + "_Wheeled", ((int)Wheeled).ToString());
-                writer.WriteElementString(prefix + "_Tracked", ((int)Tracked).ToString());
-                writer.WriteElementString(prefix + "_LowAir", ((int)LowAir).ToString());
-                writer.WriteElementString(prefix + "_Air", ((int)Air).ToString());
-                writer.WriteElementString(prefix + "_Naval", ((int)Naval).ToString());
-                writer.WriteElementString(prefix + "_Rail", ((int)Rail).ToString());
-            }
-        }
         #endregion Functional Methods
 
         #region Constructors

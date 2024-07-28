@@ -144,15 +144,39 @@ namespace FalconDatabase.Components
         /// <summary>
         /// Hull Numbers for the Unit.
         /// </summary>
-        public Collection<short> ElementHullNumbers { get => elementHullNumbers; set => elementHullNumbers = value; }
+        public Collection<short> ElementHullNumbers 
+        { 
+            get => elementHullNumbers;
+            set
+            {
+                while (value.Count > 16) value.RemoveAt(16);
+                elementHullNumbers = value;
+            }
+        }
         /// <summary>
         /// Textures for the Elements.
         /// </summary>
-        public Collection<short> ElementTextureSets { get => elementTextureSets; set => elementTextureSets = value; }
+        public Collection<short> ElementTextureSets 
+        { 
+            get => elementTextureSets;
+            set
+            {
+                while (value.Count > 16) value.RemoveAt(16);
+                elementTextureSets = value;
+            }
+        }
         /// <summary>
         /// Unit Decals
         /// </summary>
-        public Collection<short> ElementDecals { get => elementDecals; set => elementDecals = value; }
+        public Collection<short> ElementDecals
+        { 
+            get => elementDecals;
+            set
+            {
+                while (value.Count > 16) value.RemoveAt(16);
+                elementDecals = value;
+            }
+        }
 
         #endregion Properties
 
@@ -298,14 +322,14 @@ namespace FalconDatabase.Components
             }
 
             {
-                row["Det_NoMove"] = Detection.NoMovement.ToString("0.0");
-                row["Det_Foot"] = Detection.Foot.ToString("0.0");
-                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.0");
-                row["Det_Tracked"] = Detection.Tracked.ToString("0.0");
-                row["Det_LowAir"] = Detection.LowAir.ToString("0.0");
-                row["Det_Air"] = Detection.Air.ToString("0.0");
-                row["Det_Naval"] = Detection.Naval.ToString("0.0");
-                row["Det_Rail"] = Detection.Rail.ToString("0.0");
+                row["Det_NoMove"] = Detection.NoMovement;
+                row["Det_Foot"] = Detection.Foot;
+                row["Det_Wheeled"] = Detection.Wheeled;
+                row["Det_Tracked"] = Detection.Tracked;
+                row["Det_LowAir"] = Detection.LowAir;
+                row["Det_Air"] = Detection.Air;
+                row["Det_Naval"] = Detection.Naval;
+                row["Det_Rail"] = Detection.Rail;
             }
 
             {
@@ -337,6 +361,45 @@ namespace FalconDatabase.Components
             }
 
             return row;
+        }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(index);
+            hash.Add(role);
+            hash.Add(name);
+            hash.Add(description);
+            hash.Add(flags);
+            hash.Add(movementType);
+            hash.Add(movementSpeed);
+            hash.Add(MaxRange);
+            hash.Add(fuel);
+            hash.Add(rate);
+            hash.Add(ptDataIndex);
+            hash.Add(radarVehicle);
+            hash.Add(specialIndex);
+            hash.Add(iconIndex);
+            hash.Add(hitChance);
+            hash.Add(strength);
+            hash.Add(range);
+            hash.Add(detection);
+            hash.Add(damageMod);
+            for (int i =0;i<16;i++)
+            {
+                hash.Add(scores[i]);
+                hash.Add(elements[i]);
+                hash.Add(elementNames[i]);
+                hash.Add(elementNamePrefixes[i]);
+                hash.Add(elementHullNumbers[i]);
+                hash.Add(elementTextureSets[i]);
+                hash.Add(elementDecals[i]);
+            }
+            
+            return hash.ToHashCode();
         }
 
         #endregion Funcitnoal Methods
@@ -427,14 +490,14 @@ namespace FalconDatabase.Components
                 }
 
                 {
-                    Detection.NoMovement = Convert.ToSingle((decimal)row["Det_NoMove"]);
-                    Detection.Foot = Convert.ToSingle((decimal)row["Det_Foot"]);
-                    Detection.Wheeled = Convert.ToSingle((decimal)row["Det_Wheeled"]);
-                    Detection.Tracked = Convert.ToSingle((decimal)row["Det_Tracked"]);
-                    Detection.LowAir = Convert.ToSingle((decimal)row["Det_LowAir"]);
-                    Detection.Air = Convert.ToSingle((decimal)row["Det_Air"]);
-                    Detection.Naval = Convert.ToSingle((decimal)row["Det_Naval"]);
-                    Detection.Rail = Convert.ToSingle((decimal)row["Det_Rail"]);
+                    Detection.NoMovement =(float)row["Det_NoMove"];
+                    Detection.Foot = (float)row["Det_Foot"];
+                    Detection.Wheeled = (float)row["Det_Wheeled"];
+                    Detection.Tracked = (float)row["Det_Tracked"];
+                    Detection.LowAir = (float)row["Det_LowAir"];
+                    Detection.Air = (float)row["Det_Air"];
+                    Detection.Naval = (float)row["Det_Naval"];
+                    Detection.Rail = (float)row["Det_Rail"];
                 }
 
                 {

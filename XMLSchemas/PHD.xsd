@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:simpleType name="floatThreePrec">
-		<xs:restriction base="xs:decimal">
-			<xs:fractionDigits value="3" />
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:element name="PHDRecords">
 		<xs:complexType>
 			<xs:sequence>
@@ -30,7 +25,7 @@
 							<xs:element minOccurs="0" name="FeatureDependencyIdx_13" type="xs:unsignedByte" />
 							<xs:element minOccurs="0" name="FeatureDependencyIdx_14" type="xs:unsignedByte" />
 							<xs:element minOccurs="0" name="FeatureDependencyIdx_15" type="xs:unsignedByte" />
-							<xs:element minOccurs="0" name="Data" type="floatThreePrec" />
+							<xs:element minOccurs="0" name="Data" type="xs:float" />
 							<xs:element name="FirstPtIdx" type="xs:unsignedShort" />
 							<xs:element minOccurs="0" name="RunwayTexture" type="xs:short" />
 							<xs:element minOccurs="0" name="RunwayNumber" type="xs:short" />

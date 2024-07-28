@@ -250,7 +250,7 @@ namespace FalconDatabase.Components
             row["Flags"] = Flags;
             row["Name"] = Name;
             row["NCTR"] = NCTR;
-            row["RadarCs"] = RCSFactor.ToString("0.000000");
+            row["RadarCs"] = RCSFactor;
             row["MaxWeight"] = MaxWeight;
             row["EmptyWeight"] = EmptyWeightt;
             row["FuelWeight"] = FuelWeight;
@@ -301,14 +301,14 @@ namespace FalconDatabase.Components
             }
 
             {
-                row["Det_NoMove"] = Detection.NoMovement.ToString("0.0");
-                row["Det_Foot"] = Detection.Foot.ToString("0.0");
-                row["Det_Wheeled"] = Detection.Wheeled.ToString("0.0");
-                row["Det_Tracked"] = Detection.Tracked.ToString("0.0");
-                row["Det_LowAir"] = Detection.LowAir.ToString("0.0");
-                row["Det_Air"] = Detection.Air.ToString("0.0");
-                row["Det_Naval"] = Detection.Naval.ToString("0.0");
-                row["Det_Rail"] = Detection.Rail.ToString("0.0");
+                row["Det_NoMove"] = Detection.NoMovement;
+                row["Det_Foot"] = Detection.Foot;
+                row["Det_Wheeled"] = Detection.Wheeled;
+                row["Det_Tracked"] = Detection.Tracked;
+                row["Det_LowAir"] = Detection.LowAir;
+                row["Det_Air"] = Detection.Air;
+                row["Det_Naval"] = Detection.Naval;
+                row["Det_Rail"] = Detection.Rail;
             }
 
             {
@@ -340,6 +340,42 @@ namespace FalconDatabase.Components
             }
 
             return row;
+        }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(index);
+            hash.Add(HitPoints);
+            hash.Add(flags);
+            hash.Add(name);
+            hash.Add(nctr);
+            hash.Add(rcsFactor);
+            hash.Add(maxWt);
+            hash.Add(emptyWt);
+            hash.Add(fuelWt);
+            hash.Add(fuelEcon);
+            hash.Add(engineSound);
+            hash.Add(maxAlt);
+            hash.Add(lowAlt);
+            hash.Add(cruiseAlt);
+            hash.Add(maxSpeed);
+            hash.Add(radarType);
+            hash.Add(numberOfPilots);
+            hash.Add(rackFalgs);
+            hash.Add(visibleFlags);
+            hash.Add(callsignIndex);
+            hash.Add(callsignSlots);
+            hash.Add(hitChance);
+            hash.Add(strength);
+            hash.Add(range);
+            hash.Add(detection);
+            hash.Add(weapons);
+            hash.Add(damageMod);            
+            return hash.ToHashCode();
         }
 
         #endregion Funcitnoal Methods
@@ -378,7 +414,7 @@ namespace FalconDatabase.Components
                 Flags = (uint)row["Flags"];
                 Name = (string)row["Name"];
                 NCTR = (string)row["NCTR"];
-                RCSFactor = Convert.ToSingle((decimal)row["RadarCs"]);
+                RCSFactor = (float)row["RadarCs"];
                 MaxWeight = (int)row["MaxWeight"];
                 EmptyWeightt = (int)row["EmptyWeight"];
                 FuelWeight = (int)row["FuelWeight"];
@@ -429,14 +465,14 @@ namespace FalconDatabase.Components
                 }
 
                 {
-                    Detection.NoMovement = Convert.ToDouble((decimal)row["Det_NoMove"]);
-                    Detection.Foot = Convert.ToDouble((decimal)row["Det_Foot"]);
-                    Detection.Wheeled = Convert.ToDouble((decimal)row["Det_Wheeled"]);
-                    Detection.Tracked = Convert.ToDouble((decimal)row["Det_Tracked"]);
-                    Detection.LowAir = Convert.ToDouble((decimal)row["Det_LowAir"]);
-                    Detection.Air = Convert.ToDouble((decimal)row["Det_Air"]);
-                    Detection.Naval = Convert.ToDouble((decimal)row["Det_Naval"]);
-                    Detection.Rail = Convert.ToDouble((decimal)row["Det_Rail"]);
+                    Detection.NoMovement = (float)row["Det_NoMove"];
+                    Detection.Foot = (float)row["Det_Foot"];
+                    Detection.Wheeled = (float)row["Det_Wheeled"];
+                    Detection.Tracked = (float)row["Det_Tracked"];
+                    Detection.LowAir = (float)row["Det_LowAir"];
+                    Detection.Air = (float)row["Det_Air"];
+                    Detection.Naval = (float)row["Det_Naval"];
+                    Detection.Rail = (float)row["Det_Rail"];
                 }
 
                 {

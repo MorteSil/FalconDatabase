@@ -97,17 +97,32 @@ namespace FalconDatabase.Components
 
             row["Num"] = ID;
             row["Name"] = Name;
-            row["DetectionRange"] = Range.ToString("0.0");
-            row["ScanAngleTop"] = TopAngle.ToString("0.0");
-            row["ScanAngleBottom"] = BottomAngle.ToString("0.0");
-            row["ScanAngleLeft"] = LeftAngle.ToString("0.0");
-            row["ScanAngleRight"] = RightAngle.ToString("0.0");
+            row["DetectionRange"] = Range;
+            row["ScanAngleTop"] = TopAngle;
+            row["ScanAngleBottom"] = BottomAngle;
+            row["ScanAngleLeft"] = LeftAngle;
+            row["ScanAngleRight"] = RightAngle;
             row["Flags"] = Flags;
 
 
             return row;
         }
-
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(name);
+            hash.Add(nominalRange);
+            hash.Add(top);
+            hash.Add(bottom);
+            hash.Add(left);
+            hash.Add(right);
+            hash.Add(flag);
+            return hash.ToHashCode();
+        }
         #endregion Funcitnoal Methods
 
         #region Constructors
@@ -135,11 +150,11 @@ namespace FalconDatabase.Components
                 // Create Object
                 ID = (int)row["Num"];
                 Name = (string)row["Name"];
-                Range = Convert.ToSingle((decimal)row["DetectionRange"]);
-                TopAngle = Convert.ToSingle((decimal)row["ScanAngleTop"]);
-                BottomAngle = Convert.ToSingle((decimal)row["ScanAngleBottom"]);
-                LeftAngle = Convert.ToSingle((decimal)row["ScanAngleLeft"]);
-                RightAngle = Convert.ToSingle((decimal)row["ScanAngleRight"]);
+                Range = (float)row["DetectionRange"];
+                TopAngle = (float)row["ScanAngleTop"];
+                BottomAngle = (float)row["ScanAngleBottom"];
+                LeftAngle = (float)row["ScanAngleLeft"];
+                RightAngle = (float)row["ScanAngleRight"];
                 Flags = (short)row["Flags"];
             }
             catch (Exception ex)

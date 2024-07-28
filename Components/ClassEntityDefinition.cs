@@ -88,7 +88,7 @@ namespace FalconDatabase.Components
             row["Num"] = ID;
             row["Id"] = graphicsID;
             row["CollisionType"] = collisionData.CollisionType;
-            row["CollisionRadius"] = collisionData.CollisionRadius.ToString("0.000");
+            row["CollisionRadius"] = collisionData.CollisionRadius;
             row["Domain"] = classData.Domain;
             row["Class"] = classData.Class;
             row["Type"] = classData.Type;
@@ -99,9 +99,9 @@ namespace FalconDatabase.Components
             row["Class_7"] = classData.Class_7;
             row["UpdateRate"] = updateData.UpdateRate;
             row["UpdateTolerance"] = updateData.UpdateTolerance;
-            row["FineUpdateRange"] = updateData.FineUpdateRange.ToString("0.000");
-            row["FineUpdateForceRange"] = updateData.FineUpdateForceRange.ToString("0.000");
-            row["FineUpdateMultiplier"] = updateData.FineUpdateMultiplier.ToString("0.000");
+            row["FineUpdateRange"] = updateData.FineUpdateRange;
+            row["FineUpdateForceRange"] = updateData.FineUpdateForceRange;
+            row["FineUpdateMultiplier"] = updateData.FineUpdateMultiplier;
             row["DamageSeed"] = EntityData.DamageSeed;
             row["HitPoints"] = entityData.Hitpoints;
             row["MajorRev"] = entityData.MajorRevisionNumber;
@@ -126,6 +126,14 @@ namespace FalconDatabase.Components
             row["EntityIdx"] = externalData.ClassTypeTableID;
 
             return row;
+        }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(classData, updateData, entityData, textures, externalData);
         }
         #endregion Funcitonal Methods
 
@@ -153,7 +161,7 @@ namespace FalconDatabase.Components
 
                 ID = (int)row["Num"];
                 collisionData.CollisionType = (ushort)row["CollisionType"];
-                collisionData.CollisionRadius = Convert.ToSingle((decimal)row["CollisionRadius"]);
+                collisionData.CollisionRadius = (float)row["CollisionRadius"];
                 classData.Domain = (ClasstableDomain)row["Domain"];
                 classData.Class = (ClasstableClass)row["Class"];
                 classData.Type = (int)row["Type"];
@@ -164,9 +172,9 @@ namespace FalconDatabase.Components
                 classData.Class_7 = (int)row["Class_7"];
                 updateData.UpdateRate = (int)row["UpdateRate"];
                 updateData.UpdateTolerance = (int)row["UpdateTolerance"];
-                updateData.FineUpdateRange = Convert.ToDouble((decimal)row["FineUpdateRange"]);
-                updateData.FineUpdateForceRange = Convert.ToDouble((decimal)row["FineUpdateForceRange"]);
-                updateData.FineUpdateMultiplier = Convert.ToDouble((decimal)row["FineUpdateMultiplier"]);
+                updateData.FineUpdateRange = (float)row["FineUpdateRange"];
+                updateData.FineUpdateForceRange = (float)row["FineUpdateForceRange"];
+                updateData.FineUpdateMultiplier = (float)row["FineUpdateMultiplier"];
                 EntityData.DamageSeed = (uint)row["DamageSeed"];
                 entityData.Hitpoints = (int)row["HitPoints"];
                 entityData.MajorRevisionNumber = (ushort)row["MajorRev"];
@@ -285,7 +293,14 @@ namespace FalconDatabase.Components
 
                 return sb.ToString();
             }
-
+            /// <summary>
+            /// Generates a Hash Code for the Object.
+            /// </summary>
+            /// <returns></returns>
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(domain, @class, type, SubType, specificType, owner);
+            }
 
             #endregion Functional Methods
 
@@ -364,7 +379,14 @@ namespace FalconDatabase.Components
                 sb.AppendLine("Both Sides Destroyed Texture: " + bothDestroyed);
                 return sb.ToString();
             }
-
+            /// <summary>
+            /// Generates a Hash Code for the Object.
+            /// </summary>
+            /// <returns></returns>
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(normal,repaired, damaged, destroyed, leftDestroyed, rightDestroyed, bothDestroyed);
+            }
 
             #endregion Functional Methods
 
@@ -434,7 +456,14 @@ namespace FalconDatabase.Components
                 sb.AppendLine("Priority Bubble Multiplier: " + fineUpdateMultiplier);
                 return sb.ToString();
             }
-
+            /// <summary>
+            /// Generates a Hash Code for the Object.
+            /// </summary>
+            /// <returns></returns>
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(updateRate, updateTolerance, fineUpdateRange, fineUpdateForceRange, fineUpdateMultiplier);
+            }
 
             #endregion Functional Methods
 
@@ -503,7 +532,14 @@ namespace FalconDatabase.Components
                 sb.AppendLine("Vehicle Profile: " + vehicleProfileReferenceFile?.FullName);
                 return sb.ToString();
             }
-
+            /// <summary>
+            /// Generates a Hash Code for the Object.
+            /// </summary>
+            /// <returns></returns>
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(entityClassType, ClassTypeTableID, vehicleProfileReferenceFile);
+            }
 
             #endregion Functional Methods
 
@@ -613,7 +649,15 @@ namespace FalconDatabase.Components
                 sb.AppendLine("Is Persistent: " + persistent);
                 return sb.ToString();
             }
-
+            /// <summary>
+            /// Generates a Hash Code for the Object.
+            /// </summary>
+            /// <returns></returns>
+            public override int GetHashCode()
+            {
+                int output = HashCode.Combine(damageSeed, hitpoints, majorRevisionNumber, minorRevisionNumber, createPriority);
+                return HashCode.Combine(output, managementDomain, transferable, @private, tangible, collidable, global, persistent);
+            }
 
             #endregion Functional Methods
 

@@ -59,6 +59,19 @@ namespace FalconDatabase.Components
             row["Priority"] = Priority;
             return row;
         }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 2539;
+                hash = hash * 5483 + priority.GetHashCode();
+                return hash;
+            }
+        }
 
         #endregion Funcitnoal Methods
 

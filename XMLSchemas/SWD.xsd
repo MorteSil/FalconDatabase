@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:simpleType name="floatThreePrec">
-		<xs:restriction base="xs:decimal">
-			<xs:fractionDigits value="3" />
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:element name="SWDRecords">
 		<xs:complexType>
 			<xs:sequence>
@@ -12,12 +7,12 @@
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="Flags" type="xs:int" />
-							<xs:element name="Drag" type="floatThreePrec" />
-							<xs:element name="Weight" type="floatThreePrec" />
-							<xs:element name="Area" type="floatThreePrec" />
-							<xs:element name="EjectX" type="floatThreePrec" />
-							<xs:element name="EjectY" type="floatThreePrec" />
-							<xs:element name="EjectZ" type="floatThreePrec" />
+							<xs:element name="Drag" type="xs:float" />
+							<xs:element name="Weight" type="xs:float" />
+							<xs:element name="Area" type="xs:float" />
+							<xs:element name="EjectX" type="xs:float" />
+							<xs:element name="EjectY" type="xs:float" />
+							<xs:element name="EjectZ" type="xs:float" />
 							<xs:element name="WpnName" type="xs:string" />
 							<xs:element name="WpnClass" type="xs:int" />
 							<xs:element name="Domain" type="xs:int" />

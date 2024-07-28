@@ -18,7 +18,7 @@ namespace FalconDatabase.Tables
         /// </summary>
         public Collection<SimWeaponDefinition> SimWeaponData { get => dbObjects; set => dbObjects = value; }
         /// <summary>
-        /// Aircraft Component of the Database in Raw Data Format.
+        /// Sim Weapon Component of the Database in Raw Data Format.
         /// </summary>
         public DataTable SimWeaponDataTable
         {
@@ -62,7 +62,7 @@ namespace FalconDatabase.Tables
             {
                 DataSet ds = new();
                 ds.ReadXmlSchema(schemaFile);
-                ds.ReadXml(reader, XmlReadMode.ReadSchema);
+                ds.ReadXml(reader);
                 foreach (DataRow row in ds.Tables[0].Rows) dbObjects.Add(new(row));
             }
             catch (Exception ex)
@@ -90,8 +90,7 @@ namespace FalconDatabase.Tables
                 foreach (var entry in dbObjects)
                     ds.Tables[0].Rows.Add(entry.ToDataRow().ItemArray);
 
-                ds.WriteXml(writer, XmlWriteMode.IgnoreSchema);
-                stream.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
+                ds.WriteXml(writer);
                 stream.Position = 0;
                 return Encoding.UTF8.GetBytes(new StreamReader(stream).ReadToEnd());
             }
@@ -123,6 +122,11 @@ namespace FalconDatabase.Tables
         }
 
         #region Equality Functions
+        /// <summary>
+        /// Evaluates if the <paramref name="other"/> has the same data as this <see cref="object"/> using content and hash comparisons.
+        /// </summary>
+        /// <param name="other">An object to compare values to.</param>
+        /// <returns><see langword="true"/> if the objects match, otherwise <see langword="false"/>.</returns>
         public override bool Equals(object? other)
         {
             if (other == null)
@@ -133,6 +137,10 @@ namespace FalconDatabase.Tables
             else
                 return Equals(comparator);
         }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
 
@@ -145,6 +153,11 @@ namespace FalconDatabase.Tables
             }
 
         }
+        /// <summary>
+        /// Evaluates if the <paramref name="other"/> has the same data as this <see cref="object"/> using content and hash comparisons.
+        /// </summary>
+        /// <param name="other">An object to compare values to.</param>
+        /// <returns><see langword="true"/> if the objects match, otherwise <see langword="false"/>.</returns>
         public bool Equals(SimWeaponTable? other)
         {
             if (other is null) return false;
@@ -174,8 +187,11 @@ namespace FalconDatabase.Tables
         public SimWeaponTable(string filePath)
             : this()
         {
-            if (File.Exists(filePath))
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(filePath);
+
+            if (Directory.Exists(filePath))
                 Load(filePath);
+            else throw new FileNotFoundException(filePath);
         }
         #endregion Constructors
 

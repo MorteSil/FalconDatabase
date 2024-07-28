@@ -88,13 +88,29 @@ namespace FalconDatabase.Components
 
             row["Num"] = ID;
             row["Name"] = Name;
-            row["DetectionRange"] = Range.ToString("0.0");
-            row["ScanAngleTop"] = Top.ToString("0.0");
-            row["ScanAngleBottom"] = Bottom.ToString("0.0");
-            row["ScanAngleLeft"] = Left.ToString("0.0");
-            row["ScanAngleRight"] = Right.ToString("0.0");
+            row["DetectionRange"] = Range;
+            row["ScanAngleTop"] = Top;
+            row["ScanAngleBottom"] = Bottom;
+            row["ScanAngleLeft"] = Left;
+            row["ScanAngleRight"] = Right;
 
             return row;
+        }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(name);
+            hash.Add(nominalRange);
+            hash.Add(top);
+            hash.Add(bottom);
+            hash.Add(left);
+            hash.Add(right);
+            
+            return hash.ToHashCode();
         }
 
         #endregion Funcitnoal Methods
@@ -124,11 +140,11 @@ namespace FalconDatabase.Components
                 // Create Object
                 ID = (int)row["Num"];
                 Name = (string)row["Name"];
-                Range = Convert.ToSingle((decimal)row["DetectionRange"]);
-                Top = Convert.ToSingle((decimal)row["ScanAngleTop"]);
-                Bottom = Convert.ToSingle((decimal)row["ScanAngleBottom"]);
-                Left = Convert.ToSingle((decimal)row["ScanAngleLeft"]);
-                Right = Convert.ToSingle((decimal)row["ScanAngleRight"]);
+                Range = (float)row["DetectionRange"];
+                Top = (float)row["ScanAngleTop"];
+                Bottom = (float)row["ScanAngleBottom"];
+                Left = (float)row["ScanAngleLeft"];
+                Right = (float)row["ScanAngleRight"];
             }
             catch (Exception ex)
             {

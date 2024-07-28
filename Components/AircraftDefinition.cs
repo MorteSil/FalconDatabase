@@ -29,7 +29,7 @@ namespace FalconDatabase.Components
         /// </summary>
         public int IRSignatureID { get => signatureIdx; set => signatureIdx = value; }
         /// <summary>
-        /// Collection of Sensor Type and Specific Sensors on this aircraft.
+        /// Collection of Sensor Types and Specific Sensors on this aircraft.
         /// Item1 = SensorType Enum Sensor Type,. Item2 = ID of Sensor in the Corresponding Sensor Table
         /// </summary>
         public Collection<(SensorType SensorType, int SensorID)> Sensors
@@ -101,6 +101,23 @@ namespace FalconDatabase.Components
             }
 
             return row;
+        }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 2539;                
+                hash = hash * 5483 + combatClass.GetHashCode();
+                hash = hash * 5483 + airframeIdx.GetHashCode();
+                hash = hash * 5483 + signatureIdx.GetHashCode();
+                for (int i=0;i<sensors.Count;i++)
+                    hash ^= sensors[i].GetHashCode();
+                return hash;
+            }
         }
         #endregion Funcitnoal Methods
 

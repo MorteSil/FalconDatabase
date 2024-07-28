@@ -88,13 +88,28 @@ namespace FalconDatabase.Components
 
             row["Num"] = ID;
             row["Name"] = Name;
-            row["DetectionRange"] = Range.ToString("0.0");
-            row["FOV"] = FOV.ToString("0.0");
-            row["GimbalLimit"] = GimbalLimit.ToString("0.0");
-            row["GroundFactor"] = GroundFactor.ToString("0.000");
-            row["FlareChance"] = FlareChance.ToString("0.0");
+            row["DetectionRange"] = Range;
+            row["FOV"] = FOV;
+            row["GimbalLimit"] = GimbalLimit;
+            row["GroundFactor"] = GroundFactor;
+            row["FlareChance"] = FlareChance;
 
             return row;
+        }
+        /// <summary>
+        /// Generates a Hash Code for the Object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            HashCode hash = new();
+            hash.Add(name);
+            hash.Add(nominalRange);
+            hash.Add(fOVHalfAngle);
+            hash.Add(gimbalLimitHalfAngle);
+            hash.Add(groundFactor);
+            hash.Add(flareChance);
+            return hash.ToHashCode();
         }
 
         #endregion Funcitnoal Methods
@@ -124,11 +139,11 @@ namespace FalconDatabase.Components
                 // Create Object
                 ID = (int)row["Num"];
                 Name = (string)row["Name"];
-                Range = Convert.ToSingle((decimal)row["DetectionRange"]);
-                FOV = Convert.ToSingle((decimal)row["FOV"]);
-                GimbalLimit = Convert.ToSingle((decimal)row["GimbalLimit"]);
-                GroundFactor = Convert.ToSingle((decimal)row["GroundFactor"]);
-                FlareChance = Convert.ToSingle((decimal)row["FlareChance"]);
+                Range = (float)row["DetectionRange"];
+                FOV = (float)row["FOV"];
+                GimbalLimit = (float)row["GimbalLimit"];
+                GroundFactor = (float)row["GroundFactor"];
+                FlareChance = (float)row["FlareChance"];
             }
             catch (Exception ex)
             {
