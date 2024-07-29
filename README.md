@@ -2,8 +2,7 @@
 
 Library to interact with the Falcon Database Files.
 
-Known Issues: XML Output uses XML Standards for spacing and empty values, source files are different (Hard to do unit tests when the schema is different...) 
-Additional testing required to see how the Game reacts to files formatted slightly different--IE, not sure if it is parsing via TextReader.ReadLine() or XMLReader
+Depending on how you pull this into your project, you may need to copy the XMLSchemas folder as well. They will b embedded resources when I am ready for a release, but for now you need them in the bin folder because it looks in the "Application" folder for them.
 
 NOTE: I use the same base class for Application files across several projects so I moved the AppFile Class into the Utilities Project, as well as Logging functionas.
 In order for this to compile, you will need to pull the Utilities project and add it as a reference to your project, or at least grab the dll from the /bin folder.
