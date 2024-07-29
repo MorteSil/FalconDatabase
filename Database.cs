@@ -1,6 +1,7 @@
 ﻿using FalconDatabase.Tables;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Reflection;
 using System.Security;
 
 namespace FalconDatabase
@@ -99,7 +100,32 @@ namespace FalconDatabase
         #endregion Fields
 
         #region Helper Methods       
+        private static void CreateSchemas()
+        {
+            string schemaFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"XMLSchemas");
+            if (!Directory.Exists(schemaFolder))
+                Directory.CreateDirectory(schemaFolder);
+            File.WriteAllText(schemaFolder + "\\ACD.xsd", Schemas.ACD);
+            File.WriteAllText(schemaFolder + "\\CT.xsd", Schemas.CT);
+            File.WriteAllText(schemaFolder + "\\DDP.xsd", Schemas.DDP);
+            File.WriteAllText(schemaFolder + "\\FCD.xsd", Schemas.FCD);
+            File.WriteAllText(schemaFolder + "\\FED.xsd", Schemas.FED);
+            File.WriteAllText(schemaFolder + "\\ICD.xsd", Schemas.ICD);
+            File.WriteAllText(schemaFolder + "\\OCD.xsd", Schemas.OCD);
+            File.WriteAllText(schemaFolder + "\\PDX.xsd", Schemas.PDX);
+            File.WriteAllText(schemaFolder + "\\PHP.xsd", Schemas.PHD);
+            File.WriteAllText(schemaFolder + "\\RCD.xsd", Schemas.RCD);
+            File.WriteAllText(schemaFolder + "\\RKT.xsd", Schemas.RKT);
+            File.WriteAllText(schemaFolder + "\\RWD.xsd", Schemas.RWD);
+            File.WriteAllText(schemaFolder + "\\SSS.xsd", Schemas.SSD);
+            File.WriteAllText(schemaFolder + "\\SWD.xsd", Schemas.SWD);
+            File.WriteAllText(schemaFolder + "\\UCD.xsd", Schemas.UCD);
+            File.WriteAllText(schemaFolder + "\\VCD.xsd", Schemas.VCD);
+            File.WriteAllText(schemaFolder + "\\VSD.xsd", Schemas.VSD);
+            File.WriteAllText(schemaFolder + "\\WCD.xsd", Schemas.WCD);
+            File.WriteAllText(schemaFolder + "\\WLD.xsd", Schemas.WLD);
 
+        }
         #endregion Helper Methods
 
         #region Functional Methods
@@ -221,6 +247,7 @@ namespace FalconDatabase
 #endif
 
             ArgumentException.ThrowIfNullOrWhiteSpace(databasePath);
+            CreateSchemas();
             try
             {
 
